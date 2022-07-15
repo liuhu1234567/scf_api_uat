@@ -1,0 +1,30 @@
+{
+    "all_host": {
+        "test": "http://172.30.206.58:9900",
+        "prod": ""
+    },
+    "restime": 3,
+    "env_now": "test",
+    "report_name": "供应链金融接口测试报告_${start_time}.html",
+    "scf_financier": {
+        "username": "scf_financier",
+        "password": "Aa123456"
+    },
+    "scf_enterprise": {
+        "username": "scf_enterprise",
+        "password": "Aa123456"
+    },
+    "scf_supplier": {
+        "username": "scf_supplier",
+        "password": "Aa123456"
+    },
+    "scf_platform": {
+        "username": "scf_platform",
+        "password": "Aa123456"
+    },
+    "upload_report": {
+        "upload_MeterShpere": false,
+        "upload_robot": true,
+        "upload_email": false
+    }
+}
