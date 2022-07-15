@@ -9,19 +9,19 @@ from config.all_path import get_file_path
 
 
 def api_template_uploadfile(token, file_name):
-    """【平台方】上传文件"""
+    """上传文件"""
     url = f'{api_host}/api-scf/template/upload/file'
     headers = {
-        "Content-Type": "application/json",
-        "x-appid-header": "1",
+        "x-appid-header": "2",
         "Authorization": token
     }
     png_path = get_file_path(file_name)
     with open(png_path, 'rb') as f:
         file_b = f.read()
     files = {
-        'uploadFile': (file_name, file_b)
+        'file': (file_name, file_b, "image/png")
     }
+
     r = requests.request("POST", url, headers=headers, files=files)
     print(f'请求地址：{url}')
     print(f'请求头：{headers}')
@@ -37,6 +37,5 @@ class TemplateUploadfile(unittest.TestCase):
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
 
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual(True, r_json['isImg'])
         self.assertLessEqual(restime_now, restime)
