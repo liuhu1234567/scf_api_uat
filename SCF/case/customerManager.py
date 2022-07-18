@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_supplier
+from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
 import requests
 import unittest
@@ -112,7 +112,7 @@ class CustomerManager(unittest.TestCase):
         payload = {
             "fileId": ""
         }
-        r = api_customerManager_importCustomerFromExcel(token_scf_supplier, payload)
+        r = api_customerManager_importCustomerFromExcel(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -133,7 +133,7 @@ class CustomerManager(unittest.TestCase):
             "customerType": 0,
             "entName": get_company()
         }
-        r = api_customerManager_insert(token_scf_supplier, payload)
+        r = api_customerManager_insert(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -151,7 +151,7 @@ class CustomerManager(unittest.TestCase):
             "num": 1,
             "size": 10
         }
-        r = api_customerManager_queryAuditPage(token_scf_supplier, payload)
+        r = api_customerManager_queryAuditPage(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -162,7 +162,7 @@ class CustomerManager(unittest.TestCase):
     def test_004_customerManager_queryById(self):
         """【平台方】根据ID查询客户详情"""
         payload = {"id": g_d.get('id')}
-        r = api_customerManager_queryById(token_scf_supplier, payload)
+        r = api_customerManager_queryById(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -181,7 +181,7 @@ class CustomerManager(unittest.TestCase):
             "num": 1,
             "size": 10
         }
-        r = api_customerManager_queryPage(token_scf_supplier, payload)
+        r = api_customerManager_queryPage(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -196,7 +196,7 @@ class CustomerManager(unittest.TestCase):
             "auditStatus": 0,
             "id": ""
         }
-        r = api_customerManager_update_auditStatus(token_scf_supplier, payload)
+        r = api_customerManager_update_auditStatus(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

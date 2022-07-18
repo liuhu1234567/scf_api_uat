@@ -74,7 +74,5 @@ class LoginPassword(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
 
-
-
 if __name__ == '__main__':
     unittest.main()
