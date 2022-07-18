@@ -61,8 +61,6 @@ def get_url():
     return fake.url()
 
 
-
-
 if __name__ == '__main__':
     r = get_card_number()
     print(r)
