@@ -4,6 +4,7 @@ from common.global_variable import customize_dict
 import requests
 import unittest
 import json
+from common.do_faker import get_name, get_phone, get_email, get_sfz, get_number, get_company, get_card_number
 
 
 def api_enterprise_check_key(token, payload):
@@ -185,7 +186,7 @@ g_d = {}
 
 
 class Enterprise(unittest.TestCase):
-    def test_enterprise_check_key(self):
+    def test_001_enterprise_check_key(self):
         """校验用户选择的ukey否正确"""
         payload = {"id": ""}
         r = api_enterprise_check_key(token_scf_supplier, payload)
@@ -218,17 +219,6 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_queryById(self):
-        """【供应商/经销商】根据ID查询企业档案详情"""
-        payload = {"id": ""}
-        r = api_enterprise_queryById(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
     def test_enterprise_queryByUserId(self):
         """企业档案详情-当前用户"""
         r = api_enterprise_queryByUserId(token_scf_supplier)
@@ -239,10 +229,22 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_queryPage(self):
+    def test_002_enterprise_queryPage(self):
         """【供应商/经销商】分页查询企业档案列表"""
         payload = {"num": "1", "size": "10"}
         r = api_enterprise_queryPage(token_scf_supplier, payload)
+        r_json = r.json()
+        g_d['id'] = r_json['datas'][0]['id']
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_003_enterprise_queryById(self):
+        """【供应商/经销商】根据ID查询企业档案详情"""
+        payload = {"id": g_d.get('id')}
+        r = api_enterprise_queryById(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -250,32 +252,38 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_step1(self):
+    def test_101_enterprise_step1(self):
         """【供应商/经销商】企业认证步骤1-完善企业工商信息"""
+        name = get_name()
+        sfz = get_sfz()
+        email = get_email()
+        phone = get_phone()
+        number = get_number(8)
+        company_name = get_company()
         payload = {
             "businessLicense": "",
             "confirmImage": "",
-            "contact": "",
-            "contactCardId": "",
+            "contact": name,
+            "contactCardId": sfz,
             "contactCardIdImage": "",
             "contactCardType": 0,
-            "contactEmail": "",
-            "contactMobile": "",
+            "contactEmail": email,
+            "contactMobile": phone,
             "contactPosition": "",
-            "creditCode": "",
-            "detailedAddress": "",
-            "entName": "",
+            "creditCode": number,
+            "detailedAddress": "深圳",
+            "entName": company_name,
             "entScale": 0,
             "entType": 0,
             "industry": 0,
-            "legalCardId": "",
+            "legalCardId": sfz,
             "legalCardIdImage": "",
             "legalCardType": 0,
-            "legalName": "",
-            "legalPhone": "",
+            "legalName": name,
+            "legalPhone": phone,
             "legalPosition": "",
             "region": "",
-            "registeredAddress": "",
+            "registeredAddress": "深圳",
             "telephone": ""
         }
         r = api_enterprise_step1(token_scf_supplier, payload)
@@ -286,14 +294,16 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_step2(self):
+    def test_102_enterprise_step2(self):
         """【供应商/经销商】企业认证步骤2-开通电子签章"""
+        number = get_number(6)
+        card_number = get_card_number()
         payload = {
-            "accountTitle": "",
-            "bankAccount": "",
-            "bankDepositNo": "",
-            "bankOutlet": "",
-            "validMoney": ""
+            "accountTitle": f"账户{number}",
+            "bankAccount": card_number,
+            "bankDepositNo": number,
+            "bankOutlet": "深圳宝安某一个银行",
+            "validMoney": "1000"
         }
         r = api_enterprise_step2(token_scf_supplier, payload)
         r_json = r.json()
@@ -303,7 +313,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_step3(self):
+    def test_103_enterprise_step3(self):
         """【供应商/经销商】企业认证步骤3-签署授权书及平台协议"""
         payload = {
             "confirmLicense": "",
@@ -318,28 +328,34 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_update_save(self):
+    def test_104_enterprise_update_save(self):
         """修改企业档案-保存"""
+        name = get_name()
+        sfz = get_sfz()
+        email = get_email()
+        phone = get_phone()
+        number = get_number(8)
+        company_name = get_company()
         payload = {
-            "contact": "",
-            "contactCardId": "",
+            "contact": name,
+            "contactCardId": sfz,
             "contactCardType": 0,
-            "contactEmail": "",
-            "contactMobile": "",
+            "contactEmail": email,
+            "contactMobile": phone,
             "contactPosition": "",
-            "creditCode": "",
-            "detailedAddress": "",
-            "entName": "",
+            "creditCode": number,
+            "detailedAddress": "深圳",
+            "entName": company_name,
             "entScale": 0,
             "entType": 0,
             "id": 0,
             "industry": 0,
-            "legalCardId": "",
+            "legalCardId": sfz,
             "legalCardType": 0,
-            "legalName": "",
-            "legalPhone": "",
+            "legalName": name,
+            "legalPhone": phone,
             "legalPosition": "",
-            "region": "",
+            "region": "深圳",
             "registeredAddress": "",
             "telephone": ""
         }
@@ -351,28 +367,34 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_update_submit(self):
+    def test_105_enterprise_update_submit(self):
         """修改企业档案-提交"""
+        name = get_name()
+        sfz = get_sfz()
+        email = get_email()
+        phone = get_phone()
+        number = get_number(8)
+        company_name = get_company()
         payload = {
-            "contact": "",
-            "contactCardId": "",
+            "contact": name,
+            "contactCardId": sfz,
             "contactCardType": 0,
-            "contactEmail": "",
-            "contactMobile": "",
+            "contactEmail": email,
+            "contactMobile": phone,
             "contactPosition": "",
-            "creditCode": "",
-            "detailedAddress": "",
-            "entName": "",
+            "creditCode": number,
+            "detailedAddress": "深圳",
+            "entName": company_name,
             "entScale": 0,
             "entType": 0,
             "id": 0,
             "industry": 0,
-            "legalCardId": "",
+            "legalCardId": sfz,
             "legalCardType": 0,
-            "legalName": "",
-            "legalPhone": "",
+            "legalName": name,
+            "legalPhone": phone,
             "legalPosition": "",
-            "region": "",
+            "region": "深圳",
             "registeredAddress": "",
             "telephone": ""
         }

@@ -21,7 +21,6 @@ def api_template_uploadfile(token, file_name):
     files = {
         'file': (file_name, file_b, "image/png")
     }
-
     r = requests.request("POST", url, headers=headers, files=files)
     print(f'请求地址：{url}')
     print(f'请求头：{headers}')

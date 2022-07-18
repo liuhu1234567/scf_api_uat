@@ -110,7 +110,7 @@ class CustomerManager(unittest.TestCase):
     def test_001_customerManager_importCustomerFromExcel(self):
         """【平台方】客户管理-导入用户数据"""
         payload = {
-            "fileId": ""
+            "fileId": "dd76b6a6ce5c435e9e8d08ea895bb7de"
         }
         r = api_customerManager_importCustomerFromExcel(token_scf_platform, payload)
         r_json = r.json()
@@ -153,6 +153,7 @@ class CustomerManager(unittest.TestCase):
         }
         r = api_customerManager_queryAuditPage(token_scf_platform, payload)
         r_json = r.json()
+        g_d['id'] = r_json['datas'][0]['id']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
@@ -192,9 +193,9 @@ class CustomerManager(unittest.TestCase):
     def test_006_customerManager_updateauditStatus(self):
         """【平台方】修改审核状态"""
         payload = {
-            "auditOpinion": "",
-            "auditStatus": 0,
-            "id": ""
+            "auditOpinion": "通过啦",
+            "auditStatus": 3,
+            "id": g_d.get('id')
         }
         r = api_customerManager_update_auditStatus(token_scf_platform, payload)
         r_json = r.json()
