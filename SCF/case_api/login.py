@@ -4,6 +4,7 @@ from common.global_variable import customize_dict
 import json
 import requests
 import unittest
+from jsonpath import jsonpath
 
 
 def api_login_querymenu(token):
@@ -56,9 +57,10 @@ class Login(unittest.TestCase):
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-
+        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品申请']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
         self.assertLessEqual(restime_now, restime)
 
     def test_login_querymenu_platform(self):
@@ -68,9 +70,10 @@ class Login(unittest.TestCase):
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-
+        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '客户管理', '客户列表', '客户审批', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品列表', '产品分配列表', '产品申请', '配置管理', '产品配置', '数据表配置']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
         self.assertLessEqual(restime_now, restime)
 
     def test_login_querymenu_financier(self):
@@ -80,9 +83,10 @@ class Login(unittest.TestCase):
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-
+        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '金融产品管理', '产品列表', '产品分配列表']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
         self.assertLessEqual(restime_now, restime)
 
     def test_login_querymenu_enterprise(self):
@@ -92,9 +96,10 @@ class Login(unittest.TestCase):
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-
+        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '客户管理', '客户列表', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品列表', '产品分配列表']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
         self.assertLessEqual(restime_now, restime)
 
     def test_login_auth_role_menu(self):
