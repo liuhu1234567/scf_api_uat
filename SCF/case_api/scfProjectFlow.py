@@ -1,7 +1,7 @@
 from common.do_config import api_host, restime
 from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
-from common.do_faker import get_number, get_name
+from common.do_faker import get_number
 import requests
 import unittest
 import json
@@ -114,8 +114,6 @@ def api_scfProjectFlow_selectFlow(token, payload):
 class ScfProjectFlow(unittest.TestCase):
     def test_001_scfProjectFlow_enterFlow(self):
         """【平台方】准入配置-创建流程"""
-        rolename = get_name()
-        descnum = get_number(10)
         payload = {
             "customerType": 0,
             "filePaths": [],
@@ -127,7 +125,7 @@ class ScfProjectFlow(unittest.TestCase):
                     "isExternal": True,
                     "isProtocol": True,
                     "isPush": True,
-                    "name": "",
+                    "name": f"准入流程{get_number(6)}",
                     "reportId": 0,
                     "step": 0,
                     "subs": []
@@ -150,15 +148,12 @@ class ScfProjectFlow(unittest.TestCase):
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-
         self.assertEqual(200, r_json['resp_code'])
-        # self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_002_scfProjectFlow_grantFlow(self):
         """【平台方】授信配置-创建流程"""
-        rolename = get_name()
-        descnum = get_number(10)
         payload = {
             "customerType": 0,
             "filePaths": [],
@@ -170,7 +165,7 @@ class ScfProjectFlow(unittest.TestCase):
                     "isExternal": True,
                     "isProtocol": True,
                     "isPush": True,
-                    "name": "",
+                    "name": f"授信流程{get_number(6)}",
                     "reportId": 0,
                     "step": 0,
                     "subs": []
@@ -194,13 +189,11 @@ class ScfProjectFlow(unittest.TestCase):
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
-        # self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_003_scfProjectFlow_openFlow(self):
         """【平台方】开立配置-创建流程"""
-        rolename = get_name()
-        descnum = get_number(10)
         payload = {
             "customerType": 0,
             "filePaths": [],
@@ -212,7 +205,7 @@ class ScfProjectFlow(unittest.TestCase):
                     "isExternal": True,
                     "isProtocol": True,
                     "isPush": True,
-                    "name": "",
+                    "name": f"开立流程{get_number(6)}",
                     "reportId": 0,
                     "step": 0,
                     "subs": []
@@ -236,13 +229,11 @@ class ScfProjectFlow(unittest.TestCase):
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
-        # self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_004_scfProjectFlow_transferFlow(self):
         """【平台方】转让配置-创建流程"""
-        rolename = get_name()
-        descnum = get_number(10)
         payload = {
             "customerType": 0,
             "filePaths": [],
@@ -254,7 +245,7 @@ class ScfProjectFlow(unittest.TestCase):
                     "isExternal": True,
                     "isProtocol": True,
                     "isPush": True,
-                    "name": "",
+                    "name": f"转让流程{get_number(6)}",
                     "reportId": 0,
                     "step": 0,
                     "subs": []
@@ -283,8 +274,6 @@ class ScfProjectFlow(unittest.TestCase):
 
     def test_005_scfProjectFlow_financeFlow(self):
         """【平台方】融资配置-创建流程"""
-        rolename = get_name()
-        descnum = get_number(10)
         payload = {
             "customerType": 0,
             "filePaths": [],
@@ -296,7 +285,7 @@ class ScfProjectFlow(unittest.TestCase):
                     "isExternal": True,
                     "isProtocol": True,
                     "isPush": True,
-                    "name": "",
+                    "name": f"融资流程{get_number(6)}",
                     "reportId": 0,
                     "step": 0,
                     "subs": []
@@ -321,13 +310,11 @@ class ScfProjectFlow(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
 
         self.assertEqual(200, r_json['resp_code'])
-        # self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_006_scfProjectFlow_refactorFlow(self):
         """【平台方】再保理配置-创建流程"""
-        rolename = get_name()
-        descnum = get_number(10)
         payload = {
             "customerType": 0,
             "filePaths": [],
@@ -339,7 +326,7 @@ class ScfProjectFlow(unittest.TestCase):
                     "isExternal": True,
                     "isProtocol": True,
                     "isPush": True,
-                    "name": "",
+                    "name": f"再保理流程{get_number(6)}",
                     "reportId": 0,
                     "step": 0,
                     "subs": []
@@ -363,7 +350,7 @@ class ScfProjectFlow(unittest.TestCase):
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
-        # self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_007_scfProjectFlow_selectFlow(self):
