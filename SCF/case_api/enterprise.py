@@ -182,6 +182,52 @@ def api_enterprise_updateCustomerType(token, payload):
     return r
 
 
+def api_enterprise_get_pdf_show(token):
+    """展示签名信息"""
+    url = f'{api_host}/api-scf/enterprise/get/pdf/show'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_queryTree(token):
+    """查询菜单树"""
+    url = f'{api_host}/api-scf/enterprise/queryTree'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_step2_valid(token, payload):
+    """企业认证步骤2-检测银行卡"""
+    url = f'{api_host}/api-scf/enterprise/step2/valid'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -313,7 +359,24 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_103_enterprise_step3(self):
+    def test_103enterprise_step2_valid(self):
+        """企业认证步骤2-检测银行卡"""
+        number = get_number(6)
+        payload = {
+            "accountTitle": f"账户{number}",
+            "bankAccount": get_card_number(),
+            "bankDepositNo": number,
+            "bankOutlet": "深圳某个银行"
+        }
+        r = api_enterprise_step2_valid(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_104_enterprise_step3(self):
         """【供应商/经销商】企业认证步骤3-签署授权书及平台协议"""
         payload = {
             "confirmLicense": "",
@@ -328,7 +391,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_104_enterprise_update_save(self):
+    def test_105_enterprise_update_save(self):
         """修改企业档案-保存"""
         name = get_name()
         sfz = get_sfz()
@@ -367,7 +430,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_105_enterprise_update_submit(self):
+    def test_106_enterprise_update_submit(self):
         """修改企业档案-提交"""
         name = get_name()
         sfz = get_sfz()
@@ -415,6 +478,26 @@ class Enterprise(unittest.TestCase):
             "id": ""
         }
         r = api_enterprise_updateCustomerType(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_enterprise_get_pdf_show(self):
+        """展示签名信息"""
+        r = api_enterprise_get_pdf_show(token_scf_supplier)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_enterprise_queryTree(self):
+        """查询菜单树"""
+        r = api_enterprise_queryTree(token_scf_supplier)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

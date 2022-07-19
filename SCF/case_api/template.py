@@ -124,17 +124,17 @@ class Template(unittest.TestCase):
         number = get_number(6)
         url = "http://172.30.206.52:8100/group1/M00/00/29/rB7ONGLU-OGANNSdAAOmhp5bz3w531.png"
         payload = {
-            # "createBy": '',
-            # "createTime": "",
-            # "id": '',
-            # "num": 1,
-            # "size": 10,
-            "templateCode": f"模板标识{number}",
-            "templateGroup": f"模板组名{number}",
-            "templateName": f"模板名称{number}",
+            "createBy": '',
+            "createTime": "",
+            "id": '',
+            "num": 1,
+            "size": 10,
+            "templateCode": f"标识{number}",
+            "templateGroup": f"组名{number}",
+            "templateName": f"名称{number}",
             "templateUrl": url,
-            # "updateBy": '',
-            # "updateTime": ""
+            "updateBy": '',
+            "updateTime": ""
         }
         r = api_template_insert(token_scf_supplier, payload)
         r_json = r.json()
@@ -188,7 +188,7 @@ class Template(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_template_deleteRole(self):
+    def test_006_template_deleteRole(self):
         """【平台方】删除模板"""
         params = {"id": ''}
         r = api_template_deleteRole(token_scf_supplier, params)
