@@ -76,7 +76,7 @@ def api_template_findTemplates(token, payload):
 
 
 def api_template_find(token, code):
-    """【平台方】通过模板CODE查询"""
+    """【平台方】通过模板 CODE查询"""
     url = f'{api_host}/api-scf/template/find/{code}'
     headers = {
         "Content-Type": "application/x-www-form-urlencoded",
