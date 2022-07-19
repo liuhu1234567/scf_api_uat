@@ -2,7 +2,7 @@ from common.do_config import api_host, restime
 from common.get_token import token_scf_supplier
 from common.global_variable import customize_dict
 from common.do_faker import get_number, get_name, get_company, get_phone, get_email
-from case.scfFinanceProduct import api_scfFinanceProduct_insert
+from case_api.scfFinanceProduct import api_scfFinanceProduct_insert
 import json
 import requests
 import unittest
