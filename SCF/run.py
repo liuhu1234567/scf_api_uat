@@ -5,13 +5,11 @@ from common.do_config import report_name, upload_MeterShpere, upload_robot, uplo
 from common.upload_report import insert_report, get_file_url
 from common.do_robot import send_robot
 from common.do_email import send_email
-from case_api.login_password import LoginPassword
 
 
 def create_suite():
     """创建测试套件"""
     case = unittest.TestLoader().discover(case_api_dir, pattern='*.py', top_level_dir=project_path)
-    # case = unittest.TestLoader().loadTestsFromTestCase(LoginPassword)
     suite = unittest.TestSuite()
     suite.addTests(case)
     return suite
