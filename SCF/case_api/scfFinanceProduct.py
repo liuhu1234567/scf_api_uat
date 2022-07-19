@@ -214,6 +214,7 @@ class ScfFinanceProductInsert(unittest.TestCase):
             "availableEnd": "2023-7-13 13:54:30",
             "enable": 0,
             "financeName": "中信银行",
+            "id": g_d['id'],
             "introduction": "供应链企业申请微粒贷",
             "loanBegin": "2022-7-13 13:54:30",
             "loanEnd": "2023-7-13 13:54:30",
