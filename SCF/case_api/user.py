@@ -1,7 +1,7 @@
 from common.do_config import api_host, restime
 from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
-from common.do_faker import get_number, get_name
+from common.do_faker import get_number, get_name, get_email, get_company, get_phone, get_sfz
 import requests
 import unittest
 import json
@@ -11,7 +11,7 @@ def api_user_insert_user(token, payload):
     url = f'{api_host}/api-scf/user/insert/user'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "1",
+        "x-appid-header": "2",
         "Authorization": token
     }
     r = requests.post(url, headers=headers, data=json.dumps(payload))
@@ -54,18 +54,15 @@ def api_user_query_users_page(token, payload):
 class User(unittest.TestCase):
     def test_001_user_insert_user(self):
         """【平台方】用户新增"""
-        rolename = get_name()
-        descnum = get_number(10)
-        payload = {
-            "employeeNo": "",
-            "mailbox": "",
-            "mobile": "",
-            "nickName": "",
-            "numId": "",
-            "organizationName": "",
-            "postName": "",
-            "roleId": 0
-        }
+        nickname = get_name()
+        companyname = get_company()
+        mobile = get_phone()
+        numid = get_sfz()
+        mailbox = get_email()
+        descnum = get_number(6)
+        payload = {"nickName": nickname, "organizationName": companyname, "mobile": mobile, "numId": numid,
+                   "mailbox": mailbox, "employeeNo": descnum, "postName": "CEO",
+                   "roleId": "1549325719312375809"}
         r = api_user_insert_user(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()

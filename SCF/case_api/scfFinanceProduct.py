@@ -12,7 +12,7 @@ def api_scfFinanceProduct_insert(token, payload):
     url = f'{api_host}/api-scf/scfFinanceProduct/insert'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "1",
+        "x-appid-header": "2",
         "Authorization": token
     }
     r = requests.post(url, headers=headers, data=json.dumps(payload))

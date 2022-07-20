@@ -44,6 +44,7 @@ def get_license():
 
 
 def get_company():
+    """获取随机公司名称"""
     return fake.company()
 
 
