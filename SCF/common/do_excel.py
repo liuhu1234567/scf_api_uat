@@ -14,7 +14,7 @@ def insert_base(file_name, sheet_name, row_value, row_start, num):
     file_path = get_file_path(file_name)
     wb = load_workbook(file_path)
     ws = wb[sheet_name]
-    for row in range(row_start, row_start + num + 1):
+    for row in range(row_start, row_start + num):
         for index, value in enumerate(row_value):
             ws.cell(row, index + 1, value())
     file_name_l = file_name.split('.')
