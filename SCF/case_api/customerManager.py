@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.do_excel import insert_base
+from common.do_excel import DoExcel
 from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
 from case_api.template import api_template_uploadfile
@@ -106,15 +106,31 @@ def api_customerManager_update_auditStatus(token, payload):
     return r
 
 
+def insert_excel_importCustomerFromExcel(num):
+    excel = DoExcel('批量导入客户.xlsx', '批量邀请客户建档模板')
+    for n in range(num):
+        row_value = (
+            n + 1,
+            get_company(),
+            get_number(10),
+            get_name(),
+            get_phone(),
+            get_email(),
+            random.choice(['核心企业', '供应商', '经销商', '银行', '保理商'])
+        )
+        excel.insert(row_value, 3+n)
+    file_name = excel.save()
+    return file_name
+
+
 g_d = {}
 
 
 class CustomerManager(unittest.TestCase):
     def test_001_customerManager_importCustomerFromExcel(self):
         """【平台方】客户管理-导入用户数据"""
-        data = [1, get_company(), get_number(10), get_name(), get_phone(), get_email(), random.choice(['核心企业', '供应商', '经销商', '银行', '保理商'])]
-        insert_base('批量导入客户.xlsx', '批量邀请客户建档模板', data, 3, 1)
-        path = api_template_uploadfile(token_scf_platform, '批量导入客户_new.xlsx').json()['path']
+        file_name = insert_excel_importCustomerFromExcel(4)
+        path = api_template_uploadfile(token_scf_platform, file_name).json()['path']
         fileId = "group1/" + path
         payload = {
             "fileId": fileId
