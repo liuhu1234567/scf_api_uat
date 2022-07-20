@@ -4,6 +4,7 @@ from common.global_variable import customize_dict
 import requests
 import unittest
 import json
+from common.do_faker import get_number
 
 
 def api_config_dataTable_customerList(token):
@@ -116,6 +117,9 @@ def api_config_dataTable_update(token, payload):
     return r
 
 
+g_d = {}
+
+
 class ConfigDataTable(unittest.TestCase):
     def test_config_dataTable_customerList(self):
         """可查看的客户类型"""
@@ -174,31 +178,6 @@ class ConfigDataTable(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_config_dataTable_save(self):
-        """新增数据表"""
-        payload = {
-            "fieldList": [
-                {
-                    "id": 0,
-                    "isEdit": 0,
-                    "isSearch": 0,
-                    "isShow": 0,
-                    "sort": 0
-                }
-            ],
-            "name": "",
-            "templateId": 0,
-            "tenantType": "",
-            "type": 0
-        }
-        r = api_config_dataTable_save(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
     def test_config_dataTable_templateList_all(self):
         """数据字段来源列表"""
         r = api_config_dataTable_templateList_all(token_scf_supplier)
@@ -209,23 +188,161 @@ class ConfigDataTable(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_config_dataTable_update(self):
+    def test_001_config_dataTable_save(self):
+        """新增数据表"""
+        payload = {
+            "fieldList": [
+                {
+                    "id": 1,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 1
+                },
+                {
+                    "id": 2,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 2
+                },
+                {
+                    "id": 3,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 3
+                },
+                {
+                    "id": 4,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 4
+                },
+                {
+                    "id": 5,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 5
+                },
+                {
+                    "id": 6,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 6
+                },
+                {
+                    "id": 7,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 7
+                },
+                {
+                    "id": 8,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 8
+                },
+                {
+                    "id": 9,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 9
+                }
+            ],
+            "name": f"数据表{get_number(6)}",
+            "templateId": 1,
+            "tenantType": "3,4,5",
+            "type": 1
+        }
+        r = api_config_dataTable_save(token_scf_supplier, payload)
+        r_json = r.json()
+        g_d['id'] = r_json['datas']
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_002_config_dataTable_update(self):
         """修改数据表"""
         payload = {
             "fieldList": [
                 {
-                    "id": 0,
-                    "isEdit": 0,
-                    "isSearch": 0,
-                    "isShow": 0,
-                    "sort": 0
+                    "id": 1,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 1
+                },
+                {
+                    "id": 2,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 2
+                },
+                {
+                    "id": 3,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 3
+                },
+                {
+                    "id": 4,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 4
+                },
+                {
+                    "id": 5,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 5
+                },
+                {
+                    "id": 6,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 6
+                },
+                {
+                    "id": 7,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 7
+                },
+                {
+                    "id": 8,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 8
+                },
+                {
+                    "id": 9,
+                    "isEdit": 1,
+                    "isSearch": 1,
+                    "isShow": 1,
+                    "sort": 9
                 }
             ],
-            "id": 0,
-            "name": "",
-            "templateId": 0,
-            "tenantType": "",
-            "type": 0
+            "id": g_d.get('id'),
+            "name": f"数据表{get_number(6)}",
+            "templateId": 1,
+            "tenantType": "3,4,5",
+            "type": 1
         }
         r = api_config_dataTable_update(token_scf_supplier, payload)
         r_json = r.json()

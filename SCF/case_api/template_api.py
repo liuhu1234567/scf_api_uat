@@ -102,15 +102,48 @@ def api_template_api_financing_delete(token, payload):
     return r
 
 
+g_d = {}
+
+
 class TemplateApi(unittest.TestCase):
-    def test_template_api_accessHistory_list(self):
+    def test_001_template_api_accessHistory_list(self):
         """准入历史数据列表"""
+        payload = {
+            # "coopCrLmt": 0,
+            # "coopMonths": 0,
+            # "createBy": 0,
+            # "createTime": "",
+            # "id": "",
+            # "indEntpCtfNum": "",
+            # "indEntpNm": "",
+            # "lastOrderMaxAmt": 0,
+            # "lastOrderTotalAmt": 0,
+            # "lastOrderTotalNum": 0,
+            "num": 1,
+            "size": 10,
+            "tableId": 1549312997482921986,
+            # "updateBy": 0,
+            # "updateTime": "",
+            # "vendorComplRate": "",
+            # "vendorDeliveryFreq": 0
+        }
+        r = api_template_api_accessHistory_list(token_scf_supplier, payload)
+        r_json = r.json()
+        g_d['id'] = r_json['datas'][0]['id']
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_002_template_api_accessHistory_update(self):
+        """准入历史数据修改"""
         payload = {
             "coopCrLmt": 0,
             "coopMonths": 0,
             "createBy": 0,
             "createTime": "",
-            "id": 0,
+            "id": g_d.get('id'),
             "indEntpCtfNum": "",
             "indEntpNm": "",
             "lastOrderMaxAmt": 0,
@@ -124,35 +157,6 @@ class TemplateApi(unittest.TestCase):
             "vendorComplRate": "",
             "vendorDeliveryFreq": 0
         }
-        r = api_template_api_accessHistory_list(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
-    def test_template_api_accessHistory_update(self):
-        """准入历史数据修改"""
-        payload = {
-            "coopCrLmt": 0,
-            "coopMonths": 0,
-            "createBy": 0,
-            "createTime": "",
-            "id": 0,
-            "indEntpCtfNum": "",
-            "indEntpNm": "",
-            "lastOrderMaxAmt": 0,
-            "lastOrderTotalAmt": 0,
-            "lastOrderTotalNum": 0,
-            "num": 0,
-            "size": 0,
-            "tableId": 1549312997482921986,
-            "updateBy": 0,
-            "updateTime": "",
-            "vendorComplRate": "",
-            "vendorDeliveryFreq": 0
-        }
         r = api_template_api_accessHistory_update(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
@@ -161,10 +165,10 @@ class TemplateApi(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_template_api_accessHistory_delete(self):
+    def test_003_template_api_accessHistory_delete(self):
         """准入历史数据删除"""
         payload = {
-            "id": 0,
+            "id": g_d.get('id'),
             "tableId": 1549312997482921986
         }
         r = api_template_api_accessHistory_update(token_scf_supplier, payload)
@@ -175,78 +179,78 @@ class TemplateApi(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_template_api_financing_list(self):
-        """融资依据数据列表"""
-        payload = {
-            "createBy": 0,
-            "createTime": "",
-            "currency": "",
-            "id": 0,
-            "indEntpCtfNum": "",
-            "indEntpNm": "",
-            "num": 0,
-            "orderAmt": 0,
-            "orderName": "",
-            "orderNum": "",
-            "orderOtherName": "",
-            "orderPyDate": "",
-            "orderSignDate": "",
-            "repyAcc": "",
-            "reserve": "",
-            "size": 0,
-            "tableId": 1549312997482921986,
-            "updateBy": 0,
-            "updateTime": ""
-        }
-        r = api_template_api_financing_list(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
-    def test_template_api_financing_update(self):
-        """准入历史数据修改"""
-        payload = {
-            "createBy": 0,
-            "createTime": "",
-            "currency": "",
-            "id": 0,
-            "indEntpCtfNum": "",
-            "indEntpNm": "",
-            "num": 0,
-            "orderAmt": 0,
-            "orderName": "",
-            "orderNum": "",
-            "orderOtherName": "",
-            "orderPyDate": "",
-            "orderSignDate": "",
-            "repyAcc": "",
-            "reserve": "",
-            "size": 0,
-            "tableId": 1549312997482921986,
-            "updateBy": 0,
-            "updateTime": ""
-        }
-        r = api_template_api_financing_update(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
-    def test_template_api_financing_delete(self):
-        """融资依据数据删除"""
-        payload = {
-            "id": 0,
-            "tableId": 1549312997482921986
-        }
-        r = api_template_api_financing_delete(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+    # def test_template_api_financing_list(self):
+    #     """融资依据数据列表"""
+    #     payload = {
+    #         "createBy": 0,
+    #         "createTime": "",
+    #         "currency": "",
+    #         "id": 0,
+    #         "indEntpCtfNum": "",
+    #         "indEntpNm": "",
+    #         "num": 1,
+    #         "orderAmt": 0,
+    #         "orderName": "",
+    #         "orderNum": "",
+    #         "orderOtherName": "",
+    #         "orderPyDate": "",
+    #         "orderSignDate": "",
+    #         "repyAcc": "",
+    #         "reserve": "",
+    #         "size": 10,
+    #         "tableId": 1549312997482921986,
+    #         "updateBy": 0,
+    #         "updateTime": ""
+    #     }
+    #     r = api_template_api_financing_list(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
+    #
+    # def test_template_api_financing_update(self):
+    #     """准入历史数据修改"""
+    #     payload = {
+    #         "createBy": 0,
+    #         "createTime": "",
+    #         "currency": "",
+    #         "id": 0,
+    #         "indEntpCtfNum": "",
+    #         "indEntpNm": "",
+    #         "num": 0,
+    #         "orderAmt": 0,
+    #         "orderName": "",
+    #         "orderNum": "",
+    #         "orderOtherName": "",
+    #         "orderPyDate": "",
+    #         "orderSignDate": "",
+    #         "repyAcc": "",
+    #         "reserve": "",
+    #         "size": 0,
+    #         "tableId": 1549312997482921986,
+    #         "updateBy": 0,
+    #         "updateTime": ""
+    #     }
+    #     r = api_template_api_financing_update(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
+    #
+    # def test_template_api_financing_delete(self):
+    #     """融资依据数据删除"""
+    #     payload = {
+    #         "id": 9103,
+    #         "tableId": 1549312997482921986
+    #     }
+    #     r = api_template_api_financing_delete(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
