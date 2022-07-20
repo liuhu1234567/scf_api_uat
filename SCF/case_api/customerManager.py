@@ -1,9 +1,12 @@
 from common.do_config import api_host, restime
+from common.do_excel import insert_base
 from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
+from case_api.template import api_template_uploadfile
 import requests
 import unittest
 import json
+import random
 from common.do_faker import get_number, get_name, get_phone, get_email, get_company
 
 
@@ -109,8 +112,12 @@ g_d = {}
 class CustomerManager(unittest.TestCase):
     def test_001_customerManager_importCustomerFromExcel(self):
         """【平台方】客户管理-导入用户数据"""
+        data = [1, get_company(), get_number(10), get_name(), get_phone(), get_email(), random.choice(['核心企业', '供应商', '经销商', '银行', '保理商'])]
+        insert_base('批量导入客户.xlsx', '批量邀请客户建档模板', data, 3, 1)
+        path = api_template_uploadfile(token_scf_platform, '批量导入客户_new.xlsx').json()['path']
+        fileId = "group1/" + path
         payload = {
-            "fileId": "dd76b6a6ce5c435e9e8d08ea895bb7de"
+            "fileId": fileId
         }
         r = api_customerManager_importCustomerFromExcel(token_scf_platform, payload)
         r_json = r.json()
@@ -124,7 +131,7 @@ class CustomerManager(unittest.TestCase):
         """【平台方】客户新增"""
         payload = {
             "auditStatus": 0,
-            "channel": 0,
+            "channel": 1,
             "contact": get_name(),
             "contactEmail": get_email(),
             "contactMobile": get_phone(),
@@ -160,7 +167,7 @@ class CustomerManager(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_004_customerManager_queryById(self):
+    def test_007_customerManager_queryById(self):
         """【平台方】根据ID查询客户详情"""
         payload = {"id": g_d.get('id')}
         r = api_customerManager_queryById(token_scf_platform, payload)
