@@ -5,7 +5,8 @@ import json
 import requests
 import unittest
 from jsonpath import jsonpath
-
+from case_api.role import api_role_insert
+from common.do_faker import get_number
 
 def api_login_querymenu(token):
     """登陆查询菜单"""
@@ -54,10 +55,9 @@ class Login(unittest.TestCase):
         """【供应商/经销商】登陆查询菜单"""
         r = api_login_querymenu(token_scf_supplier)
         r_json = r.json()
-
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品申请']
+        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '企业认证', '银行账户管理', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品申请']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
@@ -70,7 +70,7 @@ class Login(unittest.TestCase):
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '客户管理', '客户列表', '客户审批', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品列表', '产品分配列表', '产品申请', '配置管理', '产品配置', '数据表配置']
+        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '企业认证', '银行账户管理', '客户管理', '客户列表', '客户审批', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品列表', '产品分配列表', '产品申请', '配置管理', '产品配置', '数据表配置']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
@@ -80,10 +80,9 @@ class Login(unittest.TestCase):
         """【资金方】登陆查询菜单"""
         r = api_login_querymenu(token_scf_financier)
         r_json = r.json()
-
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '金融产品管理', '产品列表', '产品分配列表']
+        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '企业认证', '银行账户管理', '金融产品管理', '产品列表', '产品分配列表']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
@@ -96,7 +95,7 @@ class Login(unittest.TestCase):
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '客户管理', '客户列表', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品列表', '产品分配列表']
+        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '企业认证', '银行账户管理', '客户管理', '客户列表', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品列表', '产品分配列表']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
@@ -107,23 +106,24 @@ class Login(unittest.TestCase):
         payload = {"menuSorts": [],"roleId": 0}
         r = api_login_auth_role_menu(token_scf_supplier, payload)
         r_json = r.json()
-
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_login_auth_query_menu(self):
         """【平台方】角色分配菜单展示"""
-        payload = {"id": 0}
+        payload_one = {
+            "roleName": f"角色名称{get_number(6)}",
+            "roleDesc": ""
+        }
+        Id = api_role_insert(token_scf_platform, payload_one).json()['datas']
+        payload = {"id": Id}
         r = api_login_auth_query_menu(token_scf_supplier, payload)
         r_json = r.json()
-
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
