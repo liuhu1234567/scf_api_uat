@@ -243,7 +243,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_get_pdf_hash(self):
+    def test_002_enterprise_get_pdf_hash(self):
         """经办人或者审核人确认获取pdf hash值"""
         payload = {
               "certContent": "",
@@ -265,7 +265,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_queryByUserId(self):
+    def test_003_enterprise_queryByUserId(self):
         """企业档案详情-当前用户"""
         r = api_enterprise_queryByUserId(token_scf_supplier)
         r_json = r.json()
@@ -275,7 +275,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_002_enterprise_queryPage(self):
+    def test_004_enterprise_queryPage(self):
         """【供应商/经销商】分页查询企业档案列表"""
         payload = {"num": "1", "size": "10"}
         r = api_enterprise_queryPage(token_scf_supplier, payload)
@@ -287,7 +287,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_003_enterprise_queryById(self):
+    def test_005_enterprise_queryById(self):
         """【供应商/经销商】根据ID查询企业档案详情"""
         payload = {"id": g_d.get('id')}
         r = api_enterprise_queryById(token_scf_supplier, payload)
@@ -298,7 +298,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_101_enterprise_step1(self):
+    def test_006_enterprise_step1(self):
         """【供应商/经销商】企业认证步骤1-完善企业工商信息"""
         name = get_name()
         sfz = get_sfz()
@@ -341,7 +341,7 @@ class Enterprise(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
 
-    def test_102enterprise_step2_valid(self):
+    def test_007_enterprise_step2_valid(self):
         """企业认证步骤2-检测银行卡"""
         number = get_number(6)
         payload = {
@@ -360,7 +360,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_103_enterprise_step2(self):
+    def test_008_enterprise_step2(self):
         """【供应商/经销商】企业认证步骤2-开通电子签章"""
         number = get_number(6)
         payload = {
@@ -379,7 +379,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_104_enterprise_step3(self):
+    def test_009_enterprise_step3(self):
         """【供应商/经销商】企业认证步骤3-签署授权书及平台协议"""
         payload = {
             "confirmLicense": "",
@@ -394,7 +394,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_105_enterprise_update_save(self):
+    def test_010_enterprise_update_save(self):
         """修改企业档案-保存"""
         name = get_name()
         sfz = get_sfz()
@@ -433,7 +433,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_106_enterprise_update_submit(self):
+    def test_011_enterprise_update_submit(self):
         """修改企业档案-提交"""
         name = get_name()
         sfz = get_sfz()
@@ -472,7 +472,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_updateCustomerType(self):
+    def test_012_enterprise_updateCustomerType(self):
         """企业初次登入页面关联客户状态"""
         payload = {
             "channel": 0,
@@ -488,7 +488,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_get_pdf_show(self):
+    def test_013_enterprise_get_pdf_show(self):
         """展示签名信息"""
         r = api_enterprise_get_pdf_show(token_scf_supplier)
         r_json = r.json()
@@ -498,7 +498,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_enterprise_queryTree(self):
+    def test_014_enterprise_queryTree(self):
         """查询菜单树"""
         r = api_enterprise_queryTree(token_scf_supplier)
         r_json = r.json()
