@@ -5,7 +5,7 @@ from common.global_variable import customize_dict
 
 def send_robot(file_url):
     """发送报告到企业微信机器人"""
-    url = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=8acebb19-c38e-4862-ab14-de3e3fda219f'
+    url = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=bba264bf-39eb-4ab1-9f9b-08d8c26b0127'
     headers = {'Content-Type': 'application/json'}
     testName = customize_dict['resultData']['testName']
     testAll = customize_dict['resultData']['testAll']

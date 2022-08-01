@@ -1,6 +1,6 @@
 {
     "all_host": {
-        "test": "http://172.30.198.19:30329",
+        "test": "http://app.scf-uat.dianliantech.com",
         "prod": ""
     },
     "restime": 3,
@@ -24,7 +24,7 @@
     },
     "upload_report": {
         "upload_MeterShpere": false,
-        "upload_robot": false,
+        "upload_robot": true,
         "upload_email": false
     }
 }

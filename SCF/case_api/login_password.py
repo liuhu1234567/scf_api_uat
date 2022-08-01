@@ -35,7 +35,7 @@ def encrypt(pwd):
 
 def api_login_password(payload):
     """用户名密码登录"""
-    url = f'http://scf-uat.dianliantech.com/api-uaa/login/password'
+    url = 'http://scf-uat.dianliantech.com/api-uaa/login/password'
     headers = {
         'Content-Type': 'application/json;charset=UTF-8',
         'Accept-Language': 'zh-CN,zh;q=0.9'
@@ -52,9 +52,9 @@ class LoginPassword(unittest.TestCase):
 
     def test_login_password(self):
         """账号正确，密码正确"""
-        password = encrypt("Aa123456")
+        password = encrypt("Ss123456")
         payload = {
-            "username": "scf_platform",
+            "username": "ZVXS17585245519",
             "password": password,
             "code": 1234,
             "remember": True,
