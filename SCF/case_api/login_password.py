@@ -35,7 +35,7 @@ def encrypt(pwd):
 
 def api_login_password(payload):
     """用户名密码登录"""
-    url = f'{api_host}/api-uaa/login/password'
+    url = f'http://scf-uat.dianliantech.com/api-uaa/login/password'
     headers = {
         'Content-Type': 'application/json;charset=UTF-8',
         'Accept-Language': 'zh-CN,zh;q=0.9'

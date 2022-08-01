@@ -9,7 +9,7 @@ import time
 
 def get_file_url(report_name):
     """获取文件url"""
-    url = f'{api_host}/api-node/common/fileUpload'
+    url = f'http://172.30.206.54:9900/api-node/common/fileUpload'
     headers = {
         "x-appid-header": "1",
         "Authorization": token_scf_platform
