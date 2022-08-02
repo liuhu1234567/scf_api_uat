@@ -116,24 +116,25 @@ class Template(unittest.TestCase):
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        self.assertEqual(True, r_json['isImg'])
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_002_template_insert(self):
         """【平台方】新增模板"""
         number = get_number(6)
         url = "http://172.30.206.52:8100/group1/M00/00/29/rB7ONGLU-OGANNSdAAOmhp5bz3w531.png"
-        payload = {
-            "createBy": '',
+        payload ={
+            "createBy": 0,
             "createTime": "",
-            "id": '',
-            "num": 1,
-            "size": 10,
+            "id": 0,
+            "num": 0,
+            "size": 0,
             "templateCode": f"标识{number}",
             "templateGroup": f"组名{number}",
             "templateName": f"名称{number}",
             "templateUrl": url,
-            "updateBy": '',
+            "updateBy": 0,
             "updateTime": ""
         }
         r = api_template_insert(token_scf_supplier, payload)

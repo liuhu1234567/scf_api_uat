@@ -108,6 +108,8 @@ class ScfFinanceProductInsert(unittest.TestCase):
             "availableBegin": "2022-7-13 13:54:30",
             "availableEnd": "2023-7-13 13:54:30",
             "enable": 1,
+            "financeId": 0,
+            "id": 0,
             "financeName": "中信银行",
             "introduction": "供应链企业申请微粒贷",
             "loanBegin": "2022-7-13 13:54:30",
@@ -131,25 +133,8 @@ class ScfFinanceProductInsert(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_002_scfFinanceProduct_search(self):
-        """【平台方】搜索金融产品"""
-        payload = {
-            "enable": 1,
-            "financeName": "",
-            "name": "",
-            "num": 1,
-            "size": 100
-        }
-        r = api_scfFinanceProduct_search(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
 
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
-    def api_003_scfFinanceProduct_projectDeliverSearch(self):
+    def test_002_scfFinanceProduct_projectDeliverSearch(self):
         """【平台方】产品分配列表-搜索"""
         contact = get_name()
         entName = get_company()
@@ -163,7 +148,7 @@ class ScfFinanceProductInsert(unittest.TestCase):
             "num": 1,
             "size": 100
         }
-        r = api_scfFinanceProduct_search(token_scf_supplier, payload)
+        r = api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -172,7 +157,8 @@ class ScfFinanceProductInsert(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_004_scfFinanceProduct_update(self):
+
+    def test_003_scfFinanceProduct_update(self):
         """【平台方】修改金融产品"""
         true = True
         payload = {
@@ -204,7 +190,7 @@ class ScfFinanceProductInsert(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_005_scfFinanceProduct_enable(self):
+    def test_004_scfFinanceProduct_enable(self):
         """【平台方】启用-停用金融产品"""
         true = True
         payload = {
@@ -236,10 +222,30 @@ class ScfFinanceProductInsert(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_006_scfFinanceProduct_delete(self):
+
+    def test_005_scfFinanceProduct_delete(self):
         """【平台方】删除金融产品"""
         payload = {"id": g_d.get('id')}
         r = api_scfFinanceProduct_delete(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+
+    def test_006_scfFinanceProduct_search(self):
+        """【平台方】搜索金融产品"""
+        payload = {
+            "enable": 1,
+            "financeName": "",
+            "name": "",
+            "num": 1,
+            "size": 100
+        }
+        r = api_scfFinanceProduct_search(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

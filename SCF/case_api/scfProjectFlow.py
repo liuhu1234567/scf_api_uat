@@ -155,35 +155,34 @@ class ScfProjectFlow(unittest.TestCase):
     def test_002_scfProjectFlow_grantFlow(self):
         """【平台方】授信配置-创建流程"""
         payload = {
-            "customerType": 0,
-            "filePaths": [],
-            "flowItems": [
+              "customerType": 0,
+              "flowItems": [
                 {
-                    "customerType": 0,
-                    "filePaths": [],
-                    "flowItems": [],
-                    "isExternal": True,
-                    "isProtocol": True,
-                    "isPush": True,
-                    "name": f"授信流程{get_number(6)}",
-                    "reportId": 0,
-                    "step": 0,
-                    "subs": []
+                  "customerType": 0,
+                  "flowItems": [],
+                  "isExternal": True,
+                  "isProtocol": True,
+                  "isPush": True,
+                  "name": f"授信流程{get_number(6)}",
+                  "reportId": 0,
+                  "step": 0,
+                  "subs": []
                 }
-            ],
-            "isExternal": True,
-            "isProtocol": True,
-            "isPush": True,
-            "name": "",
-            "reportId": 0,
-            "step": 0,
-            "subs": [
+              ],
+              "isExternal": True,
+              "isProtocol": True,
+              "isPush": True,
+              "name": "",
+              "reportId": 0,
+              "step": 0,
+              "subs": [
                 {
-                    "filePath": "",
-                    "signType": 0
+                  "fileName": "",
+                  "filePath": "",
+                  "signType": 0
                 }
-            ]
-        }
+              ]
+            }
         r = api_scfProjectFlow_grantFlow(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()

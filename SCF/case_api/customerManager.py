@@ -130,7 +130,7 @@ class CustomerManager(unittest.TestCase):
     def test_001_customerManager_importCustomerFromExcel(self):
         """【平台方】客户管理-导入用户数据"""
         file_name = insert_excel_importCustomerFromExcel(4)
-        path = api_template_uploadfile(token_scf_platform, file_name).json()['path']
+        path = api_template_uploadfile(token_scf_platform, file_name).json()['datas']['path']
         fileId = "group1/" + path
         payload = {
             "fileId": fileId

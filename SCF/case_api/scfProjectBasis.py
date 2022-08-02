@@ -9,7 +9,7 @@ import unittest
 
 def api_scfProjectBasis_listBank(token, payload):
     """【平台方】查询金融机构"""
-    url = f'{api_host}/api-scf/scfProjectBasis/listBank'
+    url = f'{api_host}/api-scf/scfProjectBasis/listFinanceProduct'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "2",
@@ -348,7 +348,8 @@ class ScfProjectBasis(unittest.TestCase):
         payload = {
             "filePath": "",
             "flowId": flowId,
-            "grantFlowItemId": 0,
+            "basisId": "1554390319715659777",
+            "grantFlowItemId": "1550379360928423938",
             "link": ""
         }
         r = api_scfProjectBasis_enter(token_scf_platform, payload)

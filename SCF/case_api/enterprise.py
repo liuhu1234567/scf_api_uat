@@ -85,6 +85,20 @@ def api_enterprise_queryPage(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+def api_enterprise_pdf_show(token, payload):
+    """【供应商/经销商】分页查询企业档案列表"""
+    url = f'{api_host}/api-scf/enterprise/pdf/show'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
 
 def api_enterprise_step1(token, payload):
     """【供应商/经销商】企业认证步骤1-完善企业工商信息"""
