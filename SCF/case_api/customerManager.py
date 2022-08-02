@@ -167,10 +167,6 @@ class CustomerManager(unittest.TestCase):
     def test_003_customerManager_queryAuditPage(self):
         """分页查询客户审核列表"""
         payload = {
-            "auditStatus": 0,
-            "contact": "",
-            "contactMobile": "",
-            "entName": "",
             "num": 1,
             "size": 10
         }
