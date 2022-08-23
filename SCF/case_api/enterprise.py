@@ -23,9 +23,9 @@ def api_enterprise_check_key(token, payload):
     return r
 
 
-def api_enterprise_get_pdf_hash(token, payload):
+def api_enterprise_pdf_hash(token, payload):
     """经办人或者审核人确认获取pdfhash值"""
-    url = f'{api_host}/api-scf/enterprise/get/pdf/hash'
+    url = f'{api_host}/api-scf/enterprise/pdf/hash'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -41,7 +41,7 @@ def api_enterprise_get_pdf_hash(token, payload):
 
 def api_enterprise_queryById(token, payload):
     """【供应商/经销商】根据ID查询企业档案详情"""
-    url = f'{api_host}/api-scf/enterprise/queryPage'
+    url = f'{api_host}/api-scf/enterprise/queryById'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -51,21 +51,6 @@ def api_enterprise_queryById(token, payload):
     print(f'请求地址：{url}')
     print(f'请求头：{headers}')
     print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
-
-
-def api_enterprise_queryByUserId(token):
-    """企业档案详情-当前用户"""
-    url = f'{api_host}/api-scf/enterprise/queryByUserId'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "1",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers)
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
     print(f'接口响应为：{r.text}')
     return r
 
@@ -85,6 +70,7 @@ def api_enterprise_queryPage(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_enterprise_pdf_show(token, payload):
     """【供应商/经销商】分页查询企业档案列表"""
     url = f'{api_host}/api-scf/enterprise/pdf/show'
@@ -99,6 +85,7 @@ def api_enterprise_pdf_show(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
+
 
 def api_enterprise_step1(token, payload):
     """【供应商/经销商】企业认证步骤1-完善企业工商信息"""
@@ -144,6 +131,21 @@ def api_enterprise_step3(token, payload):
     print(f'请求地址：{url}')
     print(f'请求头：{headers}')
     print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_step4(token):
+    """企业认证步骤4"""
+    url = f'{api_host}/api-scf/enterprise/step4'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
     print(f'接口响应为：{r.text}')
     return r
 
@@ -196,30 +198,15 @@ def api_enterprise_updateCustomerType(token, payload):
     return r
 
 
-def api_enterprise_get_pdf_show(token):
+def api_enterprise_pdf_show(token, payload):
     """展示签名信息"""
-    url = f'{api_host}/api-scf/enterprise/get/pdf/show'
+    url = f'{api_host}/api-scf/enterprise/pdf/show'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
         "Authorization": token
     }
-    r = requests.post(url, headers=headers)
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'接口响应为：{r.text}')
-    return r
-
-
-def api_enterprise_queryTree(token):
-    """查询菜单树"""
-    url = f'{api_host}/api-scf/enterprise/queryTree'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "1",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers)
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
     print(f'请求地址：{url}')
     print(f'请求头：{headers}')
     print(f'接口响应为：{r.text}')
@@ -242,6 +229,127 @@ def api_enterprise_step2_valid(token, payload):
     return r
 
 
+def api_enterprise_queryEntArchivesDetail(token):
+    """企业档案详情-当前用户"""
+    url = f'{api_host}/api-scf/enterprise/queryEntArchivesDetail'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_queryEntArchivesDetailNonCache(token):
+    """企业档案详情-当前用户(非缓存)"""
+    url = f'{api_host}/api-scf/enterprise/queryEntArchivesDetailNonCache'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_pdf_document(token):
+    """平台服务协议"""
+    url = f'{api_host}/api-scf/enterprise/pdf/document'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_queryBankList(token):
+    """银行信息"""
+    url = f'{api_host}/api-scf/enterprise/queryBankList'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_queryByEntName(token, payload):
+    """根据企业名称查询企业档案详情"""
+    url = f'{api_host}/api-scf/enterprise/queryByEntName'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_queryFunderList(token):
+    """资金方信息"""
+    url = f'{api_host}/api-scf/enterprise/queryFunderList'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_queryGuarantorList(token):
+    """担保方列表信息"""
+    url = f'{api_host}/api-scf/enterprise/queryGuarantorList'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_enterprise_querySupplierList(token):
+    """供应商信息"""
+    url = f'{api_host}/api-scf/enterprise/querySupplierList'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -260,18 +368,11 @@ class Enterprise(unittest.TestCase):
     def test_002_enterprise_get_pdf_hash(self):
         """经办人或者审核人确认获取pdf hash值"""
         payload = {
-              "certContent": "",
-              "commitPayDate": "",
-              "id": 0,
-              "img": "",
-              "openAmount": "",
-              "openCube": "",
-              "pdfHash": "",
-              "pdfHashId": "",
-              "saleCompany": "",
-              "type": 0
+            "certContent": "",
+            "fileId": "",
+            "keyWord": ""
         }
-        r = api_enterprise_get_pdf_hash(token_scf_supplier, payload)
+        r = api_enterprise_pdf_hash(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -279,29 +380,20 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_003_enterprise_queryByUserId(self):
-        """企业档案详情-当前用户"""
-        r = api_enterprise_queryByUserId(token_scf_supplier)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
-    def test_004_enterprise_queryPage(self):
+    def test_003_enterprise_queryPage(self):
         """【供应商/经销商】分页查询企业档案列表"""
         payload = {"num": "1", "size": "10"}
         r = api_enterprise_queryPage(token_scf_supplier, payload)
         r_json = r.json()
         g_d['id'] = r_json['datas'][0]['id']
+        g_d['entName'] = r_json['datas'][0]['entName']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_005_enterprise_queryById(self):
+    def test_004_enterprise_queryById(self):
         """【供应商/经销商】根据ID查询企业档案详情"""
         payload = {"id": g_d.get('id')}
         r = api_enterprise_queryById(token_scf_supplier, payload)
@@ -312,7 +404,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_006_enterprise_step1(self):
+    def test_005_enterprise_step1(self):
         """【供应商/经销商】企业认证步骤1-完善企业工商信息"""
         name = get_name()
         sfz = get_sfz()
@@ -354,8 +446,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-
-    def test_007_enterprise_step2_valid(self):
+    def test_006_enterprise_step2_valid(self):
         """企业认证步骤2-检测银行卡"""
         number = get_number(6)
         payload = {
@@ -367,14 +458,14 @@ class Enterprise(unittest.TestCase):
         }
         r = api_enterprise_step2_valid(token_scf_supplier, payload)
         r_json = r.json()
-        g_d['originalTxSn']=r_json['datas']
+        g_d['originalTxSn'] = r_json['datas']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_008_enterprise_step2(self):
+    def test_007_enterprise_step2(self):
         """【供应商/经销商】企业认证步骤2-开通电子签章"""
         number = get_number(6)
         payload = {
@@ -393,7 +484,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_009_enterprise_step3(self):
+    def test_008_enterprise_step3(self):
         """【供应商/经销商】企业认证步骤3-签署授权书及平台协议"""
         payload = {
             "confirmLicense": "",
@@ -401,6 +492,16 @@ class Enterprise(unittest.TestCase):
             "serviceLicense": ""
         }
         r = api_enterprise_step3(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_009_enterprise_step4(self):
+        """【供应商/经销商】企业认证步骤4"""
+        r = api_enterprise_step4(token_scf_supplier)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -502,9 +603,15 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_013_enterprise_get_pdf_show(self):
+    def test_013_enterprise_pdf_show(self):
         """展示签名信息"""
-        r = api_enterprise_get_pdf_show(token_scf_supplier)
+        payload = {
+            "certContent": "",
+            "fileId": "",
+            "hashId": "",
+            "keyWord": ""
+        }
+        r = api_enterprise_pdf_show(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -512,9 +619,82 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_014_enterprise_queryTree(self):
-        """查询菜单树"""
-        r = api_enterprise_queryTree(token_scf_supplier)
+    def test_014_enterprise_queryEntArchivesDetail(self):
+        """【供应商】企业档案详情-当前用户"""
+        r = api_enterprise_queryEntArchivesDetail(token_scf_supplier)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_015_enterprise_queryEntArchivesDetail(self):
+        """【供应商】企业档案详情-当前用户(非缓存)"""
+        r = api_enterprise_queryEntArchivesDetailNonCache(token_scf_supplier)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_016_enterprise_pdf_document(self):
+        """【供应商】平台服务协议"""
+        r = api_enterprise_pdf_document(token_scf_supplier)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_017_enterprise_queryBankList(self):
+        """【供应商】银行信息"""
+        r = api_enterprise_queryBankList(token_scf_supplier)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_018_enterprise_queryByEntName(self):
+        """【供应商】根据企业名称查询企业档案详情"""
+        payload = {
+            "entName": g_d.get('entName')
+        }
+        r = api_enterprise_queryByEntName(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_019_enterprise_queryFunderList(self):
+        """【供应商】资金方信息"""
+        r = api_enterprise_queryFunderList(token_scf_supplier)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_020_enterprise_queryGuarantorList(self):
+        """【供应商】担保方列表信息"""
+        r = api_enterprise_queryGuarantorList(token_scf_supplier)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_021_enterprise_querySupplierList(self):
+        """【供应商】供应商信息"""
+        r = api_enterprise_querySupplierList(token_scf_supplier)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
