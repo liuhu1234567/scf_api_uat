@@ -71,6 +71,38 @@ def api_backAccount_delete(token, payload):
     return r
 
 
+def api_backAccount_bindByProjectId(token, payload):
+    """绑定项目-银行卡"""
+    url = f'{api_host}/api-scf/backAccount/bindByProjectId'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_backAccount_validCardID(token, payload):
+    """获取认证过的银行卡信息"""
+    url = f'{api_host}/api-scf/backAccount/validCardID'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -136,6 +168,32 @@ class BackAccount(unittest.TestCase):
         """【平台方】删除银行账户"""
         payload = {"id": g_d.get('id')}
         r = api_backAccount_delete(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('操作成功', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_005_backAccount_bindByProjectId(self):
+        """绑定项目-银行卡"""
+        payload = {
+            "id": 0,
+            "projectId": 1231231
+        }
+        r = api_backAccount_bindByProjectId(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('操作成功', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_006_backAccount_validCardID(self):
+        """获取认证过的银行卡信息"""
+        payload = {
+        }
+        r = api_backAccount_validCardID(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
