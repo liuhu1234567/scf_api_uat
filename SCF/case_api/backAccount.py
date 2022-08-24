@@ -133,8 +133,8 @@ class BackAccount(unittest.TestCase):
             "createBy": 0,
             "createTime": "",
             "id": 0,
-            "num": 0,
-            "size": 0,
+            "num": 1,
+            "size": 10,
             "updateBy": 0,
             "updateTime": ""
         }
@@ -178,15 +178,23 @@ class BackAccount(unittest.TestCase):
     def test_005_backAccount_bindByProjectId(self):
         """绑定项目-银行卡"""
         payload = {
-            "id": 0,
+            "bankAccountDebutNo": get_number(10),
+            "bankAccountName": f"账户名称{get_number(6)}",
+            "bankAccountNo": get_card_number(),
+            "bankAccountSite": "深圳市兴东路点链支行",
+            "bankAccountType": 1
+        }
+        id_new = api_backAccount_insert(token_scf_supplier, payload).json()["datas"]
+        payload_new = {
+            "id": id_new,
             "projectId": 1231231
         }
-        r = api_backAccount_bindByProjectId(token_scf_supplier, payload)
+        r = api_backAccount_bindByProjectId(token_scf_supplier, payload_new)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('操作成功', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_006_backAccount_validCardID(self):
@@ -198,5 +206,5 @@ class BackAccount(unittest.TestCase):
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('操作成功', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)

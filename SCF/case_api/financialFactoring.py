@@ -1,7 +1,7 @@
 from common.do_config import api_host, restime
 from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
-from common.do_faker import get_number
+from common.do_faker import get_company
 import requests
 import unittest
 import json
@@ -127,18 +127,18 @@ class FinancialFactoring(unittest.TestCase):
         payload = {
             "bankAccountNo": 0,
             "creditEnhancerEntId": 0,
-            "creditEnhancerEntName": "",
+            "creditEnhancerEntName": get_company(),
             "estimatedDisbursementDate": "",
             "financeEntId": 0,
-            "financeEntName": "",
+            "financeEntName": get_company(),
             "financingAmount": 0,
-            "financingRate": "",
+            "financingRate": "1%",
             "financingRemainAmount": 0,
             "financingServiceCharge": 0,
             "financingTerm": 0,
             "goldenLetterId": 0,
             "platformServiceCharge": 0,
-            "platformServiceRate": ""
+            "platformServiceRate": "1%"
         }
         r = api_financialFactoring_insert(token_scf_platform, payload)
         r_json = r.json()

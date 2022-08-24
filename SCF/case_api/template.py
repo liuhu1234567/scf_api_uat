@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_supplier
+from common.get_token import token_scf_supplier, token_scf_platform
 from common.global_variable import customize_dict
 import requests
 import unittest
@@ -106,6 +106,22 @@ def api_template_deleteRole(token, params):
     return r
 
 
+def api_template_get_codeBillBase(token, params):
+    """导入发票模板.xlsx"""
+    url = f'{api_host}/api-scf/template/get/codeBillBase'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, params=params)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{params}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -124,12 +140,12 @@ class Template(unittest.TestCase):
         """【平台方】新增模板"""
         number = get_number(6)
         url = "http://172.30.206.52:8100/group1/M00/00/29/rB7ONGLU-OGANNSdAAOmhp5bz3w531.png"
-        payload ={
+        payload = {
             "createBy": 0,
             "createTime": "",
             "id": 0,
-            "num": 0,
-            "size": 0,
+            "num": 1,
+            "size": 10,
             "templateCode": f"标识{number}",
             "templateGroup": f"组名{number}",
             "templateName": f"名称{number}",
@@ -193,6 +209,18 @@ class Template(unittest.TestCase):
         """【平台方】删除模板"""
         params = {"id": ''}
         r = api_template_deleteRole(token_scf_supplier, params)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_006_template_get_codeBillBase(self):
+        """导入发票模板.xlsx"""
+        params = {
+        }
+        r = api_template_get_codeBillBase(token_scf_platform, params)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

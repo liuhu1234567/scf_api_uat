@@ -7,6 +7,7 @@ import unittest
 import json
 
 """清分管理"""
+
 def api_clearing_clearingDetail_list(token, payload):
     """日终对账明细"""
     url = f'{api_host}/api-scf/clearing/clearingDetail/list'
@@ -71,12 +72,12 @@ class  Clearing(unittest.TestCase):
     def test_001_clearing_clearingDetail_list(self):
         """日终对账明细"""
         payload = {
-          "num": 0,
+          "num": 1,
           "payerAccountNumber": "",
           "payerName": "",
           "recipientAccountNumber": "",
           "recipientName": "",
-          "size": 0
+          "size": 10
         }
         r = api_clearing_clearingDetail_list(token_scf_platform, payload)
         r_json = r.json()
@@ -89,12 +90,12 @@ class  Clearing(unittest.TestCase):
     def test_002_clearing_historyClearingDetail_list(self):
         """历史清分明细"""
         payload = {
-          "num": 0,
+          "num": 1,
           "payerAccountNumber": "",
           "payerName": "",
           "recipientAccountNumber": "",
           "recipientName": "",
-          "size": 0
+          "size": 10
         }
         r = api_clearing_historyClearingDetail_list(token_scf_platform, payload)
         r_json = r.json()
