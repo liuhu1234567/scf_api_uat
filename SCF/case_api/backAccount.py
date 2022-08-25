@@ -109,10 +109,12 @@ g_d = {}
 class BackAccount(unittest.TestCase):
     def test_001_backAccount_insert(self):
         """【平台方】新增银行账户"""
+        number = get_number(10)
+        card_number = get_card_number()
         payload = {
-            "bankAccountDebutNo": get_number(10),
-            "bankAccountName": f"账户名称{get_number(6)}",
-            "bankAccountNo": get_card_number(),
+            "bankAccountDebutNo": number,
+            "bankAccountName": f"账户名称{number}",
+            "bankAccountNo": card_number,
             "bankAccountSite": "深圳市兴东路点链支行",
             "bankAccountType": 1
         }
@@ -148,10 +150,12 @@ class BackAccount(unittest.TestCase):
 
     def test_003_backAccount_update(self):
         """【平台方】修改银行账户"""
+        number = get_number(10)
+        card_number = get_card_number()
         payload = {
-            "bankAccountDebutNo": get_number(10),
-            "bankAccountName": f"账户名称{get_number(6)}",
-            "bankAccountNo": get_card_number(),
+            "bankAccountDebutNo": number,
+            "bankAccountName": f"账户名称{number}",
+            "bankAccountNo": card_number,
             "bankAccountSite": "深圳市兴东路点链支行",
             "bankAccountType": 0,
             "id": g_d.get('id')
@@ -177,10 +181,12 @@ class BackAccount(unittest.TestCase):
 
     def test_005_backAccount_bindByProjectId(self):
         """绑定项目-银行卡"""
+        number = get_number(10)
+        card_number = get_card_number()
         payload = {
-            "bankAccountDebutNo": get_number(10),
-            "bankAccountName": f"账户名称{get_number(6)}",
-            "bankAccountNo": get_card_number(),
+            "bankAccountDebutNo": number,
+            "bankAccountName": f"账户名称{number}",
+            "bankAccountNo": card_number,
             "bankAccountSite": "深圳市兴东路点链支行",
             "bankAccountType": 1
         }

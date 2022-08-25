@@ -1,19 +1,19 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform, token_scf_enterprise,token_scf_supplier
+from common.get_token import token_scf_platform, token_scf_enterprise, token_scf_supplier, token_scf_financier
 from common.global_variable import customize_dict
 from common.do_faker import get_company
 from case_api.template import api_template_uploadfile
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 import requests
 import unittest
 import json
-import datetime
 
 """金点信"""
 
 
-def api_goldenLetter_open_deleteBillTem(token, payload):
-    """发票删除"""
-    url = f'{api_host}/api-scf/goldenLetter/open/deleteBillTemp'
+def api_goldenLetter_open_deleteBillTempById(token, payload):
+    """根据id删除发票"""
+    url = f'{api_host}/api-scf/goldenLetter/open/deleteBillTempById'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -220,12 +220,61 @@ def api_goldenLetter_retrospective(token, payload):
     return r
 
 
+def api_goldenLetter_getCreditAmount(token, payload):
+    """获取授信额度"""
+    url = f'{api_host}/api-scf/goldenLetter/getCreditAmount'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_goldenLetter_open_deleteBillTemp(token, payload):
+    """删除全部导入的发票"""
+    url = f'{api_host}/api-scf/goldenLetter/open/deleteBillTemp'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_goldenLetter_selectProject(token, payload):
+    """查询融资项目"""
+    url = f'{api_host}/api-scf/goldenLetter/selectProject'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 class GoldenLetter(unittest.TestCase):
-    def test_001_goldenLetter_open_deleteBillTemp(self):
-        """发票删除"""
+    def test_001_goldenLetter_open_deleteBillTempById(self):
+        """根据id删除发票"""
         payload = {
+            "id": 0
         }
-        r = api_goldenLetter_open_deleteBillTem(token_scf_enterprise, payload)
+        r = api_goldenLetter_open_deleteBillTempById(token_scf_enterprise, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -235,9 +284,10 @@ class GoldenLetter(unittest.TestCase):
 
     def test_002_goldenLetter_open_importBillExcel(self):
         """开立-导入发票"""
-        path = api_template_uploadfile(token_scf_platform,'导入发票模板.xlsx').json()["datas"]["url"]
+        path = api_template_uploadfile(token_scf_platform, '导入发票模板.xlsx').json()["datas"]["path"]
+        fileId_new = "group1/" + path
         payload = {
-            "fileId": path
+            "fileId": fileId_new
         }
         r = api_goldenLetter_open_importBillExcel(token_scf_enterprise, payload)
         r_json = r.json()
@@ -249,14 +299,16 @@ class GoldenLetter(unittest.TestCase):
 
     def test_003_goldenLetter_open_insert(self):
         """开立新增"""
+        datas = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]
+        recipientId = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()["datas"]['id']
         payload = {
             "bills": ["1562284267547848706", "1562284267556237314"],
-            "coreEntId": 1562325610781274113,
+            "coreEntId": datas["id"],
             "coreEntName": "核心企业",
             "creditEnhancerId": 1544611013257465857,
             "creditEnhancerName": "西咸新区沣东新城一",
             "founderEnt": "核心企业",
-            "founderEntId": 1549224468155265025,
+            "founderEntId": datas["id"],
             "goldenLetterCode": "",
             "goldenLetterEndDate": "2024-07-09T14:00:00",
             "goldenLetterMoney": 1000,
@@ -267,8 +319,8 @@ class GoldenLetter(unittest.TestCase):
             "orderName": "合同/订单名称",
             "orderNumber": "合同/订单编号",
             "promisedPaymentDate": "2023-07-09T10:00:00",
-            "recipient": "泰麒麟科技有限公司",
-            "recipientId": 1544611079456165889,
+            "recipient": datas["entName"],
+            "recipientId": recipientId,
             "remainingAvailableQuota": 0,
             "remainingOpenableInvoice": 0,
             "statementNumber": "对账单编号",
@@ -286,14 +338,14 @@ class GoldenLetter(unittest.TestCase):
     def test_004_open_queryPage(self):
         """查询开立审核列表"""
         payload = {
-            "auditStatus": 0,
+            "auditStatus": 1,
             "founderEnt": "",
             "goldenLetterCode": "",
             "num": 1,
             "recipient": "",
             "size": 10
         }
-        r = api_goldenLetter_open_queryPage(token_scf_platform, payload)
+        r = api_goldenLetter_open_queryPage(token_scf_enterprise, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -303,17 +355,44 @@ class GoldenLetter(unittest.TestCase):
 
     def test_005_goldenLetter_open_updateAuditStatus(self):
         """开立审核"""
+        auditEntId = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
+        recipientId = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()["datas"]['id']
         payload = {
-            "auditEntId": 0,
-            "auditFlowItemId": 0,
+            "auditStatus": 1,
+            "founderEnt": "",
+            "goldenLetterCode": "",
+            "num": 1,
+            "recipient": "",
+            "size": 10
+        }
+        Id = api_goldenLetter_open_queryPage(token_scf_enterprise, payload).json()["datas"][0]["id"]
+        payload = {
+            "id": Id
+        }
+        auditFlowItemId = api_goldenLetter_queryById(token_scf_platform, payload).json()["datas"]["auditFlowItemId"]
+        # payload = {
+        #     "auditEntId": 1562325610781274113,
+        #     "auditFlowItemId": 1562692124311171074,
+        #     "auditOpinion": "",
+        #     "auditStatus": 3,
+        #     "busType": "",
+        #     "creditEnhancerId": 0,
+        #     "entId": 1562325610781274113,
+        #     "id": 1562692124378279938,
+        #     "projectId": 0,
+        #     "recipientId": 1544611079456165889
+        # }
+        payload ={
+            "auditEntId": auditEntId,
+            "auditFlowItemId": auditFlowItemId,
             "auditOpinion": "",
             "auditStatus": 3,
             "busType": "",
             "creditEnhancerId": 0,
-            "entId": 0,
-            "id": 0,
+            "entId": auditEntId,
+            "id": Id,
             "projectId": 0,
-            "recipientId": 0
+            "recipientId": recipientId
         }
         r = api_goldenLetter_open_updateAuditStatus(token_scf_enterprise, payload)
         r_json = r.json()
@@ -342,7 +421,7 @@ class GoldenLetter(unittest.TestCase):
     def test_007_goldenLetter_queryBillListById(self):
         """根据金点信ID查询发票详情"""
         payload = {
-            "id": 0
+            "id": 1562699313327308802
         }
         r = api_goldenLetter_queryBillListById(token_scf_platform, payload)
         r_json = r.json()
@@ -370,7 +449,7 @@ class GoldenLetter(unittest.TestCase):
     def test_09_goldenLetter_queryById(self):
         """根据ID查询金点信详情"""
         payload = {
-            "id": 0
+            "id": 1562714421046603778
         }
         r = api_goldenLetter_queryById(token_scf_platform, payload)
         r_json = r.json()
@@ -382,8 +461,9 @@ class GoldenLetter(unittest.TestCase):
 
     def test_010_goldenLetter_queryConfigSet(self):
         """根据核心企业id查询开立基础项配置"""
+        Id = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
         payload = {
-            "id": 1562325610781274113
+            "id": Id
         }
         r = api_goldenLetter_queryConfigSet(token_scf_platform, payload)
         r_json = r.json()
@@ -396,15 +476,15 @@ class GoldenLetter(unittest.TestCase):
     def test_011_goldenLetter_queryPage(self):
         """查询金点信列表"""
         payload = {
-            "auditStatus": 0,
+            "auditStatus": 1,
             "currentHolder": "",
-            "founderEnt": "核心企业",
+            "founderEnt": "",
             "goldenLetterCode": "",
             "num": 1,
             "paymentStatus": 0,
             "size": 10
         }
-        r = api_goldenLetter_queryPage(token_scf_platform, payload)
+        r = api_goldenLetter_queryPage(token_scf_enterprise, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -417,7 +497,7 @@ class GoldenLetter(unittest.TestCase):
         payload = {
             "auditFlowItemId": 1562325610781274113,
             "bills": ["1562284267547848706", "1562284267556237314"],
-            "coreEntId": 1562325610781274113,
+            "coreEntId": 1549224468155265025,
             "coreEntName": "核心企业",
             "creditEnhancerId": 0,
             "creditEnhancerName": get_company(),
@@ -457,9 +537,46 @@ class GoldenLetter(unittest.TestCase):
     def test_013_goldenLetter_retrospective(self):
         """金点信追溯"""
         payload = {
-            "goldenLetterId": 1562325610781274113
+            "goldenLetterId": 0
         }
         r = api_goldenLetter_retrospective(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_014_goldenLetter_getCreditAmount(self):
+        """获取授信额度"""
+        payload = {
+            "id": 0
+        }
+        r = api_goldenLetter_getCreditAmount(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_015_goldenLetter_open_deleteBillTemp(self):
+        """删除全部导入的发票"""
+        payload = {
+        }
+        r = api_goldenLetter_open_deleteBillTemp(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_016_goldenLetter_selectProject(self):
+        """查询融资项目"""
+        payload = {
+        }
+        r = api_goldenLetter_selectProject(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

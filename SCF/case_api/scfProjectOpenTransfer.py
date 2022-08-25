@@ -1,7 +1,8 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform
+from common.get_token import token_scf_platform,token_scf_enterprise
 from common.do_faker import get_number
 from common.global_variable import customize_dict
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 import requests
 import unittest
 import json
@@ -175,6 +176,20 @@ class ScfProjectOpenTransfer(unittest.TestCase):
                                     "signType": 1
                                 }
                             ]
+                        },
+                        {
+                            "customerType": 3,
+                            "isExternal": True,
+                            "isProtocol": True,
+                            "isPush": True,
+                            "reportId": 3,
+                            "subs": [
+                                {
+                                    "fileName": "fileName",
+                                    "filePath": "filePath",
+                                    "signType": 1
+                                }
+                            ]
                         }
                     ]
                 }
@@ -190,7 +205,7 @@ class ScfProjectOpenTransfer(unittest.TestCase):
                     "step": 2,
                     "flowItems": [
                         {
-                            "customerType": 1,
+                            "customerType": 3,
                             "isExternal": True,
                             "isProtocol": True,
                             "isPush": True,

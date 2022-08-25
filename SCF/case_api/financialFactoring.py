@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform
+from common.get_token import token_scf_platform,token_scf_supplier
 from common.global_variable import customize_dict
 from common.do_faker import get_company
 import requests
@@ -73,22 +73,6 @@ def api_financialFactoring_queryFinancialFactoringPage(token, payload):
     return r
 
 
-def api_financialFactoring_queryFunderList(token, payload):
-    """资金方信息"""
-    url = f'{api_host}/api-scf/financialFactoring/queryFunderList'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "1",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
-
-
 def api_financialFactoring_resubmit(token, payload):
     """重新提交"""
     url = f'{api_host}/api-scf/financialFactoring/resubmit'
@@ -123,24 +107,24 @@ def api_financialFactoring_updateAuditStatus(token, payload):
 
 class FinancialFactoring(unittest.TestCase):
     def test_001_financialFactoring_insert(self):
-        """新增"""
+        """【供应商】新增"""
         payload = {
-            "bankAccountNo": 0,
-            "creditEnhancerEntId": 0,
+            "bankAccountNo": 5520418039408053,
+            "creditEnhancerEntId": 1544611013257465857,
             "creditEnhancerEntName": get_company(),
-            "estimatedDisbursementDate": "",
-            "financeEntId": 0,
-            "financeEntName": get_company(),
-            "financingAmount": 0,
+            "estimatedDisbursementDate": "增信方名称",
+            "financeEntId": 1544611013257465857,
+            "financeEntName": "增信方名称",
+            "financingAmount": 1000,
             "financingRate": "1%",
             "financingRemainAmount": 0,
             "financingServiceCharge": 0,
-            "financingTerm": 0,
-            "goldenLetterId": 0,
-            "platformServiceCharge": 0,
+            "financingTerm": 100,
+            "goldenLetterId": 1562714421046603778,
+            "platformServiceCharge": 1562682259547254785,
             "platformServiceRate": "1%"
         }
-        r = api_financialFactoring_insert(token_scf_platform, payload)
+        r = api_financialFactoring_insert(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -192,19 +176,7 @@ class FinancialFactoring(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_005_financialFactoring_queryFunderList(self):
-        """资金方信息"""
-        payload = {
-        }
-        r = api_financialFactoring_queryFunderList(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
-    def test_006_financialFactoring_resubmit(self):
+    def test_005_financialFactoring_resubmit(self):
         """重新提交"""
         payload = {
             "auditFlowItemId": 0,
@@ -232,7 +204,7 @@ class FinancialFactoring(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_007_financialFactoring_updateAuditStatus(self):
+    def test_006_financialFactoring_updateAuditStatus(self):
         """融资保理审核"""
         payload = {
             "auditEntId": 0,
