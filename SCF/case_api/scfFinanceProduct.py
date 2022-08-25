@@ -1,7 +1,7 @@
 from common.do_config import api_host, restime
 from common.get_token import token_scf_supplier, token_scf_platform, token_scf_financier, token_scf_enterprise
 from common.global_variable import customize_dict
-from common.do_faker import get_number, get_name, get_company, get_phone, get_email
+from common.do_faker import get_number
 import datetime
 import json
 import requests
@@ -378,7 +378,3 @@ class ScfFinanceProduct(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
-
-
-if __name__ == '__main__':
-    unittest.main()
