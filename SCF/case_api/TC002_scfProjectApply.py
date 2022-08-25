@@ -5,6 +5,7 @@ import requests
 import json
 import unittest
 from jsonpath import jsonpath
+from scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
 
 
 def api_scfProjectApply_isCertificate(token, payload):
@@ -87,6 +88,9 @@ def api_scfProjectApply_viewApply(token, payload):
     return r
 
 
+g_d = {}
+
+
 class ScfProjectApply(unittest.TestCase):
     def test_001_scfProjectApply_isCertificate(self):
         """【供应商】验证当前用户所在的企业是否已认证"""
@@ -115,7 +119,20 @@ class ScfProjectApply(unittest.TestCase):
     def test_003_scfProjectApply_toApply(self):
         """【供应商】跳转至 ”申请融资“ 页面"""
         payload = {
-            "projectDeliverId": 0
+            "enable": True,
+            "entName": "",
+            "enterpriseId": 0,
+            "financeName": "",
+            "isApply": False,
+            "num": 1,
+            "productName": "",
+            "projectName": "",
+            "size": 10
+        }
+        g_d['projectDeliverId'] = \
+        api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload).json()['datas'][0]['id']
+        payload = {
+            "projectDeliverId": g_d.get('projectDeliverId')
         }
         r = api_scfProjectApply_toApply(token_scf_supplier, payload)
         r_json = r.json()
@@ -128,7 +145,7 @@ class ScfProjectApply(unittest.TestCase):
     def test_004_scfProjectApply_apply(self):
         """【供应商】申请融资"""
         payload = {
-            "projectDeliverId": 0
+            "projectDeliverId": g_d.get('projectDeliverId')
         }
         r = api_scfProjectApply_apply(token_scf_supplier, payload)
         r_json = r.json()
@@ -141,7 +158,7 @@ class ScfProjectApply(unittest.TestCase):
     def test_005_scfProjectApply_viewApply(self):
         """【供应商】查看融资申请信息"""
         payload = {
-            "id": 0
+            "id": g_d.get('projectDeliverId')
         }
         r = api_scfProjectApply_viewApply(token_scf_supplier, payload)
         r_json = r.json()
@@ -150,6 +167,3 @@ class ScfProjectApply(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
-
-if __name__ == '__main__':
-    unittest.main()

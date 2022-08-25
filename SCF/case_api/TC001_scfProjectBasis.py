@@ -1,10 +1,11 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform
+from common.get_token import token_scf_platform, token_scf_enterprise, token_scf_supplier
 from common.global_variable import customize_dict
 from common.do_faker import get_number
 import json
 import requests
 import unittest
+from enterprise import api_enterprise_queryEntArchivesDetail
 
 
 def api_scfProjectBasis_listProjectBasis(token):
@@ -351,7 +352,6 @@ class ScfProjectBasis(unittest.TestCase):
         }
         r = api_scfProjectBasis_listCore(token_scf_platform, payload)
         r_json = r.json()
-        g_d['coreEnterpriseId'] = r_json['datas'][0]['id']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
@@ -365,7 +365,6 @@ class ScfProjectBasis(unittest.TestCase):
         }
         r = api_scfProjectBasis_listFinanceProduct(token_scf_platform, payload)
         r_json = r.json()
-        g_d['financeId'] = r_json['datas'][0]['financeId']
         g_d['scfFinanceProductId'] = r_json['datas'][0]['id']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -405,10 +404,12 @@ class ScfProjectBasis(unittest.TestCase):
 
     def test_009_scfProjectBasis_insertAllDetail(self):
         """【平台方】新增项目"""
+        g_d['coreEnterpriseId'] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['id']
+        g_d['bankId'] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['id']
         payload = {
             "scfProjectBasisReq": {
                 "id": "",
-                "bankId": g_d.get('financeId'),
+                "bankId": g_d.get('bankId'),
                 "businessType": "3",
                 "enterpriseId": g_d.get('coreEnterpriseId'),
                 "name": f"项目名称{get_number(6)}",
@@ -529,8 +530,8 @@ class ScfProjectBasis(unittest.TestCase):
                         {
                             "id": "",
                             "flowId": "",
-                            "customerType": "6",
-                            "customerTypeName": "银行",
+                            "customerType": "11",
+                            "customerTypeName": "平台方",
                             "isExternal": False,
                             "isProtocol": False,
                             "isPush": False,
@@ -560,7 +561,6 @@ class ScfProjectBasis(unittest.TestCase):
         }
         r = api_scfProjectBasis_listEnterprise(token_scf_platform, payload)
         r_json = r.json()
-        g_d['enterpriseId'] = r_json['datas'][0]['id']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
@@ -600,9 +600,10 @@ class ScfProjectBasis(unittest.TestCase):
 
     def test_013_scfProjectBasis_deliver(self):
         """【平台方】项目配置分配"""
+        enterpriseId = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']['id']
         payload = {
             "basisId": g_d.get('id'),
-            "enterpriseId": g_d.get('enterpriseId')
+            "enterpriseId": enterpriseId
         }
         r = api_scfProjectBasis_deliver(token_scf_platform, payload)
         r_json = r.json()
@@ -682,7 +683,7 @@ class ScfProjectBasis(unittest.TestCase):
         """【平台方】项目配置删除"""
         payload = {
             "scfProjectBasisReq": {
-                "bankId": g_d.get('financeId'),
+                "bankId": g_d.get('bankId'),
                 "businessType": g_d.get('businessType'),
                 "enter": False,
                 "enterpriseId": g_d.get('coreEnterpriseId'),
