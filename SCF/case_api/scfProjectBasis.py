@@ -2,9 +2,6 @@ from common.do_config import api_host, restime
 from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
 from common.do_faker import get_number
-from case_api.scfProjectFlow import api_scfProjectFlow_enterFlow, api_scfProjectFlow_grantFlow, \
-    api_scfProjectFlow_openFlow, api_scfProjectFlow_transferFlow, api_scfProjectFlow_financeFlow, \
-    api_scfProjectFlow_refactorFlow
 import json
 import requests
 import unittest
