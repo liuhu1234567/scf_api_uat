@@ -4,7 +4,6 @@ from common.do_config import api_host, restime
 import requests
 import json
 import unittest
-import random
 from enterprise import api_enterprise_queryEntArchivesDetail
 
 
