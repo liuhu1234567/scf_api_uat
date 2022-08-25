@@ -129,7 +129,7 @@ g_d = {}
 class CustomerManager(unittest.TestCase):
     def test_001_customerManager_importCustomerFromExcel(self):
         """【平台方】客户管理-导入用户数据"""
-        file_name = insert_excel_importCustomerFromExcel(4)
+        file_name = insert_excel_importCustomerFromExcel(1)
         path = api_template_uploadfile(token_scf_platform, file_name).json()['datas']['path']
         fileId = "group1/" + path
         payload = {
@@ -153,7 +153,7 @@ class CustomerManager(unittest.TestCase):
             "contactMobile": get_phone(),
             "coreEnterprise": "",
             "creditCode": get_number(10),
-            "customerType": 0,
+            "customerType": random.choice([1, 3, 4, 5, 6]),
             "entName": get_company()
         }
         r = api_customerManager_insert(token_scf_platform, payload)
@@ -165,7 +165,7 @@ class CustomerManager(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_003_customerManager_queryAuditPage(self):
-        """分页查询客户审核列表"""
+        """【平台方】分页查询客户审核列表"""
         payload = {
             "num": 1,
             "size": 10
@@ -179,9 +179,11 @@ class CustomerManager(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_007_customerManager_queryById(self):
+    def test_004_customerManager_queryById(self):
         """【平台方】根据ID查询客户详情"""
-        payload = {"id": g_d.get('id')}
+        payload = {
+            "id": g_d.get('id')
+        }
         r = api_customerManager_queryById(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
@@ -209,9 +211,10 @@ class CustomerManager(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_006_customerManager_updateauditStatus(self):
+    def test_006_customerManager_update_auditStatus(self):
         """【平台方】修改审核状态"""
         payload = {
+            "auditBy": 0,
             "auditOpinion": "通过啦",
             "auditStatus": 3,
             "id": g_d.get('id')
