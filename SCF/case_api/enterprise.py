@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_supplier
+from common.get_token import token_scf_supplier, token_scf_enterprise
 from common.global_variable import customize_dict
 import requests
 import unittest
@@ -350,6 +350,22 @@ def api_enterprise_querySupplierList(token):
     return r
 
 
+def api_admission_queryBuyerList(token, payload):
+    """买方列表，即核心企业子公司"""
+    url = f'{api_host}/api-scf/enterprise/queryBuyerList'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -695,6 +711,20 @@ class Enterprise(unittest.TestCase):
     def test_021_enterprise_querySupplierList(self):
         """【供应商】供应商信息"""
         r = api_enterprise_querySupplierList(token_scf_supplier)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_022_admission_queryBuyerList(self):
+        """【核心企业】买方列表，即核心企业子公司"""
+        coreEntName = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['entName']
+        payload = {
+            "coreEntName": coreEntName,
+        }
+        r = api_admission_queryBuyerList(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
