@@ -4,7 +4,7 @@ from common.do_config import api_host, restime
 import requests
 import json
 import unittest
-from enterprise import api_enterprise_queryEntArchivesDetail, api_admission_queryBuyerList
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail, api_admission_queryBuyerList
 from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
 
 def api_admission_queryDownList(token, payload):
