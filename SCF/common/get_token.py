@@ -1,5 +1,5 @@
 from case_api.login_password import api_login_password, encrypt
-from common.do_config import scf_financier, scf_enterprise, scf_supplier, scf_platform
+from common.do_config import scf_financier, scf_enterprise, scf_supplier, scf_platform,scf_supplier_Receive
 
 
 def get_scf_financier():

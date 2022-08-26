@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform, token_scf_enterprise, token_scf_supplier,token_scf_supplier_Receive
+from common.get_token import token_scf_platform, token_scf_enterprise, token_scf_supplier
 from common.global_variable import customize_dict
 from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 from case_api.goldenLetter_ import api_goldenLetter_queryPage
@@ -450,16 +450,15 @@ class ScfTransfer(unittest.TestCase):
         }
         ID = api_goldenLetter_queryPage(token_scf_enterprise, payload).json()["datas"][0]["id"]
         g_d["coreSub"] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
-        g_d["receiver"] = api_enterprise_queryEntArchivesDetail(token_scf_supplier_Receive).json()["datas"]["id"]
         payload = {
             "bills": ["1562284267547848706"],
             "coreSub": g_d.get("coreSub"),
             "creditEnhancerId": 1544611013257465857,
-            "id": 1562985818222440449,
+            "id": ID,
             "invoiceWithTax": "1000",
             "orderName": "合同/订单名称",
             "orderNumber": "合同/订单编号",
-            "receiver": g_d.get("receiver"),
+            "receiver": 1563001484513939458,
             "statementNumber": "对账单编号",
             "transferAmount": "	转让金额",
             "transferIntroduce": "转让说明"
