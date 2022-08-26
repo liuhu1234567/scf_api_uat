@@ -438,7 +438,7 @@ class ScfProjectBasis(unittest.TestCase):
                 "link": "",
                 "scfProjectFlowEnterReq": {
                     "name": f"准入流程名称{get_number(6)}",
-                    "step": 2,
+                    "step": 1,
                     "flowItems": [
                         {
                             "id": "",
@@ -450,18 +450,6 @@ class ScfProjectBasis(unittest.TestCase):
                             "isPush": False,
                             "reportId": "",
                             "num": 1,
-                            "subs": []
-                        },
-                        {
-                            "id": "",
-                            "flowId": "",
-                            "customerType": "11",
-                            "customerTypeName": "平台方",
-                            "isExternal": False,
-                            "isProtocol": False,
-                            "isPush": False,
-                            "reportId": "",
-                            "num": 2,
                             "subs": []
                         }
                     ]
@@ -474,7 +462,7 @@ class ScfProjectBasis(unittest.TestCase):
                 "useScope": 1,
                 "scfProjectFlowReq": {
                     "name": f"授信流程名称{get_number(6)}",
-                    "step": 2,
+                    "step": 1,
                     "flowItems": [
                         {
                             "id": "",
@@ -486,18 +474,6 @@ class ScfProjectBasis(unittest.TestCase):
                             "isPush": False,
                             "reportId": "",
                             "num": 1,
-                            "subs": []
-                        },
-                        {
-                            "id": "",
-                            "flowId": "",
-                            "customerType": "11",
-                            "customerTypeName": "平台方",
-                            "isExternal": False,
-                            "isProtocol": False,
-                            "isPush": False,
-                            "reportId": "",
-                            "num": 2,
                             "subs": []
                         }
                     ]
@@ -513,7 +489,7 @@ class ScfProjectBasis(unittest.TestCase):
                 "financeRate": "2.02",
                 "scfProjectFlowReq": {
                     "name": f"融资流程名称{get_number(6)}",
-                    "step": 2,
+                    "step": 1,
                     "flowItems": [
                         {
                             "id": "",
@@ -525,18 +501,6 @@ class ScfProjectBasis(unittest.TestCase):
                             "isPush": False,
                             "reportId": "",
                             "num": 1,
-                            "subs": []
-                        },
-                        {
-                            "id": "",
-                            "flowId": "",
-                            "customerType": "11",
-                            "customerTypeName": "平台方",
-                            "isExternal": False,
-                            "isProtocol": False,
-                            "isPush": False,
-                            "reportId": "",
-                            "num": 2,
                             "subs": []
                         }
                     ]
