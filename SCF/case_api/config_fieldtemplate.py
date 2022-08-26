@@ -39,7 +39,7 @@ def api_config_fieldtemplate_list(token, payload):
 
 
 class ConfigFieldtemplate(unittest.TestCase):
-    def test_config_fieldtemplate_detail(self):
+    def test_001_config_fieldtemplate_detail(self):
         """详情"""
         payload = {
             "templateId": 0
@@ -52,7 +52,7 @@ class ConfigFieldtemplate(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_config_fieldtemplate_list(self):
+    def test_002_config_fieldtemplate_list(self):
         """分页查询列表"""
         payload = {
             "createBy": "",
