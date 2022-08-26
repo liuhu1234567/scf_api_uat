@@ -438,7 +438,7 @@ class Enterprise(unittest.TestCase):
             "contactEmail": email,
             "contactMobile": phone,
             "contactPosition": "",
-            "creditCode": '91430111MA4L16JQ9B',
+            "creditCode": number,
             "detailedAddress": "深圳",
             "entName": company_name,
             "entScale": 0,
@@ -464,13 +464,11 @@ class Enterprise(unittest.TestCase):
 
     def test_006_enterprise_step2_valid(self):
         """企业认证步骤2-检测银行卡"""
-        number = get_number(6)
         payload = {
-            "accountTitle": f"账户{number}",
-            "bankDepositNo": get_card_number(),
-            "bankOutlet": "恒生银行中国有限公司深圳分行",
-            "bankAccount": get_card_number(),
-            "validMoney": "1"
+            "bankAccountDebutNo": "深圳市天富包装制品有限公司",
+            "bankAccountName": f"账户{get_number(6)}",
+            "bankAccountNo": get_card_number(),
+            "bankAccountSite": "恒生银行中国有限公司深圳分行"
         }
         r = api_enterprise_step2_valid(token_scf_supplier, payload)
         r_json = r.json()
@@ -485,10 +483,10 @@ class Enterprise(unittest.TestCase):
         """【供应商/经销商】企业认证步骤2-开通电子签章"""
         number = get_number(6)
         payload = {
-            "accountTitle": f"账户{number}",
-            "bankDepositNo": get_card_number(),
-            "bankOutlet": "恒生银行中国有限公司深圳分行",
-            "bankAccount": get_card_number(),
+            "bankAccountDebutNo": "深圳市天富包装制品有限公司",
+            "bankAccountName": f"账户{get_number(6)}",
+            "bankAccountNo": get_card_number(),
+            "bankAccountSite": "恒生银行中国有限公司深圳分行",
             "originalTxSn": g_d.get('originalTxSn'),
             "validMoney": "1"
         }
