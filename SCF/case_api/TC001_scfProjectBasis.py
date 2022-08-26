@@ -5,7 +5,7 @@ from common.do_faker import get_number
 import json
 import requests
 import unittest
-from enterprise import api_enterprise_queryEntArchivesDetail
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 
 
 def api_scfProjectBasis_listProjectBasis(token):
