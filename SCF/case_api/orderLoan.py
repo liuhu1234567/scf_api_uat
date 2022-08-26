@@ -168,7 +168,7 @@ def insert_excel_importOrderFromExcel(num):
 
 class OrderLoan(unittest.TestCase):
     def test_001_orderLoan_import(self):
-        """【供应商】列表"""
+        """【供应商】导入"""
         file_name = insert_excel_importOrderFromExcel(3)
         path = api_template_uploadfile(token_scf_platform, file_name).json()['datas']['path']
         fileId = "group1/" + path
@@ -184,7 +184,7 @@ class OrderLoan(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_002_orderLoan_list(self):
-        """【供应商】买方列表，即核心企业子公司"""
+        """【供应商】列表"""
         payload = {
             "num": 1,
             "size": 10,

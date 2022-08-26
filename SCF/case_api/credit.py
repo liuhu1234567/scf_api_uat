@@ -8,6 +8,7 @@ import unittest
 from enterprise import api_enterprise_queryEntArchivesDetail
 from TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
 
+
 def api_credit_insert(token, payload):
     """新增授信"""
     url = f'{api_host}/api-scf/credit/insert'
@@ -24,9 +25,9 @@ def api_credit_insert(token, payload):
     return r
 
 
-def api_credit_pullByProjectId(token, payload):
-    """通过授信中的项目ID，获取数据表信息"""
-    url = f'{api_host}/api-scf/credit/pullByProjectId'
+def api_credit_queryConfigSet(token, payload):
+    """根据项目id查询基础项配置,授信配置,流程配置"""
+    url = f'{api_host}/api-scf/credit/queryConfigSet'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "2",
@@ -38,7 +39,6 @@ def api_credit_pullByProjectId(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_credit_update(token, payload):
     """修改授信"""
@@ -168,6 +168,9 @@ def api_credit_delete(token, payload):
     return r
 
 
+g_d = {}
+
+
 class Credit(unittest.TestCase):
     def test_001_credit_insert(self):
         """【供应商】新增授信"""
@@ -194,18 +197,20 @@ class Credit(unittest.TestCase):
         }
         r = api_credit_insert(token_scf_supplier, payload)
         r_json = r.json()
+        g_d['id'] = r_json['datas']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_002_credit_pullByProjectId(self):
-        """【供应商】通过授信中的项目ID，获取数据表信息"""
+    def test_002_credit_insert(self):
+        """【供应商】根据项目id查询基础项配置,授信配置,流程配置"""
+        id = api_scfProjectBasis_listProjectBasis(token_scf_supplier).json()['datas'][0]['id']
         payload = {
-            "id": 0
+            "id": id
         }
-        r = api_credit_pullByProjectId(token_scf_supplier, payload)
+        r = api_credit_queryConfigSet(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -214,7 +219,7 @@ class Credit(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_003_credit_update(self):
-        """【供应商】通过授信中的项目ID，获取数据表信息"""
+        """【供应商】修改授信"""
         payload = {
             "auditFlowItemId": 0,
             "auditOpinion": "",
@@ -234,7 +239,7 @@ class Credit(unittest.TestCase):
             "financialInstitutionName": "金融机构名称",
             "financialProductId": 1,
             "financialProductName": "金融产品名称",
-            "id": "",
+            "id": g_d.get('id'),
             "projectId": 1,
             "projectName": "项目名称",
             "updateBy": "",
@@ -258,8 +263,8 @@ class Credit(unittest.TestCase):
             "financialInstitutionName": "",
             "financialProductName": "",
             "id": 0,
-            "num": 0,
-            "size": 0,
+            "num": 1,
+            "size": 10,
             "updateBy": 0,
             "updateTime": ""
         }
@@ -272,7 +277,7 @@ class Credit(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_005_credit_queryAuditPage(self):
-        """【资金方】分页查询审核授信"""
+        """【平台方】分页查询审核授信"""
         payload = {
             "auditStatus": 0,
             "createBy": 0,
@@ -281,12 +286,12 @@ class Credit(unittest.TestCase):
             "financialInstitutionName": "",
             "financialProductName": "",
             "id": 0,
-            "num": 0,
-            "size": 0,
+            "num": 1,
+            "size": 10,
             "updateBy": 0,
             "updateTime": ""
         }
-        r = api_credit_queryAuditPage(token_scf_financier, payload)
+        r = api_credit_queryAuditPage(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -295,7 +300,7 @@ class Credit(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_006_credit_update_auditStatus(self):
-        """【资金方】审核"""
+        """【平台方】审核"""
         payload = {
             "auditEntId": 0,
             "auditFlowItemId": 0,
@@ -303,10 +308,10 @@ class Credit(unittest.TestCase):
             "auditStatus": 0,
             "busType": "",
             "entId": 0,
-            "id": 0,
+            "id": g_d.get('id'),
             "projectId": 0
         }
-        r = api_credit_update_auditStatus(token_scf_financier, payload)
+        r = api_credit_update_auditStatus(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -330,7 +335,7 @@ class Credit(unittest.TestCase):
     def test_008_credit_get(self):
         """【供应商】获取授信"""
         payload = {
-            "id": 0
+            "id": g_d.get('id')
         }
         r = api_credit_get(token_scf_supplier, payload)
         r_json = r.json()
@@ -358,7 +363,7 @@ class Credit(unittest.TestCase):
     def test_010_credit_delete(self):
         """【平台方】删除授信"""
         payload = {
-            "id": 0
+            "id": g_d.get('id')
         }
         r = api_credit_delete(token_scf_platform, payload)
         r_json = r.json()
@@ -367,4 +372,3 @@ class Credit(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
-

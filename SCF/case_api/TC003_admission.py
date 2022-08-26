@@ -1,5 +1,5 @@
 from common.global_variable import customize_dict
-from common.get_token import token_scf_supplier, token_scf_financier, token_scf_enterprise, token_scf_platform
+from common.get_token import token_scf_supplier, token_scf_enterprise, token_scf_platform
 from common.do_config import api_host, restime
 import requests
 import json
@@ -206,7 +206,7 @@ class Admission(unittest.TestCase):
         creditCode = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']['creditCode']
         g_d['entId'] = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']['id']
         entName = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']['entName']
-        coreEntId = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['id']
+        g_d['coreEntId'] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['id']
         coreEntName = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['entName']
         payload = {
             "coreEntName": coreEntName,
@@ -216,7 +216,7 @@ class Admission(unittest.TestCase):
         payload = {
             "buyerEntId": g_d.get('buyerEntId'),
             "buyerEntName": g_d.get('buyerEntName'),
-            "coreEntId": coreEntId,
+            "coreEntId": g_d.get('coreEntId'),
             "coreEntName": coreEntName,
             "creditCode": creditCode,
             "entId": g_d.get('entId'),
@@ -257,6 +257,7 @@ class Admission(unittest.TestCase):
         }
         r = api_admission_queryById(token_scf_supplier, payload)
         r_json = r.json()
+        g_d['auditFlowItemId'] = r_json['datas']['auditFlowItemId']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
@@ -299,18 +300,18 @@ class Admission(unittest.TestCase):
     def test_009_admission_update_auditStatus(self):
         """【平台方】审核"""
         payload = {
-            "auditEntId": 1,
-            "auditFlowItemId": 2,
+            "buyerEntId": g_d.get('buyerEntId'),
+            "auditEntId": g_d.get('entId'),
+            "auditFlowItemId": g_d.get('auditFlowItemId'),
             "auditOpinion": "",
-            "auditStatus": 0,
+            "auditStatus": 3,
             "busType": "",
-            "creditEnhancerId": 0,
-            "entId": 0,
+            "coreEntId": "",
+            "entId": g_d.get('entId'),
             "id": g_d.get('id'),
-            "projectId": 0,
-            "recipientId": 0
+            "projectId": g_d.get('projectId')
         }
-        r = api_admission_update_auditStatus(token_scf_platform, payload)
+        r = api_admission_update_auditStatus(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
