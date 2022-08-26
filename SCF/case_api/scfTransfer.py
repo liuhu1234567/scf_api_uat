@@ -1,6 +1,8 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform
+from common.get_token import token_scf_platform, token_scf_enterprise, token_scf_supplier,token_scf_supplier_Receive
 from common.global_variable import customize_dict
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail
+from case_api.goldenLetter_ import api_goldenLetter_queryPage
 from common.do_faker import get_number
 import requests
 import unittest
@@ -233,6 +235,9 @@ def api_scfTransfer_transfer(token, payload):
     return r
 
 
+g_d = {}
+
+
 class ScfTransfer(unittest.TestCase):
     def test_001_scfTransfer_audit(self):
         """审核"""
@@ -343,9 +348,9 @@ class ScfTransfer(unittest.TestCase):
             "currentHolder": "",
             "founderEnt": "",
             "goldenLetterCode": "",
-            "num": 0,
+            "num": 1,
             "paymentStatus": 0,
-            "size": 0
+            "size": 10
         }
         r = api_scfTransfer_searchSupplier(token_scf_platform, payload)
         r_json = r.json()
@@ -433,18 +438,31 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_014_scfTransfer_transfer(self):
-        """保存转让信息"""
+        """【供应商】发起转让保存转让信息"""
         payload = {
-            "bills": [],
-            "creditEnhancement": "",
-            "id": 0,
-            "invoiceWithTax": "",
-            "orderName": "",
-            "orderNumber": "",
-            "receiver": 0,
-            "statementNumber": "",
-            "transferAmount": "",
-            "transferIntroduce": ""
+            "auditStatus": 1,
+            "currentHolder": "",
+            "founderEnt": "",
+            "goldenLetterCode": "",
+            "num": 1,
+            "paymentStatus": 0,
+            "size": 10
+        }
+        ID = api_goldenLetter_queryPage(token_scf_enterprise, payload).json()["datas"][0]["id"]
+        g_d["coreSub"] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
+        g_d["receiver"] = api_enterprise_queryEntArchivesDetail(token_scf_supplier_Receive).json()["datas"]["id"]
+        payload = {
+            "bills": ["1562284267547848706"],
+            "coreSub": g_d.get("coreSub"),
+            "creditEnhancerId": 1544611013257465857,
+            "id": 1562985818222440449,
+            "invoiceWithTax": "1000",
+            "orderName": "合同/订单名称",
+            "orderNumber": "合同/订单编号",
+            "receiver": g_d.get("receiver"),
+            "statementNumber": "对账单编号",
+            "transferAmount": "	转让金额",
+            "transferIntroduce": "转让说明"
         }
         r = api_scfTransfer_transfer(token_scf_platform, payload)
         r_json = r.json()

@@ -1,7 +1,8 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_supplier
+from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
 from config.all_path import get_file_path
+from case_api.scfProjectBasis import api_scfProjectBasis_listProjectBasisByType
 import requests
 import unittest
 import json
@@ -95,10 +96,10 @@ def api_template_upload_file(token, file_name):
 
 class OtherApi(unittest.TestCase):
     def test_001_otherApi_initDropdownListInfo(self):
-        """枚举下拉列表信息集"""
+        """【平台方】枚举下拉列表信息集"""
         payload = {
         }
-        r = api_otherApi_initDropdownListInfo(token_scf_supplier, payload)
+        r = api_otherApi_initDropdownListInfo(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -107,7 +108,7 @@ class OtherApi(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_002_otherApi_queryById(self):
-        """根据传入的ID集返回名称详情"""
+        """【平台方】根据传入的ID集返回名称详情"""
         payload = [
             {
                 "institutionId": 0,
@@ -117,7 +118,7 @@ class OtherApi(unittest.TestCase):
                 "tenantId": 0
             }
         ]
-        r = api_otherApi_queryById(token_scf_supplier, payload)
+        r = api_otherApi_queryById(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -126,10 +127,10 @@ class OtherApi(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_003_otherApi_queryDownList(self):
-        """项目列表，核心企业，金融产品，金融机构下拉列表"""
+        """【平台方】项目列表，核心企业，金融产品，金融机构下拉列表"""
         payload = {
         }
-        r = api_otherApi_queryDownList(token_scf_supplier, payload)
+        r = api_otherApi_queryDownList(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -138,11 +139,15 @@ class OtherApi(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_004_otherApi_queryProjectInfo(self):
-        """服务-查询项目相关信息"""
+        """【平台方】服务-查询项目相关信息"""
         payload = {
-            "itemId": 0
+            "businessType": ""
         }
-        r = api_otherApi_queryProjectInfo(token_scf_supplier, payload)
+        itemId = api_scfProjectBasis_listProjectBasisByType(token_scf_platform, payload).json()["datas"][0]["id"]
+        payload = {
+            "itemId": itemId
+        }
+        r = api_otherApi_queryProjectInfo(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -151,8 +156,8 @@ class OtherApi(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_005_template_upload_file(self):
-        """上传文件"""
-        r = api_template_upload_file(token_scf_supplier, "test.png")
+        """【平台方】上传文件"""
+        r = api_template_upload_file(token_scf_platform, "test.png")
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

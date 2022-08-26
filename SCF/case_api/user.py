@@ -79,8 +79,6 @@ class User(unittest.TestCase):
 
     def test_002_user_auth_user_role(self):
         """【平台方】用户分配角色"""
-        rolename = get_name()
-        descnum = get_number(10)
         payload = {
             "roleId": 0,
             "userId": 0
@@ -97,8 +95,6 @@ class User(unittest.TestCase):
 
     def test_003_user_query_users_page(self):
         """【平台方】用户分页查询"""
-        rolename = get_name()
-        descnum = get_number(10)
         payload = {
             "num": 1,
             "size": 10,
