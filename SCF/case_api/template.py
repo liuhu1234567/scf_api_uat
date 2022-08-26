@@ -8,7 +8,7 @@ from config.all_path import get_file_path
 from common.do_faker import get_number
 
 
-def api_template_uploadfile(token, file_name):
+def api_template_upload_file(token, file_name):
     """上传文件"""
     url = f'{api_host}/api-scf/template/upload/file'
     headers = {
@@ -128,7 +128,7 @@ g_d = {}
 class Template(unittest.TestCase):
     def test_001_template_uploadfile(self):
         """【平台方】上传文件"""
-        r = api_template_uploadfile(token_scf_supplier, 'test.png')
+        r = api_template_upload_file(token_scf_supplier, 'test.png')
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
