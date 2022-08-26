@@ -5,8 +5,8 @@ import random
 import requests
 import json
 import unittest
-from enterprise import api_enterprise_queryEntArchivesDetail
-from TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail
+from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
 
 
 def api_credit_insert(token, payload):

@@ -5,7 +5,7 @@ import requests
 import json
 import unittest
 from jsonpath import jsonpath
-from scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
+from case_api.scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
 
 
 def api_scfProjectApply_isCertificate(token, payload):

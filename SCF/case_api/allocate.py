@@ -4,7 +4,7 @@ from common.do_config import api_host, restime
 import requests
 import json
 import unittest
-from enterprise import api_enterprise_queryEntArchivesDetail
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 
 
 def api_allocate_insert(token, payload):

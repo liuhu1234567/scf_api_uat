@@ -5,7 +5,7 @@ import requests
 import json
 import unittest
 from enterprise import api_enterprise_queryEntArchivesDetail, api_admission_queryBuyerList
-from TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
+from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
 
 def api_admission_queryDownList(token, payload):
     """项目列表，核心企业，金融产品，金融机构下拉列表"""
