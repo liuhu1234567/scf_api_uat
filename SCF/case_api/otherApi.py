@@ -2,7 +2,7 @@ from common.do_config import api_host, restime
 from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
 from config.all_path import get_file_path
-from case_api.scfProjectBasis import api_scfProjectBasis_listProjectBasisByType
+from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasisByType
 import requests
 import unittest
 import json
