@@ -4,6 +4,7 @@ from common.do_config import api_host, restime
 import requests
 import json
 import unittest
+from TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
 
 
 def api_lending_save(token, payload):
@@ -118,6 +119,9 @@ def api_lending_download(token, payload):
     return r
 
 
+g_d = {}
+
+
 class Lending(unittest.TestCase):
     def test_001_lending_save(self):
         """【平台方】新增"""
@@ -137,8 +141,9 @@ class Lending(unittest.TestCase):
 
     def test_002_lending_findByItem(self):
         """【平台方】通过项目查询"""
+        g_d['projectId'] = api_scfProjectBasis_listProjectBasis(token_scf_platform).json()['datas'][0]['id']
         payload = {
-            "projectId": 0
+            "projectId": g_d.get('projectId')
         }
         r = api_lending_findByItem(token_scf_platform, payload)
         r_json = r.json()
@@ -154,7 +159,7 @@ class Lending(unittest.TestCase):
             "bankId": 0,
             "coreId": 0,
             "productId": 0,
-            "projectId": 0
+            "projectId": g_d.get('projectId')
         }
         r = api_lending_findDataTable(token_scf_platform, payload)
         r_json = r.json()
@@ -207,10 +212,13 @@ class Lending(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_006_lending_download(self):
+    def test_007_lending_download(self):
         """【平台方】放款下载"""
         payload = {
-            "ids": []
+            "bankId": 0,
+            "coreId": 0,
+            "productId": 0,
+            "projectId": g_d.get('projectId')
         }
         r = api_lending_download(token_scf_platform, payload)
         r_json = r.json()
