@@ -635,7 +635,7 @@ class Enterprise(unittest.TestCase):
 
     def test_014_enterprise_queryEntArchivesDetail(self):
         """【供应商】企业档案详情-当前用户"""
-        r = api_enterprise_queryEntArchivesDetail(token_scf_supplier)
+        r = api_enterprise_queryEntArchivesDetail(token_scf_enterprise)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

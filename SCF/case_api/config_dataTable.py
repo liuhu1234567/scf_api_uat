@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_supplier
+from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
 import requests
 import unittest
@@ -207,13 +207,125 @@ def api_config_dataTable_update(token, payload):
     return r
 
 
+def api_config_dataTable_filterItemId(token, payload):
+    """服务接口 - 获取过滤模板类型的项目ID集合"""
+    url = f'{api_host}/api-scf-data/config/dataTable/filterItemId'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_config_dataTable_findDataTable(token, payload):
+    """服务接口 - 获取单个数据表"""
+    url = f'{api_host}/api-scf-data/config/dataTable/findDataTable'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_config_dataTable_getOne(token, payload):
+    """服务接口 - 获取单个数据表"""
+    url = f'{api_host}/api-scf-data/config/dataTable/getOne'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_config_dataTable_lending_getTotalAmt(token, payload):
+    """服务接口-放款获取合作商放款金额"""
+    url = f'{api_host}/api-scf-data/config/dataTable/lending/getTotalAmt'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_config_dataTable_onlyViewDateTable(token, payload):
+    """服务-获取数据表数据 - 仅仅针对只查看的数据表"""
+    url = f'{api_host}/api-scf-data/config/dataTable/onlyViewDateTable'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_config_dataTable_templateData_download(token, payload):
+    """服务接口 - 放款数据下载"""
+    url = f'{api_host}/api-scf-data/config/dataTable/templateData/download'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_config_dataTable_templateData_all(token, payload):
+    """数据表模板下拉列表"""
+    url = f'{api_host}/api-scf-data/config/dataTable/templateList/all'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
 class ConfigDataTable(unittest.TestCase):
     def test_001_config_dataTable_customerList(self):
         """可查看的客户类型"""
-        r = api_config_dataTable_customerList(token_scf_supplier)
+        r = api_config_dataTable_customerList(token_scf_platform)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -226,7 +338,7 @@ class ConfigDataTable(unittest.TestCase):
         payload = {
             "id": 1549312997482921986
         }
-        r = api_config_dataTable_detail(token_scf_supplier, payload)
+        r = api_config_dataTable_detail(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -239,7 +351,7 @@ class ConfigDataTable(unittest.TestCase):
         payload = {
             "templateId": 1
         }
-        r = api_config_dataTable_fieldTable(token_scf_supplier, payload)
+        r = api_config_dataTable_fieldTable(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -260,7 +372,7 @@ class ConfigDataTable(unittest.TestCase):
             "updateBy": 0,
             "updateTime": ""
         }
-        r = api_config_dataTable_list(token_scf_supplier, payload)
+        r = api_config_dataTable_list(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -270,7 +382,7 @@ class ConfigDataTable(unittest.TestCase):
 
     def test_005_config_dataTable_templateList_all(self):
         """数据字段来源列表"""
-        r = api_config_dataTable_templateList_all(token_scf_supplier)
+        r = api_config_dataTable_templateList_all(token_scf_platform)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -351,7 +463,7 @@ class ConfigDataTable(unittest.TestCase):
             "tenantType": "3,4,5",
             "type": 1
         }
-        r = api_config_dataTable_save(token_scf_supplier, payload)
+        r = api_config_dataTable_save(token_scf_platform, payload)
         r_json = r.json()
         g_d['id'] = r_json['datas']
         restime_now = r.elapsed.total_seconds()
@@ -434,7 +546,7 @@ class ConfigDataTable(unittest.TestCase):
             "tenantType": "3,4,5",
             "type": 1
         }
-        r = api_config_dataTable_update(token_scf_supplier, payload)
+        r = api_config_dataTable_update(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -444,7 +556,7 @@ class ConfigDataTable(unittest.TestCase):
 
     def test_008_config_dataTable_allSelect(self):
         """数据表页面下拉列表集合"""
-        r = api_config_dataTable_allSelect(token_scf_supplier)
+        r = api_config_dataTable_allSelect(token_scf_platform)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -454,7 +566,7 @@ class ConfigDataTable(unittest.TestCase):
 
     def test_009_config_dataTable_getList(self):
         """数据表列表"""
-        r = api_config_dataTable_getList(token_scf_supplier)
+        r = api_config_dataTable_getList(token_scf_platform)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -471,7 +583,7 @@ class ConfigDataTable(unittest.TestCase):
             "repyAccList": [],
             "tableId": 0
         }
-        r = api_config_dataTable_list_all(token_scf_supplier, payload)
+        r = api_config_dataTable_list_all(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -487,7 +599,7 @@ class ConfigDataTable(unittest.TestCase):
             ],
             "tableId": 0
         }
-        r = api_config_dataTable_templateData_save(token_scf_supplier, payload)
+        r = api_config_dataTable_templateData_save(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -501,7 +613,112 @@ class ConfigDataTable(unittest.TestCase):
             "data": {},
             "tableId": 0
         }
-        r = api_config_dataTable_templateData_update(token_scf_supplier, payload)
+        r = api_config_dataTable_templateData_update(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_013_config_dataTable_filterItemId(self):
+        """服务接口 - 获取过滤模板类型的项目ID集合"""
+        payload = {
+            "kind": 0
+        }
+        r = api_config_dataTable_filterItemId(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_014_config_dataTable_findDataTable(self):
+        """服务间接口-确定数据表"""
+        payload = {
+            "bankId": 0,
+            "coreId": 0,
+            "productId": 0,
+            "projectId": 0
+        }
+        r = api_config_dataTable_findDataTable(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_015_config_dataTable_getOne(self):
+        """服务接口 - 获取单个数据表"""
+        payload = {
+            "tableId": 0
+        }
+        r = api_config_dataTable_getOne(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_016_config_dataTable_lending_getTotalAmt(self):
+        """服务接口-放款获取合作商放款金额"""
+        payload = {
+            "kind": 0,
+            "lendingList": [
+                {
+                    "bankId": 0,
+                    "creditCode": ""
+                }
+            ]
+        }
+        r = api_config_dataTable_lending_getTotalAmt(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_017_config_dataTable_onlyViewDateTable(self):
+        """服务-获取数据表数据 - 仅仅针对只查看的数据表"""
+        payload = {
+            "ctfNum": "",
+            "ctfTp": "",
+            "lndEntpCtfNum": "",
+            "repyAccList": [],
+            "tableId": 0
+        }
+        r = api_config_dataTable_onlyViewDateTable(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_018_config_dataTable_templateData_download(self):
+        """服务接口 - 放款数据下载"""
+        payload = {
+            "dataTableId": 0,
+            "lndEntpCtfNum": "",
+            "repyAccList": []
+        }
+        r = api_config_dataTable_templateData_download(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_019_config_dataTable_templateData_all(self):
+        """数据表模板下拉列表"""
+        payload = {
+        }
+        r = api_config_dataTable_templateData_all(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

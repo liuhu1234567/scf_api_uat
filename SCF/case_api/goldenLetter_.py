@@ -8,7 +8,7 @@ from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 import requests
 import unittest
 import json
-import random
+import time
 
 """金点信"""
 
@@ -275,12 +275,14 @@ def insert_excel_importCustomerFromExcel(num):
     for n in range(num):
         row_value = (
             n + 1,
-            get_company(),
             get_number(10),
-            get_name(),
-            get_phone(),
-            get_email(),
-            random.choice(['核心企业', '供应商', '经销商', '银行', '保理商'])
+            get_number(10),
+            get_company(),
+            get_number(4),
+            get_number(4),
+            get_number(6),
+            time.strftime("%Y-%m-%d", time.localtime()),
+            get_number(10)
         )
         excel.insert(row_value, 3 + n)
     file_name = excel.save()
@@ -306,7 +308,8 @@ class GoldenLetter(unittest.TestCase):
 
     def test_002_goldenLetter_open_importBillExcel(self):
         """开立-导入发票"""
-        path = api_template_uploadfile(token_scf_platform, '导入发票模板.xlsx').json()["datas"]["path"]
+        file_name = insert_excel_importCustomerFromExcel(1)
+        path = api_template_uploadfile(token_scf_platform, file_name).json()["datas"]["path"]
         fileId_new = "group1/" + path
         payload = {
             "fileId": fileId_new
@@ -442,12 +445,12 @@ class GoldenLetter(unittest.TestCase):
             "auditOpinion": "",
             "auditStatus": 3,
             "busType": "",
-            "creditEnhancerId": 0,
+            "coreEntId": 0,
+            "creditEnhancerId": 1549224468155265025,
             "entId": g_d.get("coreEntId"),
             "id": g_d.get("id"),
             "projectId": 0,
-            "recipientId": g_d.get("recipientId"),
-            "coreEntId": g_d.get("coreEntId")
+            "recipientId": g_d.get("recipientId")
         }
         r = api_goldenLetter_open_updateAuditStatus(token_scf_enterprise, payload)
         r_json = r.json()
@@ -482,7 +485,7 @@ class GoldenLetter(unittest.TestCase):
             "paymentStatus": 0,
             "size": 10
         }
-        r = api_goldenLetter_queryPage(token_scf_platform, payload)
+        r = api_goldenLetter_queryPage(token_scf_enterprise, payload)
         r_json = r.json()
         g_d["goldenLetterId"] = r_json["datas"][0]["id"]
         restime_now = r.elapsed.total_seconds()
