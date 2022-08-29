@@ -4,8 +4,10 @@ from common.do_config import api_host, restime
 import requests
 import json
 import unittest
-from case_api.enterprise import api_enterprise_queryEntArchivesDetail, api_enterprise_queryBuyerList
-from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
+from case_api.enterprise import api_enterprise_queryBuyerList
+from case_api.TC001_scfProjectBasis import api_scfProjectBasis_queryProjectBasicInfo
+from scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
+
 
 def api_admission_queryDownList(token, payload):
     """项目列表，核心企业，金融产品，金融机构下拉列表"""
@@ -161,12 +163,6 @@ class Admission(unittest.TestCase):
         payload = {}
         r = api_admission_queryDownList(token_scf_supplier, payload)
         r_json = r.json()
-        g_d['projectId'] = r_json['datas']['listProject'][0]['id']
-        g_d['projectName'] = r_json['datas']['listProject'][0]['name']
-        g_d['productId'] = r_json['datas']['listFinanceProduct'][0]['id']
-        g_d['productName'] = r_json['datas']['listFinanceProduct'][0]['name']
-        g_d['financeId'] = r_json['datas']['listBank'][0]['id']
-        g_d['financeName'] = r_json['datas']['listBank'][0]['name']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
@@ -187,40 +183,43 @@ class Admission(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_003_admission_queryConfigSet(self):
-        """【供应商】根据项目id查询基础项配置,准入配置,流程配置"""
-        id = api_scfProjectBasis_listProjectBasis(token_scf_supplier).json()['datas'][0]['id']
-        payload = {
-            "id": id
-        }
-        r = api_admission_queryConfigSet(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
-    def test_004_admission_insert(self):
+    def test_003_admission_insert(self):
         """【供应商】新增"""
-        creditCode = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']['creditCode']
-        g_d['entId'] = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']['id']
-        entName = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']['entName']
-        g_d['coreEntId'] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['id']
-        coreEntName = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['entName']
         payload = {
-            "coreEntName": coreEntName,
+            "enable": True,
+            "num": 1,
+            "size": 10
         }
-        g_d['buyerEntId'] = api_enterprise_queryBuyerList(token_scf_supplier, payload).json()['datas'][0]['id']
-        g_d['buyerEntName'] = api_enterprise_queryBuyerList(token_scf_supplier, payload).json()['datas'][0]['entName']
+        projectDeliverSearch = api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload).json()['datas'][0]
+        g_d['projectId'] = projectDeliverSearch['basisId']
+        g_d['entId'] = projectDeliverSearch['enterpriseId']
+        g_d['entName'] = projectDeliverSearch['enterpriseId']
+        g_d['creditCode'] = projectDeliverSearch['creditCode']
+        g_d['projectName'] = projectDeliverSearch['projectName']
+        g_d['coreEntName'] = projectDeliverSearch['coreEntName']
+        g_d['productName'] = projectDeliverSearch['productName']
+        g_d['financeName'] = projectDeliverSearch['financeName']
+        payload = {
+            "coreEntName": g_d.get('coreEntName'),
+        }
+        queryBuyerList = api_enterprise_queryBuyerList(token_scf_enterprise, payload).json()['datas']
+        g_d['buyerEntId'] = queryBuyerList[0]['id']
+        g_d['buyerEntName'] = queryBuyerList[0]['entName']
+        payload = {
+            "projectId": g_d.get('projectId')
+        }
+        queryProjectBasicInfo = api_scfProjectBasis_queryProjectBasicInfo(token_scf_platform, payload).json()['datas']
+        g_d['coreEntId'] = queryProjectBasicInfo['enterpriseId']
+        g_d['financeId'] = queryProjectBasicInfo['bankId']
+        g_d['productId'] = queryProjectBasicInfo['scfFinanceProductId']
         payload = {
             "buyerEntId": g_d.get('buyerEntId'),
             "buyerEntName": g_d.get('buyerEntName'),
             "coreEntId": g_d.get('coreEntId'),
-            "coreEntName": coreEntName,
-            "creditCode": creditCode,
+            "coreEntName": g_d.get('coreEntName'),
+            "creditCode": g_d.get('creditCode'),
             "entId": g_d.get('entId'),
-            "entName": entName,
+            "entName": g_d.get('entName'),
             "financeId": g_d.get('financeId'),
             "financeName": g_d.get('financeName'),
             "productId": g_d.get('productId'),
@@ -231,6 +230,19 @@ class Admission(unittest.TestCase):
         r = api_admission_insert(token_scf_supplier, payload)
         r_json = r.json()
         g_d['id'] = r_json['datas']
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_004_admission_queryConfigSet(self):
+        """【供应商】根据项目id查询基础项配置,准入配置,流程配置"""
+        payload = {
+            "id": g_d.get('projectId')
+        }
+        r = api_admission_queryConfigSet(token_scf_supplier, payload)
+        r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])

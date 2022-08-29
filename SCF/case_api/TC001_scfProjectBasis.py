@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform, token_scf_enterprise, token_scf_supplier
+from common.get_token import token_scf_platform, token_scf_enterprise, token_scf_supplier, token_scf_financier
 from common.global_variable import customize_dict
 from common.do_faker import get_number
 import json
@@ -405,23 +405,21 @@ class ScfProjectBasis(unittest.TestCase):
     def test_009_scfProjectBasis_insertAllDetail(self):
         """【平台方】新增项目"""
         g_d['coreEnterpriseId'] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['id']
-        g_d['bankId'] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['id']
+        g_d['bankId'] = api_enterprise_queryEntArchivesDetail(token_scf_financier).json()['datas']['id']
         payload = {
             "scfProjectBasisReq": {
-                "id": "",
                 "bankId": g_d.get('bankId'),
                 "businessType": "3",
+                "enter": True,
                 "enterpriseId": g_d.get('coreEnterpriseId'),
                 "name": f"项目名称{get_number(6)}",
                 "open": False,
                 "refactor": False,
                 "scfFinanceProductId": g_d.get('scfFinanceProductId'),
-                "enter": True,
                 "grants": True,
                 "transfer": False,
                 "finance": True,
                 "isCoreGrant": True,
-                "bankName": "",
                 "flowName": [
                     "2",
                     "3",

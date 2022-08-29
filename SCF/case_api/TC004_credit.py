@@ -1,12 +1,12 @@
 from common.global_variable import customize_dict
-from common.get_token import token_scf_supplier, token_scf_financier, token_scf_platform
+from common.get_token import token_scf_supplier, token_scf_platform
 from common.do_config import api_host, restime
 import random
 import requests
 import json
 import unittest
-from case_api.enterprise import api_enterprise_queryEntArchivesDetail
-from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
+from case_api.TC001_scfProjectBasis import api_scfProjectBasis_queryProjectBasicInfo
+from scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
 
 
 def api_credit_insert(token, payload):
@@ -39,6 +39,7 @@ def api_credit_queryConfigSet(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
+
 
 def api_credit_update(token, payload):
     """修改授信"""
@@ -174,26 +175,41 @@ g_d = {}
 class Credit(unittest.TestCase):
     def test_001_credit_insert(self):
         """【供应商】新增授信"""
-        supplierDatas = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']
-        creditApplyCardId = supplierDatas['creditCode']
-        financierDatas = api_enterprise_queryEntArchivesDetail(token_scf_financier).json()['datas']
-        creditId = financierDatas['id']
-        creditName = financierDatas['entName']
-        projectId = api_scfProjectBasis_listProjectBasis(token_scf_supplier).json()['datas'][0]['id']
         payload = {
-            "creditApplyCardId": creditApplyCardId,
+            "enable": True,
+            "num": 1,
+            "size": 10
+        }
+        projectDeliverSearch = api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload).json()['datas'][0]
+        g_d['projectId'] = projectDeliverSearch['basisId']
+        g_d['entId'] = projectDeliverSearch['enterpriseId']
+        g_d['creditApplyCardId'] = projectDeliverSearch['creditCode']
+        g_d['projectName'] = projectDeliverSearch['projectName']
+        g_d['coreEntName'] = projectDeliverSearch['coreEntName']
+        g_d['financialProductName'] = projectDeliverSearch['productName']
+        g_d['creditName'] = projectDeliverSearch['financeName']
+        payload = {
+            "projectId": g_d.get('projectId')
+        }
+        queryProjectBasicInfo = api_scfProjectBasis_queryProjectBasicInfo(token_scf_platform, payload).json()['datas']
+        g_d['coreEntId'] = queryProjectBasicInfo['enterpriseId']
+        g_d['creditId'] = queryProjectBasicInfo['bankId']
+        g_d['financialProductId'] = queryProjectBasicInfo['scfFinanceProductId']
+        payload = {
+            "creditApplyCardId": g_d['creditApplyCardId'],
             "creditCardIdType": 1,
-            "creditId": creditId,
-            "creditName": creditName,
+            "creditId": g_d.get('creditId'),
+            "creditName": g_d.get('creditName'),
             "creditScope": 1,
             "creditType": random.randint(1, 2),
-            "enterprise": "",
-            "enterpriseId": 1111,
-            "financialInstitutionName": "",
-            "financialProductId": 1,
-            "financialProductName": "",
-            "projectId": projectId,
-            "projectName": ""
+            "enterprise": g_d.get('coreEntName'),
+            "enterpriseId": g_d.get('coreEntId'),
+            "financialInstitutionId": g_d.get('creditId'),
+            "financialInstitutionName": g_d.get('creditName'),
+            "financialProductId": g_d.get('financialProductId'),
+            "financialProductName": g_d.get('financialProductName'),
+            "projectId": g_d.get('projectId'),
+            "projectName": g_d.get('projectName')
         }
         r = api_credit_insert(token_scf_supplier, payload)
         r_json = r.json()
@@ -204,11 +220,10 @@ class Credit(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_002_credit_insert(self):
+    def test_002_credit_queryConfigSet(self):
         """【供应商】根据项目id查询基础项配置,授信配置,流程配置"""
-        id = api_scfProjectBasis_listProjectBasis(token_scf_supplier).json()['datas'][0]['id']
         payload = {
-            "id": id
+            "id": g_d.get('projectId')
         }
         r = api_credit_queryConfigSet(token_scf_supplier, payload)
         r_json = r.json()
@@ -218,7 +233,7 @@ class Credit(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_003_credit_update(self):
+    def rtest_003_credit_update(self):
         """【供应商】修改授信"""
         payload = {
             "auditFlowItemId": 0,
@@ -256,17 +271,8 @@ class Credit(unittest.TestCase):
     def test_004_credit_queryPage(self):
         """【供应商】分页查询授信"""
         payload = {
-            "auditStatus": 0,
-            "createBy": 0,
-            "createTime": "",
-            "creditApplyName": "",
-            "financialInstitutionName": "",
-            "financialProductName": "",
-            "id": 0,
             "num": 1,
-            "size": 10,
-            "updateBy": 0,
-            "updateTime": ""
+            "size": 10
         }
         r = api_credit_queryPage(token_scf_supplier, payload)
         r_json = r.json()
@@ -279,19 +285,10 @@ class Credit(unittest.TestCase):
     def test_005_credit_queryAuditPage(self):
         """【平台方】分页查询审核授信"""
         payload = {
-            "auditStatus": 0,
-            "createBy": 0,
-            "createTime": "",
-            "creditApplyName": "",
-            "financialInstitutionName": "",
-            "financialProductName": "",
-            "id": 0,
             "num": 1,
-            "size": 10,
-            "updateBy": 0,
-            "updateTime": ""
+            "size": 10
         }
-        r = api_credit_queryAuditPage(token_scf_platform, payload)
+        r = api_credit_queryAuditPage(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -300,18 +297,20 @@ class Credit(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_006_credit_update_auditStatus(self):
-        """【平台方】审核"""
+        """【供应商】审核"""
         payload = {
+            "auditAmount": 0,
             "auditEntId": 0,
             "auditFlowItemId": 0,
             "auditOpinion": "",
-            "auditStatus": 0,
+            "auditStatus": 3,
             "busType": "",
+            "coreEntId": 0,
             "entId": 0,
             "id": g_d.get('id'),
             "projectId": 0
         }
-        r = api_credit_update_auditStatus(token_scf_platform, payload)
+        r = api_credit_update_auditStatus(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -348,9 +347,9 @@ class Credit(unittest.TestCase):
     def test_009_credit_getCreditAmount(self):
         """【供应商】获取授信额度"""
         payload = {
-            "creditId": 0,
-            "projectId": 0,
-            "tenantId": 0
+            "creditId": g_d.get('creditId'),
+            "projectId": g_d.get('projectId'),
+            "tenantId": g_d.get('entId')
         }
         r = api_credit_getCreditAmount(token_scf_supplier, payload)
         r_json = r.json()
