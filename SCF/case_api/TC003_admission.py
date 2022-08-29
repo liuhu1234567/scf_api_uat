@@ -4,7 +4,7 @@ from common.do_config import api_host, restime
 import requests
 import json
 import unittest
-from case_api.enterprise import api_enterprise_queryEntArchivesDetail, api_admission_queryBuyerList
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail, api_enterprise_queryBuyerList
 from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
 
 def api_admission_queryDownList(token, payload):
@@ -211,8 +211,8 @@ class Admission(unittest.TestCase):
         payload = {
             "coreEntName": coreEntName,
         }
-        g_d['buyerEntId'] = api_admission_queryBuyerList(token_scf_supplier, payload).json()['datas'][0]['id']
-        g_d['buyerEntName'] = api_admission_queryBuyerList(token_scf_supplier, payload).json()['datas'][0]['entName']
+        g_d['buyerEntId'] = api_enterprise_queryBuyerList(token_scf_supplier, payload).json()['datas'][0]['id']
+        g_d['buyerEntName'] = api_enterprise_queryBuyerList(token_scf_supplier, payload).json()['datas'][0]['entName']
         payload = {
             "buyerEntId": g_d.get('buyerEntId'),
             "buyerEntName": g_d.get('buyerEntName'),
