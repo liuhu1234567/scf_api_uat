@@ -2,7 +2,6 @@ from common.do_config import api_host, restime
 from common.get_token import token_scf_platform, token_scf_enterprise, token_scf_supplier
 from common.global_variable import customize_dict
 from case_api.enterprise import api_enterprise_queryEntArchivesDetail
-from case_api.goldenLetter_ import api_goldenLetter_queryPage
 from common.do_faker import get_number
 import requests
 import unittest
@@ -375,9 +374,9 @@ class ScfTransfer(unittest.TestCase):
     def test_009_scfTransfer_sign(self):
         """签收"""
         payload = {
-            "id": 0
+            "id": 1564090769279369218
         }
-        r = api_scfTransfer_sign(token_scf_platform, payload)
+        r = api_scfTransfer_sign(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -427,7 +426,7 @@ class ScfTransfer(unittest.TestCase):
     def test_013_scfTransfer_toTransfer(self):
         """跳转至转让页面.入参：金点信记录ID"""
         payload = {
-            "id": 0
+            "id": 1564090769279369218
         }
         r = api_scfTransfer_toTransfer(token_scf_platform, payload)
         r_json = r.json()
@@ -439,22 +438,12 @@ class ScfTransfer(unittest.TestCase):
 
     def test_014_scfTransfer_transfer(self):
         """【供应商】发起转让保存转让信息"""
-        payload = {
-            "auditStatus": 1,
-            "currentHolder": "",
-            "founderEnt": "",
-            "goldenLetterCode": "",
-            "num": 1,
-            "paymentStatus": 0,
-            "size": 10
-        }
-        ID = api_goldenLetter_queryPage(token_scf_enterprise, payload).json()["datas"][0]["id"]
         g_d["coreSub"] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
         payload = {
             "bills": ["1562284267547848706"],
             "coreSub": g_d.get("coreSub"),
             "creditEnhancerId": 1544611013257465857,
-            "id": ID,
+            "id": 1564090769279369218,
             "invoiceWithTax": "1000",
             "orderName": "合同/订单名称",
             "orderNumber": "合同/订单编号",
@@ -463,7 +452,7 @@ class ScfTransfer(unittest.TestCase):
             "transferAmount": "	转让金额",
             "transferIntroduce": "转让说明"
         }
-        r = api_scfTransfer_transfer(token_scf_platform, payload)
+        r = api_scfTransfer_transfer(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

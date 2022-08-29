@@ -1,10 +1,11 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_supplier, token_scf_enterprise
+from common.get_token import token_scf_supplier, token_scf_enterprise, token_scf_platform
 from common.global_variable import customize_dict
 import requests
 import unittest
 import json
 from common.do_faker import get_name, get_phone, get_email, get_sfz, get_number, get_company, get_card_number
+from case_api.customerManager import api_customerManager_queryAuditPage
 
 
 def api_enterprise_check_key(token, payload):
@@ -365,6 +366,7 @@ def api_enterprise_pdf_node_document(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 g_d = {}
 
 
@@ -401,7 +403,6 @@ class Enterprise(unittest.TestCase):
         r = api_enterprise_queryPage(token_scf_supplier, payload)
         r_json = r.json()
         g_d['id'] = r_json['datas'][0]['id']
-        g_d['entName'] = r_json['datas'][0]['entName']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
@@ -422,14 +423,17 @@ class Enterprise(unittest.TestCase):
     def test_005_enterprise_step1(self):
         """【供应商/经销商】企业认证步骤1-完善企业工商信息"""
         name = get_name()
+        g_d["name"] = name
         sfz = get_sfz()
         email = get_email()
         phone = get_phone()
-        number = get_number(8)
+        number = get_number(10)
+        number_two = get_number(7)
+        g_d["creditCode"] = f'{number}{number_two}H'
         company_name = get_company()
         payload = {
             "businessLicense": "",
-            "confirmImage": "",
+            "confirmIage": "",
             "contact": name,
             "contactCardId": sfz,
             "contactCardIdImage": "",
@@ -437,7 +441,7 @@ class Enterprise(unittest.TestCase):
             "contactEmail": email,
             "contactMobile": phone,
             "contactPosition": "",
-            "creditCode": number,
+            "creditCode": g_d.get("creditCode"),
             "detailedAddress": "深圳",
             "entName": company_name,
             "entScale": 0,
@@ -567,21 +571,22 @@ class Enterprise(unittest.TestCase):
         sfz = get_sfz()
         email = get_email()
         phone = get_phone()
-        number = get_number(8)
+        number = get_number(10)
+        number_two = get_number(7)
         company_name = get_company()
         payload = {
-            "contact": name,
+            "contact": g_d.get("name"),
             "contactCardId": sfz,
             "contactCardType": 0,
             "contactEmail": email,
             "contactMobile": phone,
             "contactPosition": "",
-            "creditCode": number,
+            "creditCode": g_d.get("creditCode"),
             "detailedAddress": "深圳",
             "entName": company_name,
             "entScale": 0,
             "entType": 0,
-            "id": 0,
+            "id": g_d.get("id"),
             "industry": 0,
             "legalCardId": sfz,
             "legalCardType": 0,
@@ -675,9 +680,18 @@ class Enterprise(unittest.TestCase):
     def test_018_enterprise_queryByEntName(self):
         """【供应商】根据企业名称查询企业档案详情"""
         payload = {
-            "entName": g_d.get('entName')
+            "entName": "",
+            "contact": "",
+            "contactMobile": "",
+            "auditStatus": 3,
+            "num": 1,
+            "size": 10
         }
-        r = api_enterprise_queryByEntName(token_scf_supplier, payload)
+        entName = api_customerManager_queryAuditPage(token_scf_platform, payload).json()["datas"][3]["entName"]
+        payload = {
+            "entName": entName
+        }
+        r = api_enterprise_queryByEntName(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

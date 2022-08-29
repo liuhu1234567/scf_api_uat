@@ -2,6 +2,7 @@ from common.do_config import api_host, restime
 from common.get_token import token_scf_platform
 from common.global_variable import customize_dict
 from common.do_faker import get_number
+from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
 import requests
 import unittest
 import json
@@ -60,22 +61,6 @@ def api_financialFactoringAgain_queryConfigSet(token, payload):
 def api_financialFactoringAgain_queryFinancialFactoringPage(token, payload):
     """查询融资保理审核列表"""
     url = f'{api_host}/api-scf/financialFactoringAgain/queryFinancialFactoringPage'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "1",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
-
-
-def api_financialFactoringAgain_queryFunderList(token, payload):
-    """资金方信息"""
-    url = f'{api_host}/api-scf/financialFactoringAgain/queryFunderList'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -163,8 +148,9 @@ class FinancialFactoringAgain(unittest.TestCase):
 
     def test_003_financialFactoringAgain_queryConfigSet(self):
         """根据项目id查询融资流程配置"""
+        id_one = api_scfProjectBasis_listProjectBasis(token_scf_platform).json()["datas"][0]["id"]
         payload = {
-            "id": 0
+            "id": id_one
         }
         r = api_financialFactoringAgain_queryConfigSet(token_scf_platform, payload)
         r_json = r.json()
@@ -192,19 +178,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_005_financialFactoringAgain_queryFunderList(self):
-        """资金方信息"""
-        payload = {
-        }
-        r = api_financialFactoringAgain_queryFunderList(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
-    def test_006_financialFactoringAgain_resubmit(self):
+    def test_005_financialFactoringAgain_resubmit(self):
         """重新提交"""
         payload = {
             "auditFlowItemId": 0,
@@ -232,7 +206,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_007_financialFactoringAgain_updateAuditStatus(self):
+    def test_006_financialFactoringAgain_updateAuditStatus(self):
         """融资保理审核"""
         payload = {
             "auditEntId": 0,

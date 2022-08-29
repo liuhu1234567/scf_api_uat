@@ -281,7 +281,7 @@ def insert_excel_importCustomerFromExcel(num):
             get_number(4),
             get_number(4),
             get_number(6),
-            time.strftime("%Y-%m-%d", time.localtime()),
+            "2010年05月13日",
             get_number(10)
         )
         excel.insert(row_value, 3 + n)
@@ -334,13 +334,11 @@ class GoldenLetter(unittest.TestCase):
             "creditEnhancerName": "西咸新区沣东新城一",
             "founderEnt": "核心企业",
             "founderEntId": g_d.get("coreEntId"),
-            "goldenLetterCode": "",
             "goldenLetterEndDate": "2024-07-09T14:00:00",
             "goldenLetterMoney": 1000,
             "goldenLetterOpenDate": "2023-07-09T10:00:00",
             "invoiceAmountProportion": "100%",
             "invoiceWithTax": 1000,
-            "openApplicationNumber": "",
             "orderName": "合同/订单名称",
             "orderNumber": "合同/订单编号",
             "promisedPaymentDate": "2023-07-09T10:00:00",
@@ -373,6 +371,7 @@ class GoldenLetter(unittest.TestCase):
         r = api_goldenLetter_open_queryPage(token_scf_enterprise, payload)
         r_json = r.json()
         g_d["id"] = r_json["datas"][0]["id"]
+        g_d["auditFlowItemId"] = r_json["datas"][0]["auditFlowItemId"]
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
@@ -382,11 +381,10 @@ class GoldenLetter(unittest.TestCase):
     def test_005_goldenLetter_queryById(self):
         """根据ID查询金点信详情"""
         payload = {
-            "id": 1562985818222440449
+            "id": g_d.get("id")
         }
         r = api_goldenLetter_queryById(token_scf_platform, payload)
         r_json = r.json()
-        g_d["auditFlowItemId"] = r_json["datas"]["auditFlowItemId"]
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
@@ -445,8 +443,8 @@ class GoldenLetter(unittest.TestCase):
             "auditOpinion": "",
             "auditStatus": 3,
             "busType": "",
-            "coreEntId": 0,
-            "creditEnhancerId": 1549224468155265025,
+            "coreEntId": g_d.get("coreEntId"),
+            "creditEnhancerId": 0,
             "entId": g_d.get("coreEntId"),
             "id": g_d.get("id"),
             "projectId": 0,
@@ -485,7 +483,7 @@ class GoldenLetter(unittest.TestCase):
             "paymentStatus": 0,
             "size": 10
         }
-        r = api_goldenLetter_queryPage(token_scf_enterprise, payload)
+        r = api_goldenLetter_queryPage(token_scf_platform, payload)
         r_json = r.json()
         g_d["goldenLetterId"] = r_json["datas"][0]["id"]
         restime_now = r.elapsed.total_seconds()
@@ -529,7 +527,7 @@ class GoldenLetter(unittest.TestCase):
             "totalIssuerQuota": 0,
             "usedQuota": 0
         }
-        r = api_goldenLetter_resubmit(token_scf_supplier, payload)
+        r = api_goldenLetter_resubmit(token_scf_enterprise, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

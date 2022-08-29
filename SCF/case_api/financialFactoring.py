@@ -2,6 +2,7 @@ from common.do_config import api_host, restime
 from common.get_token import token_scf_platform,token_scf_supplier
 from common.global_variable import customize_dict
 from common.do_faker import get_company
+from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
 import requests
 import unittest
 import json
@@ -147,8 +148,9 @@ class FinancialFactoring(unittest.TestCase):
 
     def test_003_financialFactoring_queryConfigSet(self):
         """根据项目id查询融资流程配置"""
+        id_one = api_scfProjectBasis_listProjectBasis(token_scf_platform).json()["datas"][0]["id"]
         payload = {
-            "id": 0
+            "id": id_one
         }
         r = api_financialFactoring_queryConfigSet(token_scf_platform, payload)
         r_json = r.json()
