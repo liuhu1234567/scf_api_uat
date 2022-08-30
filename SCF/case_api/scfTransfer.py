@@ -442,7 +442,7 @@ class ScfTransfer(unittest.TestCase):
         payload = {
             "bills": ["1562284267547848706"],
             "coreSub": g_d.get("coreSub"),
-            "creditEnhancerId": 1544611013257465857,
+            "creditEnhancerId": 0,
             "id": 1564090769279369218,
             "invoiceWithTax": "1000",
             "orderName": "合同/订单名称",

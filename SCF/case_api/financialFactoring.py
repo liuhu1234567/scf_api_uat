@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform,token_scf_supplier
+from common.get_token import token_scf_platform, token_scf_supplier
 from common.global_variable import customize_dict
 from common.do_faker import get_company
 from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
@@ -93,6 +93,22 @@ def api_financialFactoring_resubmit(token, payload):
 def api_financialFactoring_updateAuditStatus(token, payload):
     """融资保理审核"""
     url = f'{api_host}/api-scf/financialFactoring/updateAuditStatus'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_financialFactoring_queryByApplicationNumber(token, payload):
+    """根据融资申请编号查询融资保理详情"""
+    url = f'{api_host}/api-scf/financialFactoring/queryByApplicationNumber'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -221,6 +237,19 @@ class FinancialFactoring(unittest.TestCase):
             "recipientId": 0
         }
         r = api_financialFactoring_updateAuditStatus(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_007_financialFactoring_queryByApplicationNumber(self):
+        """根据融资申请编号查询融资保理详情"""
+        payload = {
+            "financeApplicationNumber": ""
+        }
+        r = api_financialFactoring_queryByApplicationNumber(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
