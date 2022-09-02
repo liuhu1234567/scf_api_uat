@@ -1,6 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform
-from common.global_variable import customize_dict
+from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
 from common.do_faker import get_number, get_name, get_company, get_phone, get_email ,get_sfz
 import requests
 import unittest

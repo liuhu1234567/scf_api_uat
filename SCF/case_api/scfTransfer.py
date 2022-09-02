@@ -1,5 +1,5 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform, token_scf_enterprise, token_scf_supplier
+from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
 from common.global_variable import customize_dict
 from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 from common.do_faker import get_number
@@ -29,7 +29,7 @@ def api_scfTransfer_audit(token, payload):
 def api_scfTransfer_detail(token, payload):
     """转让详情"""
     url = f'{api_host}/api-scf/scfTransfer/detail'
-    headers = {
+    headers = { 
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
         "Authorization": token
