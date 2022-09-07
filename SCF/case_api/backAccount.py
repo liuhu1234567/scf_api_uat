@@ -124,7 +124,7 @@ class BackAccount(unittest.TestCase):
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('操作成功', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_002_backAccount_queryPage(self):
@@ -165,7 +165,7 @@ class BackAccount(unittest.TestCase):
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('操作成功', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_004_backAccount_delete(self):
@@ -176,7 +176,7 @@ class BackAccount(unittest.TestCase):
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('操作成功', r_json['resp_msg'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
     def test_005_backAccount_bindByProjectId(self):

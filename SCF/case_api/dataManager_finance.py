@@ -8,7 +8,7 @@ import json
 
 def api_dataManager_finance_getSearchField(token, payload):
     """获取搜索表单数据"""
-    url = f'{api_host}/api-scf-data/dataManager/finance/getSearchField'
+    url = f'{api_host}/api-scf-data/dataManager/getSearchField'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -24,7 +24,7 @@ def api_dataManager_finance_getSearchField(token, payload):
 
 def api_dataManager_finance_getTableHeader(token, payload):
     """获取表头"""
-    url = f'{api_host}/api-scf-data/dataManager/finance/getTableHeader'
+    url = f'{api_host}/api-scf-data/dataManager/getTableHeader'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -39,7 +39,7 @@ def api_dataManager_finance_getTableHeader(token, payload):
 
 
 def api_dataManager_finance_kind(token):
-    """获取采购数据种类"""
+    """获取財務数据种类"""
     url = f'{api_host}/api-scf-data/dataManager/finance/kind'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -53,11 +53,13 @@ def api_dataManager_finance_kind(token):
     return r
 
 
+g_d = {'id': api_dataManager_finance_kind(token_scf_supplier).json()['datas'][0]['id']}
+
 class DataManagerFinance(unittest.TestCase):
     def test_dataManager_finance_getSearchField(self):
         """获取搜索表单数据"""
         payload = {
-            "id": 1549314121803857921
+            "id": g_d['id']
         }
         r = api_dataManager_finance_getSearchField(token_scf_supplier, payload)
         r_json = r.json()
@@ -70,7 +72,7 @@ class DataManagerFinance(unittest.TestCase):
     def test_dataManager_finance_getTableHeader(self):
         """获取表头"""
         payload = {
-            "id": 1549314121803857921
+            "id": g_d['id']
         }
         r = api_dataManager_finance_getTableHeader(token_scf_supplier, payload)
         r_json = r.json()
@@ -81,8 +83,18 @@ class DataManagerFinance(unittest.TestCase):
         self.assertLessEqual(restime_now, restime)
 
     def test_dataManager_finance_kind(self):
-        """获取采购数据种类"""
+        """获取财务数据种类"""
         r = api_dataManager_finance_kind(token_scf_supplier)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime)
+
+    def test_api_dataManager_purchase_kind(self):
+        """获取采购数据种类"""
+        r = api_dataManager_purchase_kind(token_scf_supplier)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

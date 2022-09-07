@@ -155,6 +155,10 @@ class ScfProjectOpenTransfer(unittest.TestCase):
 
     def test_003_scfProjectOpenTransfer_insertOpenTransfer(self):
         """【平台方】开立、转让新增"""
+        try:
+            api_scfProjectOpenTransfer_delete(token_scf_platform, payload= {"id": 1549224468155265025})
+        except Exception as e:
+            print(e)
         payload = {
             "scfProjectOpenReq": {
                 "coreId": 1549224468155265025,

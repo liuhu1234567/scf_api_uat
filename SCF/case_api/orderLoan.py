@@ -9,7 +9,7 @@ import unittest
 from common.do_excel import DoExcel
 from common.do_faker import get_number, get_company
 import datetime
-
+from jsonpath import jsonpath
 
 def api_orderLoan_import(token, payload):
     """导入"""
@@ -147,7 +147,7 @@ def insert_excel_importOrderFromExcel(num):
             n + 1,
             get_number(10),
             f"订单名称{get_number(6)}",
-            get_company(),
+            '接口自动化核心企业账号',
             sellCompany,
             '',
             '',
@@ -165,6 +165,8 @@ def insert_excel_importOrderFromExcel(num):
     file_name = excel.save()
     return file_name
 
+
+g_d = {}
 
 class OrderLoan(unittest.TestCase):
     def test_001_orderLoan_import(self):
@@ -193,6 +195,8 @@ class OrderLoan(unittest.TestCase):
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
+        orderIds = jsonpath(r_json,'$..id')
+        g_d['orderIds'] = orderIds
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
@@ -200,7 +204,7 @@ class OrderLoan(unittest.TestCase):
     def test_003_orderLoan_export(self):
         """【供应商】下载"""
         payload = {
-            "orderIds": [1]
+            "orderIds": g_d['orderIds']
         }
         r = api_orderLoan_export(token_scf_supplier, payload)
         r_json = r.json()
@@ -219,7 +223,7 @@ class OrderLoan(unittest.TestCase):
             "id": 0,
             "increaseTrustId": 0,
             "projectId": 0,
-            "receiveBankAccount": ""
+            "receiveBankAccount": "6011399232906354"
         }
         r = api_orderLoan_financing(token_scf_supplier, payload)
         r_json = r.json()

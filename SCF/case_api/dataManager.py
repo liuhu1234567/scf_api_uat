@@ -84,14 +84,15 @@ def api_dataManager_purchase_kind(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-g_d = {}
+
+g_d = {'id' : api_dataManager_purchase_kind(token_scf_platform, {}).json()['datas'][0]['id']}
 
 
 class DataManager(unittest.TestCase):
     def test_001_DataManager_download(self):
         """下载模板"""
         payload = {
-            "id": 0
+            "id": g_d['id']
         }
         r = api_dataManager_download(token_scf_platform, payload)
         r_json = r.json()
@@ -116,7 +117,7 @@ class DataManager(unittest.TestCase):
     def test_003_DataManager_getSearchField(self):
         """获取搜索表单数据"""
         payload = {
-            "id": 0
+            "id": g_d['id']
         }
         r = api_dataManager_getSearchField(token_scf_platform, payload)
         r_json = r.json()
@@ -129,7 +130,7 @@ class DataManager(unittest.TestCase):
     def test_004_DataManager_getTableHeader(self):
         """获取表头"""
         payload = {
-            "id": 0
+            "id": g_d['id']
         }
         r = api_dataManager_getTableHeader(token_scf_platform, payload)
         r_json = r.json()

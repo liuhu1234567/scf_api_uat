@@ -16,6 +16,11 @@ def get_number(n):
     r = random.sample(l, n)
     return ''.join(r)
 
+def get_money(n):
+    l = string.digits
+    r = random.sample(l, n)
+    money = str(random.randint(1,9)) + ''.join(r)
+    return money
 
 def get_phone():
     """获取随机手机号"""
@@ -45,8 +50,13 @@ def get_license():
 
 def get_company():
     """获取随机公司名称"""
-    return fake.company()
-
+    a = "0123456789"
+    b = "abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    str_list = [random.choice(a + b) for i in range(6)]
+    random_str = ''.join(str_list)
+    companyName = random_str + fake.company()
+    # companyName = fake.word() + fake.word() + fake.company()
+    return companyName
 
 def get_card_number():
     """获取随机信用卡号"""

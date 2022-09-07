@@ -382,20 +382,20 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_002_enterprise_get_pdf_hash(self):
-        """经办人或者审核人确认获取pdf hash值"""
-        payload = {
-            "certContent": "",
-            "fileId": "",
-            "keyWord": ""
-        }
-        r = api_enterprise_pdf_hash(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+    # def test_002_enterprise_get_pdf_hash(self):
+    #     """经办人或者审核人确认获取pdf hash值,需要使用Ukey访问"""
+    #     payload = {
+    #         "certContent": "",
+    #         "fileId": "",
+    #         "keyWord": ""
+    #     }
+    #     r = api_enterprise_pdf_hash(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
 
     def test_003_enterprise_queryPage(self):
         """【供应商/经销商】分页查询企业档案列表"""

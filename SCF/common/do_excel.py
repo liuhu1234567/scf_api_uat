@@ -12,6 +12,10 @@ class DoExcel(object):
     def insert(self, all_value, row_start):
         for index, value in enumerate(all_value):
             self.ws.cell(row_start, index + 1, value)
+            if self.ws.cell(row_start, 8).value is not None:
+                trg = 'H' + str(row_start)
+                self.ws[trg].number_format = 'yyyy/m/d'
+
 
     def save(self):
         self.file_name_l = self.file_name.split('.')

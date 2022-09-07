@@ -17,6 +17,7 @@ def get_scf_financier():
     }
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
+    # token = {'token_type': r_json['datas']['token_type'], 'access_token': r_json['datas']['access_token']}
     return token
 
 
@@ -35,6 +36,7 @@ def get_scf_enterprise():
     }
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
+    # token = {'token_type': r_json['datas']['token_type'], 'access_token': r_json['datas']['access_token']}
     return token
 
 
@@ -53,6 +55,7 @@ def get_scf_supplier():
     }
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
+    # token = {'token_type': r_json['datas']['token_type'], 'access_token': r_json['datas']['access_token']}
     return token
 
 
@@ -71,6 +74,7 @@ def get_scf_platform():
     }
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
+    # token = {'token_type': r_json['datas']['token_type'], 'access_token': r_json['datas']['access_token']}
     return token
 
 
@@ -89,6 +93,7 @@ def get_scf_subsidiaries():
     }
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
+    # token = {'token_type': r_json['datas']['token_type'], 'access_token': r_json['datas']['access_token']}
     return token
 
 
@@ -107,15 +112,15 @@ def get_scf_factor():
     }
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
+    # token = {'token_type': r_json['datas']['token_type'], 'access_token': r_json['datas']['access_token']}
     return token
-
 
 token_scf_financier = get_scf_financier()
 token_scf_enterprise = get_scf_enterprise()
 token_scf_supplier = get_scf_supplier()
 token_scf_platform = get_scf_platform()
-token_scf_factor = get_scf_factor
-token_scf_subsidiaries = get_scf_subsidiaries
+token_scf_factor = get_scf_factor()
+token_scf_subsidiaries = get_scf_subsidiaries()
 
 if __name__ == '__main__':
     print(token_scf_financier)

@@ -1,14 +1,16 @@
 from common.do_config import api_host, restime
 from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
 from common.global_variable import customize_dict
-from common.do_faker import get_company, get_number, get_name, get_phone, get_email
+from common.do_faker import get_company, get_number, get_name, get_phone, get_email, get_money
 from common.do_excel import DoExcel
+from common.do_time import time_format
 from case_api.template import api_template_uploadfile
 from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 import requests
 import unittest
 import json
 import time
+import datetime
 
 """金点信"""
 
@@ -276,12 +278,12 @@ def insert_excel_importCustomerFromExcel(num):
         row_value = (
             n + 1,
             get_number(10),
-            get_number(10),
+            get_number(8),
             get_company(),
-            get_number(4),
-            get_number(4),
+            get_money(3),
+            get_money(3),
             get_number(6),
-            "2010年05月13日",
+            datetime.date(2022, 9, 2),
             get_number(10)
         )
         excel.insert(row_value, 3 + n)
@@ -634,45 +636,47 @@ class GoldenLetter(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_017_goldenLetter_open_preview(self):
-        """金点信预览"""
-        payload = {
-            "coreEntName": "",
-            "creditEnhancerName": "",
-            "founderEnt": "",
-            "goldenLetterCode": "",
-            "goldenLetterEndDate": "",
-            "goldenLetterMoney": 0,
-            "goldenLetterOpenDate": "",
-            "orderName": "",
-            "orderNumber": "",
-            "promisedPaymentDate": "",
-            "recipient": "",
-            "remainingAvailableQuota": 0,
-            "statementNumber": "",
-            "totalIssuerQuota": 0,
-            "usedQuota": 0
-        }
-        r = api_goldenLetter_open_preview(token_scf_enterprise, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+    ###接口还没弄好，2022-9-6
+    # def test_017_goldenLetter_open_preview(self):
+    #     """金点信预览"""
+    #     payload = {
+    #         "coreEntName": "",
+    #         "creditEnhancerName": "",
+    #         "founderEnt": "",
+    #         "goldenLetterCode": "",
+    #         "goldenLetterEndDate": "",
+    #         "goldenLetterMoney": 0,
+    #         "goldenLetterOpenDate": "",
+    #         "orderName": "",
+    #         "orderNumber": "",
+    #         "promisedPaymentDate": "",
+    #         "recipient": "",
+    #         "remainingAvailableQuota": 0,
+    #         "statementNumber": "",
+    #         "totalIssuerQuota": 0,
+    #         "usedQuota": 0
+    #     }
+    #     r = api_goldenLetter_open_preview(token_scf_enterprise, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
 
-    def test_018_goldenLetter_queryPdfById(self):
-        """根据ID查询金点信pdf详情"""
-        payload = {
-            "id": 0
-        }
-        r = api_goldenLetter_queryPdfById(token_scf_enterprise, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+    ###接口已删除
+    # def test_018_goldenLetter_queryPdfById(self):
+    #     """根据ID查询金点信pdf详情"""
+    #     payload = {
+    #         "id": 0
+    #     }
+    #     r = api_goldenLetter_queryPdfById(token_scf_enterprise, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
 
     def test_019_goldenLetter_retrospective(self):
         """金点信追溯"""

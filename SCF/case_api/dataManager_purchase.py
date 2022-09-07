@@ -8,7 +8,7 @@ import json
 
 def api_dataManager_purchase_getSearchField(token, payload):
     """获取搜索表单数据"""
-    url = f'{api_host}/api-scf-data/dataManager/purchase/getSearchField'
+    url = f'{api_host}/api-scf-data/dataManager/getSearchField'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -24,7 +24,7 @@ def api_dataManager_purchase_getSearchField(token, payload):
 
 def api_dataManager_purchase_getTableHeader(token, payload):
     """获取表头"""
-    url = f'{api_host}/api-scf-data/dataManager/purchase/getTableHeader'
+    url = f'{api_host}/api-scf-data/dataManager/getTableHeader'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -52,12 +52,13 @@ def api_dataManager_purchase_kind(token):
     print(f'接口响应为：{r.text}')
     return r
 
+g_d = {'id': api_dataManager_purchase_kind(token_scf_supplier).json()['datas'][0]['id']}
 
 class DataManagerPurchase(unittest.TestCase):
     def test_dataManager_purchase_getSearchField(self):
         """获取搜索表单数据"""
         payload = {
-            "id": 1549313788197306369
+            "id": g_d['id']
         }
         r = api_dataManager_purchase_getSearchField(token_scf_supplier, payload)
         r_json = r.json()
@@ -70,7 +71,7 @@ class DataManagerPurchase(unittest.TestCase):
     def test_dataManager_purchase_getTableHeader(self):
         """获取表头"""
         payload = {
-            "id": 1549313788197306369
+            "id": g_d['id']
         }
         r = api_dataManager_purchase_getTableHeader(token_scf_supplier, payload)
         r_json = r.json()

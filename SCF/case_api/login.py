@@ -66,6 +66,7 @@ class Login(unittest.TestCase):
     def test_login_querymenu_platform(self):
         """【平台方】登陆查询菜单"""
         r = api_login_querymenu(token_scf_platform)
+        print(r.json())
         r_json = r.json()
 
         restime_now = r.elapsed.total_seconds()
@@ -117,7 +118,7 @@ class Login(unittest.TestCase):
 
     def test_login_auth_query_menu(self):
         """【平台方】角色分配菜单展示"""
-        payload = {"id": 0}
+        payload = {"id": 1564450377663664130}
         r = api_login_auth_query_menu(token_scf_supplier, payload)
         r_json = r.json()
 

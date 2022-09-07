@@ -21,7 +21,7 @@ def api_scfAllocateSubsidiaries_queryAll(token):
     return r
 
 
-def api_scfAllocateSubsidiaries_queryList(token):
+def api_scfAllocateSubsidiaries_queryList(token, payload):
     """获取子公司分配额度信息"""
     url = f'{api_host}/api-scf/scfAllocateSubsidiaries/queryList'
     headers = {
@@ -29,7 +29,7 @@ def api_scfAllocateSubsidiaries_queryList(token):
         "x-appid-header": "2",
         "Authorization": token
     }
-    r = requests.post(url, headers=headers)
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
     print(f'请求地址：{url}')
     print(f'请求头：{headers}')
     print(f'接口响应为：{r.text}')
@@ -115,7 +115,11 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
 
     def test_002_scfAllocateSubsidiaries_ueryList(self):
         """【核心企业】获取子公司分配额度信息"""
-        r = api_scfAllocateSubsidiaries_queryList(token_scf_enterprise)
+        payload = {
+            "coreId": 1564518555001581569,
+            "creditId": 1564541140355543041
+        }
+        r = api_scfAllocateSubsidiaries_queryList(token_scf_enterprise, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -123,21 +127,22 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_003_scfAllocateSubsidiaries_insert(self):
-        """【核心企业】新增"""
-        payload = {
-            "allocateAmount": 100000,
-            "creditCode": "X2342342X",
-            "subsidiariesName": "中国恭敬公司"
-        }
-        r = api_scfAllocateSubsidiaries_insert(token_scf_enterprise, payload)
-        r_json = r.json()
-        g_d['id'] = r_json['datas']
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+    #开发专用接口，新增后会造成前端页面字段展示bug
+    # def test_003_scfAllocateSubsidiaries_insert(self):
+    #     """【核心企业】新增"""
+    #     payload = {
+    #         "allocateAmount": 100000,
+    #         "creditCode": "X2342342X",
+    #         "subsidiariesName": "中国恭敬公司"
+    #     }
+    #     r = api_scfAllocateSubsidiaries_insert(token_scf_enterprise, payload)
+    #     r_json = r.json()
+    #     g_d['id'] = r_json['datas']
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
 
     def test_004_scfAllocateSubsidiaries_batch(self):
         """【核心企业】批量"""
