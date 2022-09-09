@@ -4,7 +4,7 @@ from common.do_config import api_host, restime
 import requests
 import json
 import unittest
-from TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
+from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
 
 
 def api_lending_save(token, payload):

@@ -6,7 +6,7 @@ import json
 import unittest
 from case_api.enterprise import api_enterprise_queryBuyerList
 from case_api.TC001_scfProjectBasis import api_scfProjectBasis_queryProjectBasicInfo
-from scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
+from case_api.scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
 
 
 def api_admission_queryDownList(token, payload):
