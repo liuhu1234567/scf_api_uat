@@ -142,7 +142,7 @@ class ScfProjectOpenTransfer(unittest.TestCase):
         coreId = api_scfProjectOpenTransfer_searchProjectOpenTransfer(token_scf_platform, payload).json()["datas"][0][
             "coreId"]
         payload_new = {
-            "coreId": coreId,
+            "coreId": 1564518350499901441,
             "enable": True
         }
         r = api_scfProjectOpenTransfer_enable(token_scf_platform, payload_new)

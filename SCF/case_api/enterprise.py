@@ -482,24 +482,24 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_007_enterprise_step2(self):
-        """【供应商/经销商】企业认证步骤2-开通电子签章"""
-        number = get_number(6)
-        payload = {
-            "bankAccountDebutNo": "深圳市天富包装制品有限公司",
-            "bankAccountName": f"账户{get_number(6)}",
-            "bankAccountNo": get_card_number(),
-            "bankAccountSite": "恒生银行中国有限公司深圳分行",
-            "originalTxSn": g_d.get('originalTxSn'),
-            "validMoney": "1"
-        }
-        r = api_enterprise_step2(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+    # def test_007_enterprise_step2(self):
+    #     """【供应商/经销商】企业认证步骤2-开通电子签章"""
+    #     number = get_number(6)
+    #     payload = {
+    #         "bankAccountDebutNo": "深圳市天富包装制品有限公司",
+    #         "bankAccountName": f"账户{get_number(6)}",
+    #         "bankAccountNo": get_card_number(),
+    #         "bankAccountSite": "恒生银行中国有限公司深圳分行",
+    #         "originalTxSn": g_d.get('originalTxSn'),
+    #         "validMoney": "1"
+    #     }
+    #     r = api_enterprise_step2(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
 
     def test_008_enterprise_step3(self):
         """【供应商/经销商】企业认证步骤3-签署授权书及平台协议"""
@@ -621,21 +621,21 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_013_enterprise_pdf_show(self):
-        """展示签名信息"""
-        payload = {
-            "certContent": "",
-            "fileId": "",
-            "hashId": "",
-            "keyWord": ""
-        }
-        r = api_enterprise_pdf_show(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+    # def test_013_enterprise_pdf_show(self):
+    #     """展示签名信息"""
+    #     payload = {
+    #         "certContent": "",
+    #         "fileId": "",
+    #         "hashId": "",
+    #         "keyWord": ""
+    #     }
+    #     r = api_enterprise_pdf_show(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
 
     def test_014_enterprise_queryEntArchivesDetail(self):
         """【供应商】企业档案详情-当前用户"""
@@ -687,9 +687,9 @@ class Enterprise(unittest.TestCase):
             "num": 1,
             "size": 10
         }
-        entName = api_customerManager_queryAuditPage(token_scf_platform, payload).json()["datas"][3]["entName"]
+        # entName = api_customerManager_queryAuditPage(token_scf_platform, payload).json()["datas"][2]["entName"]
         payload = {
-            "entName": entName
+            "entName": '接口自动化核心企业账号'
         }
         r = api_enterprise_queryByEntName(token_scf_platform, payload)
         r_json = r.json()

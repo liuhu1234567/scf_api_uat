@@ -57,7 +57,7 @@ class Login(unittest.TestCase):
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品申请']
+        menuName = ['企业中心', '企业档案', '企业认证', '银行账户管理', '金融产品管理', '产品申请', '准入管理', '准入申请', '准入审批', '授信管理', '授信申请', '授信审批', '授信结果', '金点信', '金点信列表', '开立管理', '转让管理', '转让审批', '保理融资', '融资审批', '清分管理', '普惠融资', '订单融资', '订单审批', '贷后管理', '放款管理', '数据管理', '采购数据', '财务数据', '系统管理', '角色管理', '用户管理']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
@@ -66,12 +66,11 @@ class Login(unittest.TestCase):
     def test_login_querymenu_platform(self):
         """【平台方】登陆查询菜单"""
         r = api_login_querymenu(token_scf_platform)
-        print(r.json())
         r_json = r.json()
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '客户管理', '客户列表', '客户审批', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品列表', '产品分配列表', '产品申请', '配置管理', '产品配置', '数据表配置']
+        menuName = ['企业中心', '企业档案', '企业认证', '银行账户管理', '客户管理', '客户列表', '客户审批', '金融产品管理', '产品列表', '融资客户列表', '准入管理', '准入申请', '准入审批', '授信管理', '授信申请', '授信审批', '授信结果', '额度管理', '额度审批', '金点信', '金点信列表', '开立管理', '转让管理', '转让审批', '保理融资', '融资审批', '再保理融资', '再保理审批', '清分管理', '普惠融资', '订单融资', '订单审批', '贷后管理', '放款管理', '数据管理', '采购数据', '财务数据', '配置管理', '产品配置', '金点信配置', '全量字段表模板', '数据表配置', '系统管理', '角色管理', '用户管理']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
@@ -84,7 +83,7 @@ class Login(unittest.TestCase):
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '金融产品管理', '产品列表', '产品分配列表']
+        menuName = ['企业中心', '企业档案', '企业认证', '银行账户管理', '金融产品管理', '产品列表', '融资客户列表', '准入管理', '准入审批', '授信管理', '授信审批', '授信结果', '额度管理', '金点信', '金点信列表', '开立管理', '转让审批', '融资审批', '再保理审批', '清分管理', '普惠融资', '订单审批', '贷后管理', '放款管理', '系统管理', '角色管理', '用户管理']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
@@ -97,7 +96,7 @@ class Login(unittest.TestCase):
 
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        menuName = ['系统管理', '角色管理', '用户管理', '企业中心', '企业档案', '档案修改', '企业认证', '银行账户管理', '客户管理', '客户列表', '数据管理', '采购数据', '财务数据', '金融产品管理', '产品列表', '产品分配列表']
+        menuName = ['企业中心', '企业档案', '企业认证', '银行账户管理', '金融产品管理', '产品列表', '融资客户列表', '准入管理', '准入审批', '授信管理', '授信审批', '授信结果', '额度管理', '额度分配', '金点信', '金点信列表', '开立管理', '转让审批', '融资审批', '再保理审批', '清分管理', '普惠融资', '订单审批', '贷后管理', '放款管理', '数据管理', '采购数据', '财务数据', '系统管理', '角色管理', '用户管理']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))

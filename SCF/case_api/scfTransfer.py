@@ -107,7 +107,7 @@ def api_scfTransfer_searchNotSupplier(token, payload):
 
 
 def api_scfTransfer_searchSupplier(token, payload):
-    """转让列表-供应商"""
+    """转让列表"""
     url = f'{api_host}/api-scf/scfTransfer/searchSupplier'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -260,8 +260,10 @@ class ScfTransfer(unittest.TestCase):
 
     def test_002_scfTransfer_detail(self):
         """转让详情"""
+        searchSupplier_payload = {"founderEnt":"","goldenLetterCode":"","currentHolder":"","paymentStatus":"","num":1,"size":10}
+        id = api_scfTransfer_searchSupplier(token_scf_platform,searchSupplier_payload).json()['datas'][0]['id']
         payload = {
-            "id": 0
+            "id": id
         }
         r = api_scfTransfer_detail(token_scf_platform, payload)
         r_json = r.json()
@@ -413,7 +415,7 @@ class ScfTransfer(unittest.TestCase):
     def test_012_scfTransfer_toSign(self):
         """跳转至签收页面"""
         payload = {
-            "id": 0
+            "id": 1567802107830046721
         }
         r = api_scfTransfer_toSign(token_scf_platform, payload)
         r_json = r.json()

@@ -153,18 +153,18 @@ class Tree(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
-    def test_004_tree_imageByType(self):
-        """【平台方】指定类型获取影像文件"""
-        payload = {
-            "id": 0
-        }
-        r = api_tree_imageByType(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+    # def test_004_tree_imageByType(self):
+    #     """【平台方】指定类型获取影像文件"""
+    #     payload = {
+    #         "id": 0
+    #     }
+    #     r = api_tree_imageByType(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime)
 
     def test_005_tree_imageByTypes(self):
         """【平台方】指定类型获取影像文件-批量"""

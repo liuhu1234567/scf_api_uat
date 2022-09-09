@@ -126,21 +126,27 @@ class FinancialFactoring(unittest.TestCase):
     def test_001_financialFactoring_insert(self):
         """【供应商】新增"""
         payload = {
-            "bankAccountNo": 5520418039408053,
-            "creditEnhancerEntId": 1544611013257465857,
-            "creditEnhancerEntName": get_company(),
-            "estimatedDisbursementDate": "增信方名称",
-            "financeEntId": 1544611013257465857,
-            "financeEntName": "增信方名称",
-            "financingAmount": 1000,
-            "financingRate": "1%",
-            "financingRemainAmount": 0,
-            "financingServiceCharge": 0,
-            "financingTerm": 100,
-            "goldenLetterId": 1562714421046603778,
-            "platformServiceCharge": 1562682259547254785,
-            "platformServiceRate": "1%"
-        }
+            "bankAccountNo": "1568056219032973313",
+            "estimatedDisbursementDate": "2022-09-10T02:44:12.564Z",
+            "financeEntId": "1565532904946343937",
+            "financeEntName": "接口自动化保理商账号",
+            "financingAmount": 1,
+            "financingRate": 1,
+            "financingRemainAmount": 998,
+            "financingServiceCharge": "0.00",
+            "financingTerm": 11,
+            "goldenLetterCode": "JDX20220906019",
+            "platformServiceCharge": "0.02",
+            "platformServiceRate": 1,
+            "projectId": "1568063677864439810",
+            "currentHolder": "PKrofw太极网络有限公司",
+            "founderEnt": "接口自动化核心企业账号",
+            "goldenLetterEndDate": "2022-09-22T07:33:37.338",
+            "goldenLetterMoney": 1000,
+            "goldenLetterOpenDate": "2022-09-07T07:33:34.475",
+            "initialHolder": "PKrofw太极网络有限公司",
+            "promisedPaymentDate": "2022-09-30T07:33:39.803"
+            }
         r = api_financialFactoring_insert(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()

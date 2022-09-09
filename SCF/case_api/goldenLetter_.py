@@ -589,7 +589,7 @@ class GoldenLetter(unittest.TestCase):
     def test_013_goldenLetter_getCreditAmount(self):
         """获取授信额度"""
         payload = {
-            "id": 0
+            "id": 1549684806067781633
         }
         r = api_goldenLetter_getCreditAmount(token_scf_platform, payload)
         r_json = r.json()

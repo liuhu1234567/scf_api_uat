@@ -52,6 +52,20 @@ def api_dataManager_finance_kind(token):
     print(f'接口响应为：{r.text}')
     return r
 
+def api_dataManager_purchase_kind(token):
+    """获取財務数据种类"""
+    url = f'{api_host}/api-scf-data/dataManager/purchase/kind'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
 
 g_d = {'id': api_dataManager_finance_kind(token_scf_supplier).json()['datas'][0]['id']}
 

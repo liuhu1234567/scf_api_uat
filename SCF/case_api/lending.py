@@ -199,6 +199,7 @@ class Lending(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime)
 
+
     def test_006_lending_detail(self):
         """【平台方】详情"""
         payload = {
