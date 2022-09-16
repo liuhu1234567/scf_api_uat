@@ -332,7 +332,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_config_dataTable_detail(self):
         """数据表详情"""
@@ -345,7 +345,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_config_dataTable_fieldTable(self):
         """根据模板ID查询模板"""
@@ -358,7 +358,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_config_dataTable_list(self):
         """查询数据表列表"""
@@ -379,7 +379,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_config_dataTable_templateList_all(self):
         """数据字段来源列表"""
@@ -389,7 +389,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_config_dataTable_save(self):
         """新增数据表"""
@@ -473,7 +473,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_007_config_dataTable_update(self):
         """修改数据表"""
@@ -505,7 +505,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_config_dataTable_allSelect(self):
         """数据表页面下拉列表集合"""
@@ -515,7 +515,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_009_config_dataTable_getList(self):
         """数据表列表"""
@@ -525,7 +525,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_010_config_dataTable_list_all(self):
     #     """放款-不分页获取全部数据"""
@@ -542,7 +542,7 @@ class ConfigDataTable(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_011_config_dataTable_templateData_save(self):
     #     """模板对应的数据表-新增"""
@@ -558,7 +558,7 @@ class ConfigDataTable(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_012_config_dataTable_templateData_update(self):
     #     """模板对应的数据表-修改"""
@@ -572,7 +572,7 @@ class ConfigDataTable(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_013_config_dataTable_filterItemId(self):
         """服务接口 - 获取过滤模板类型的项目ID集合"""
@@ -585,7 +585,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_014_config_dataTable_findDataTable(self):
     #     """服务间接口-确定数据表"""
@@ -601,7 +601,7 @@ class ConfigDataTable(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_015_config_dataTable_getOne(self):
     #     """服务接口 - 获取单个数据表"""
@@ -614,7 +614,7 @@ class ConfigDataTable(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_016_config_dataTable_lending_getTotalAmt(self):
         """服务接口-放款获取合作商放款金额"""
@@ -633,7 +633,7 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_017_config_dataTable_onlyViewDateTable(self):
     #     """服务-获取数据表数据 - 仅仅针对只查看的数据表"""
@@ -650,7 +650,7 @@ class ConfigDataTable(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_018_config_dataTable_templateData_download(self):
     #     """服务接口 - 放款数据下载"""
@@ -665,7 +665,7 @@ class ConfigDataTable(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_019_config_dataTable_templateData_all(self):
         """数据表模板下拉列表"""
@@ -677,4 +677,4 @@ class ConfigDataTable(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

@@ -138,7 +138,7 @@ class TemplateApi(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_template_api_accessHistory_update(self):
         """准入历史数据修改"""
@@ -167,7 +167,7 @@ class TemplateApi(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_template_api_accessHistory_delete(self):
         """准入历史数据删除"""
@@ -181,7 +181,7 @@ class TemplateApi(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_004_template_api_zxLending_delete(self):
     #     """中信放款数据删除"""
@@ -280,7 +280,7 @@ class TemplateApi(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_template_api_zxLending_list(self):
         """中信放款数据列表"""
@@ -314,7 +314,7 @@ class TemplateApi(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_template_api_zxLending_update(self):
         """中信放款数据修改"""
@@ -348,4 +348,4 @@ class TemplateApi(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

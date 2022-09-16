@@ -1,3 +1,5 @@
+import logging
+
 from common.do_config import api_host, restime
 from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
 from common.global_variable import customize_dict
@@ -5,6 +7,7 @@ import json
 import requests
 import unittest
 from jsonpath import jsonpath
+from XTestRunner import HTMLTestRunner
 
 
 def api_login_querymenu(token):
@@ -61,7 +64,7 @@ class Login(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_login_querymenu_platform(self):
         """【平台方】登陆查询菜单"""
@@ -74,7 +77,7 @@ class Login(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_login_querymenu_financier(self):
         """【资金方】登陆查询菜单"""
@@ -87,7 +90,7 @@ class Login(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_login_querymenu_enterprise(self):
         """【核心企业/核企子公司】登陆查询菜单"""
@@ -100,7 +103,7 @@ class Login(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertEqual(menuName, jsonpath(r_json, '$..menuName'))
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_login_auth_role_menu(self):
         """【平台方】角色分配菜单"""
@@ -113,7 +116,7 @@ class Login(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_login_auth_query_menu(self):
         """【平台方】角色分配菜单展示"""
@@ -126,5 +129,4 @@ class Login(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
-
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

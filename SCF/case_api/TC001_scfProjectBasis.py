@@ -319,7 +319,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_scfProjectBasis_getBusinessTypes(self):
         """【平台方】获取业务类型"""
@@ -330,7 +330,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_scfProjectBasis_listProjectBasisByType(self):
         """【平台方】通过业务类型查询项目列表"""
@@ -343,7 +343,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_scfProjectBasis_listCore(self):
         """【平台方】查询核心企业"""
@@ -356,7 +356,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_scfProjectBasis_listFinanceProduct(self):
         """【平台方】查询金融产品列表"""
@@ -370,7 +370,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_scfProjectBasis_getUseScope(self):
         """【平台方】查询授信使用范围枚举值"""
@@ -380,7 +380,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_007_scfProjectBasis_getPushMaterial(self):
         """【平台方】查询推送的节点材料枚举值"""
@@ -390,7 +390,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_scfProjectBasis_signType(self):
         """【平台方】获取签署方式"""
@@ -400,7 +400,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_009_scfProjectBasis_insertAllDetail(self):
         """【平台方】新增项目"""
@@ -512,7 +512,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_010_scfProjectBasis_listEnterprise(self):
         """【平台方】查询融资企业"""
@@ -527,7 +527,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_011_scfProjectBasis_search(self):
         """【平台方】产品配置列表-搜索"""
@@ -544,7 +544,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_012_scfProjectBasis_enable(self):
         """【平台方】项目配置启用-停用"""
@@ -558,7 +558,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_013_scfProjectBasis_deliver(self):
         """【平台方】项目配置分配"""
@@ -573,7 +573,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_014_scfProjectBasis_filterList(self):
         """【平台方】过滤数据表的项目列表"""
@@ -586,7 +586,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_015_scfProjectBasis_selectFlow(self):
         """【平台方】查询流程模板"""
@@ -600,7 +600,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_016_scfProjectBasis_getFlowTemplateDetail(self):
         """【平台方】查询流程模板详情"""
@@ -613,7 +613,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_017_scfProjectBasis_queryProjectBasicInfo(self):
         """【平台方】通过项目ID查询相关信息"""
@@ -626,7 +626,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_018_scfProjectBasis_editAllDetail(self):
         """【平台方】跳转至编辑项目页面"""
@@ -639,7 +639,7 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_019_scfProjectBasis_delete(self):
         """【平台方】项目配置删除"""
@@ -667,4 +667,4 @@ class ScfProjectBasis(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

@@ -115,7 +115,7 @@ class Role(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         # self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_roles_page(self):
         """【供应商/经销商】角色分页查询"""
@@ -130,7 +130,7 @@ class Role(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_role_update(self):
         """【供应商/经销商】编辑角色"""
@@ -148,7 +148,7 @@ class Role(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_role_updateenabled(self):
         """【供应商/经销商】编辑角色状态"""
@@ -163,7 +163,7 @@ class Role(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_role_delete(self):
         """【供应商/经销商】删除角色"""
@@ -177,7 +177,7 @@ class Role(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_roles_all(self):
         """【供应商/经销商】查询所有角色"""
@@ -189,4 +189,4 @@ class Role(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

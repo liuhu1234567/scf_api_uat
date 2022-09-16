@@ -178,7 +178,7 @@ class ScfProjectFlow(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_002_scfProjectFlow_grantFlow(self):
     #     """【平台方】授信配置-创建流程"""
@@ -217,7 +217,7 @@ class ScfProjectFlow(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_003_scfProjectFlow_openFlow(self):
     #     """【平台方】开立配置-创建流程"""
@@ -257,7 +257,7 @@ class ScfProjectFlow(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_004_scfProjectFlow_transferFlow(self):
     #     """【平台方】转让配置-创建流程"""
@@ -297,7 +297,7 @@ class ScfProjectFlow(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_005_scfProjectFlow_financeFlow(self):
     #     """【平台方】融资配置-创建流程"""
@@ -338,7 +338,7 @@ class ScfProjectFlow(unittest.TestCase):
     #
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_006_scfProjectFlow_refactorFlow(self):
     #     """【平台方】再保理配置-创建流程"""
@@ -378,7 +378,7 @@ class ScfProjectFlow(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_007_scfProjectFlow_selectFlow(self):
     #     """【平台方】查询流程"""
@@ -391,7 +391,7 @@ class ScfProjectFlow(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_scfProjectFlow_scustomerType(self):
             """【平台方】查询流程子节点名称"""
@@ -401,7 +401,7 @@ class ScfProjectFlow(unittest.TestCase):
             customize_dict['restime_now'] = restime_now
             self.assertEqual(200, r_json['resp_code'])
             self.assertEqual('SUCCESS', r_json['resp_msg'])
-            self.assertLessEqual(restime_now, restime)
+            self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_009_scfProjectFlow_formData(self):
             """【平台方】查询表单数据下拉框"""
@@ -411,4 +411,4 @@ class ScfProjectFlow(unittest.TestCase):
             customize_dict['restime_now'] = restime_now
             self.assertEqual(200, r_json['resp_code'])
             self.assertEqual('SUCCESS', r_json['resp_msg'])
-            self.assertLessEqual(restime_now, restime)
+            self.assertLessEqual(restime_now, restime, 'Test api timeout')

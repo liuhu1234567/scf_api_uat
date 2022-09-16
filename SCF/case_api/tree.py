@@ -125,7 +125,7 @@ class Tree(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_tree_queryTreeData(self):
         """【平台方】查询菜单树"""
@@ -141,7 +141,7 @@ class Tree(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_tree_dropdownList(self):
         """【平台方】菜单分类枚举信息"""
@@ -151,7 +151,7 @@ class Tree(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_004_tree_imageByType(self):
     #     """【平台方】指定类型获取影像文件"""
@@ -164,7 +164,7 @@ class Tree(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_tree_imageByTypes(self):
         """【平台方】指定类型获取影像文件-批量"""
@@ -177,7 +177,7 @@ class Tree(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_tree_deleteInfo(self):
         """【平台方】删除"""
@@ -191,4 +191,4 @@ class Tree(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

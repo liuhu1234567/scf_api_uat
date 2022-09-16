@@ -121,6 +121,7 @@ class ReportTestResult(unittest.TestResult):
         self.stream = stream
         self.end_time = 0
         self.failure_count = 0
+        self.timeOut_count = 0
         self.error_count = 0
         self.success_count = 0
         self.skipped = 0
@@ -146,7 +147,8 @@ class ReportTestResult(unittest.TestResult):
             "testFail": 0,
             "beginTime": "",
             "totalTime": "",
-            "testSkip": 0
+            "testSkip": 0,
+            "testTimeOut": 0
         }
 
     @property
@@ -224,6 +226,7 @@ class ReportTestResult(unittest.TestResult):
         self.fields['totalTime'] = str(end_time - start_time) + 's'
         self.fields['testError'] = self.error_count
         self.fields['testSkip'] = self.skipped
+        self.fields['testTimeOut'] = self.timeOut_count
         return self.fields
 
     def get_all_result_info_tuple(self, test) -> tuple:
@@ -300,6 +303,28 @@ class ReportTestResult(unittest.TestResult):
         logs.extend(self.error_or_failure_text(err))
         self.failure_count += 1
         self.add_test_type('失败', logs)
+        if self.verbosity > 1:
+            sys.stderr.write('F  ')
+            sys.stderr.write(str(test))
+            sys.stderr.write('\n')
+        else:
+            sys.stderr.write('F')
+
+        self._mirrorOutput = True
+
+    def addTimeOut(self, test, AssertionError):
+        """
+            add Some Failures Result and infos
+        :param test:
+        :param err:
+        :return:
+        """
+        logs = []
+        output = self.complete_output()
+        logs.append(output)
+        logs.extend(self.error_or_failure_text(AssertionError))
+        self.timeOut_count += 1
+        self.add_test_type('超时', logs)
         if self.verbosity > 1:
             sys.stderr.write('F  ')
             sys.stderr.write(str(test))

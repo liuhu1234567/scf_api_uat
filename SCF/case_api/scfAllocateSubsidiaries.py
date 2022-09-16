@@ -111,7 +111,7 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_scfAllocateSubsidiaries_ueryList(self):
         """【核心企业】获取子公司分配额度信息"""
@@ -125,7 +125,7 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     #开发专用接口，新增后会造成前端页面字段展示bug
     # def test_003_scfAllocateSubsidiaries_insert(self):
@@ -142,7 +142,7 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
     #     customize_dict['restime_now'] = restime_now
     #     self.assertEqual(200, r_json['resp_code'])
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime)
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_scfAllocateSubsidiaries_batch(self):
         """【核心企业】批量"""
@@ -159,7 +159,7 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_scfAllocateSubsidiaries_update(self):
         """【核心企业】编辑"""
@@ -176,7 +176,7 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_scfAllocateSubsidiaries_update(self):
         """【核心企业】分页查询"""
@@ -199,6 +199,6 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
 

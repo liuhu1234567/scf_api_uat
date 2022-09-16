@@ -129,7 +129,7 @@ class ScfProjectOpenTransfer(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_scfProjectOpenTransfer_enable(self):
         """【平台方】启用-停用"""
@@ -151,7 +151,7 @@ class ScfProjectOpenTransfer(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_scfProjectOpenTransfer_insertOpenTransfer(self):
         """【平台方】开立、转让新增"""
@@ -232,7 +232,7 @@ class ScfProjectOpenTransfer(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_scfProjectOpenTransfer_searchProjectOpenTransfer(self):
         """【平台方】金点信配置列表-搜索"""
@@ -248,7 +248,7 @@ class ScfProjectOpenTransfer(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_scfProjectOpenTransfer_selectName(self):
         """【平台方】选择流程节点名称-开立、转让"""
@@ -260,7 +260,7 @@ class ScfProjectOpenTransfer(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_scfProjectOpenTransfer_delete(self):
         """【平台方】删除(入参：核心企业ID)"""
@@ -281,4 +281,4 @@ class ScfProjectOpenTransfer(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

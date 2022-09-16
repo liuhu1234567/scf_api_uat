@@ -179,7 +179,7 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_scfFinanceProduct_insert(self):
         """【平台方】新增金融产品"""
@@ -209,7 +209,7 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_scfFinanceProduct_update(self):
         """【平台方】修改金融产品"""
@@ -240,7 +240,7 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_scfFinanceProduct_enable(self):
         """【平台方】启用-停用金融产品"""
@@ -254,7 +254,7 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_scfFinanceProduct_delete(self):
         """【平台方】删除金融产品"""
@@ -287,7 +287,7 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_scfFinanceProduct_search(self):
         """【平台方】搜索金融产品"""
@@ -304,7 +304,7 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_007_scfFinanceProduct_simpleList(self):
         """【平台方】产品下拉列表"""
@@ -314,7 +314,7 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_scfFinanceProduct_projectDeliverSearch(self):
         """【平台方】产品分配列表(平台、供应商)-搜索"""
@@ -335,7 +335,7 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_009_scfFinanceProduct_projectDeliverBankSearch(self):
         """【资金方】搜索金融产品"""
@@ -356,7 +356,7 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_010_scfFinanceProduct_projectDeliverCoreSearch(self):
         """【核心企业】搜索金融产品"""
@@ -377,4 +377,4 @@ class ScfFinanceProduct(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

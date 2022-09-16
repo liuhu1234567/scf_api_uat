@@ -71,7 +71,7 @@ class LoginPassword(unittest.TestCase):
 
         self.assertEqual(r_json['resp_code'], 200)
         self.assertEqual(r_json['resp_msg'], "SUCCESS")
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
 
 if __name__ == '__main__':

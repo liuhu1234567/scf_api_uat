@@ -75,7 +75,7 @@ class User(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         # self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_user_auth_user_role(self):
         """【平台方】用户分配角色"""
@@ -90,7 +90,7 @@ class User(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         # self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
 
     def test_003_user_query_users_page(self):
@@ -106,4 +106,4 @@ class User(unittest.TestCase):
 
         self.assertEqual(200, r_json['resp_code'])
         # self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

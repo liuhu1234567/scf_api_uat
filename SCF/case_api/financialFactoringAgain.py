@@ -147,7 +147,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_financialFactoringAgain_queryById(self):
         """根据ID查询融资保理详情"""
@@ -160,7 +160,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_financialFactoringAgain_queryConfigSet(self):
         """根据项目id查询融资流程配置"""
@@ -174,7 +174,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_financialFactoringAgain_queryFinancialFactoringPage(self):
         """查询融资保理审核列表"""
@@ -192,7 +192,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_financialFactoringAgain_resubmit(self):
         """重新提交"""
@@ -220,7 +220,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_financialFactoringAgain_updateAuditStatus(self):
         """融资保理审核"""
@@ -242,7 +242,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_007_financialFactoringAgain_queryByApplicationNumber(self):
         """根据再保理申请编号查询再保理详情"""
@@ -255,4 +255,4 @@ class FinancialFactoringAgain(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime)
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
