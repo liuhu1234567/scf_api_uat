@@ -18,7 +18,7 @@
         function showLog(id) {
             document.body.style.overflow = 'hidden'
             document.body.style.height='100%'
-            document.getElementById(id).style.display = 'block'
+            document.getElementById(id).style.display = 'table-row'
         }
 
         function hideLog(id) {
@@ -30,7 +30,7 @@
             document.body.style.overflow = 'hidden'
             document.body.style.height='100%'
             var nextObj = obj.nextElementSibling
-            nextObj.style.display = 'block'
+            nextObj.style.display = 'table-row'
             var index = 0;   //每张图片的下标，
             var len = nextObj.getElementsByTagName('img').length;
             var imgCircle = nextObj.getElementsByClassName('img-circle')[0]
@@ -72,7 +72,7 @@
                     imgTags[i].style.display = 'none';
                     fontTags[i].style.backgroundColor = 'white';
                 }
-                imgTags[index].style.display = 'block';
+                imgTags[index].style.display = 'table-row';
                 if (fontTags.length > 0) {
                     fontTags[index].style.backgroundColor = 'red';
                 }
@@ -94,56 +94,57 @@
         */
         function showCase(level, channel) {
             trs = document.getElementsByTagName("tr");
-            for (var i=0; i < trs.length; i++) {
+            for (var i=1; i < trs.length; i++) {
                 tr = trs[i];
                 id = tr.id;
                 if (["ft", "pt", "et", "st"].indexOf(id.substr(0, 2)) != -1) {
                     if (level == 0 && id.substr(2, 1) == channel) {
-                        tr.className = 'hiddenRow';
+                        tr.style.display = 'none';
                     }
                 }
-                if (id.substr(0, 3) == 'pt' + channel) {
-                    if (level == 1) {
-                        tr.className = '';
-                    }
-                    else if (level > 4 && id.substr(2, 1) == channel) {
-                        tr.className = '';
+                if(level>5){
+                    tr.style.display = 'table-row';
+                }
+
+                if (level == 1) {
+                    if (id.substr(0, 3) == 'pt' + channel) {
+                        tr.style.display = 'table-row';
                     }
                     else {
-                        tr.className = 'hiddenRow';
+                        tr.style.display = 'none';
                     }
                 }
-                if (id.substr(0, 3) == 'ft' + channel) {
-                    if (level == 2) {
-                        tr.className = '';
-                    }
-                    else if (level > 4 && id.substr(2, 1) == channel) {
-                        tr.className = '';
+                if (level == 2) {
+                    if (id.substr(0, 3) == 'ft' + channel) {
+                        tr.style.display = 'table-row';
                     }
                     else {
-                        tr.className = 'hiddenRow';
+                        tr.style.display = 'none';
                     }
                 }
-                if (id.substr(0, 3) == 'et' + channel) {
-                    if (level == 3) {
-                        tr.className = '';
-                    }
-                    else if (level > 4 && id.substr(2, 1) == channel) {
-                        tr.className = '';
+                if (level == 3) {
+                    if (id.substr(0, 3) == 'tt' + channel) {
+                        tr.style.display = 'table-row';
                     }
                     else {
-                        tr.className = 'hiddenRow';
+                        tr.style.display = 'none';
                     }
                 }
-                if (id.substr(0, 3) == 'st' + channel) {
-                    if (level == 4) {
-                        tr.className = '';
+                if (level == 4) {
+                    if (id.substr(0, 3) == 'et' + channel) {
+                        tr.style.display = 'table-row';
                     }
-                    else if (level > 4 && id.substr(2, 1) == channel) {
-                        tr.className = '';
+                    
+                    else {
+                        tr.style.display = 'none';
+                    }
+                }
+                if (level == 5) {
+                    if (id.substr(0, 3) == 'st' + channel) {
+                        tr.style.display = 'table-row';
                     }
                     else {
-                        tr.className = 'hiddenRow';
+                        tr.style.display = 'none';
                     }
                 }
             }
@@ -186,9 +187,9 @@
             var detailsDiv = document.getElementById(div_id)
             var displayState = detailsDiv.style.display
 
-            if (displayState != 'block') {
-                displayState = 'block'
-                detailsDiv.style.display = 'block'
+            if (displayState != 'table-row') {
+                displayState = 'table-row'
+                detailsDiv.style.display = 'table-row'
             }
             else {
                 detailsDiv.style.display = 'none'

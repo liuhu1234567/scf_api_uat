@@ -5,7 +5,7 @@ from common.do_config import report_name, upload_MeterShpere, upload_robot, uplo
 from common.upload_report import insert_report, get_file_url
 from common.do_robot import send_robot
 from common.do_email import send_email
-from common.XTestRunner import HTMLTestRunner
+from common.TestRunner import HTMLTestRunner
 # import HtmlTestRunner
 
 
@@ -30,7 +30,7 @@ def unittest_xtestrunner():
     runner = HTMLTestRunner(stream=fp,
                             title='供应链金融接口自动化测试报告',
                             language='zh-CN',
-                            description='测试用例执行详情')
+                            description=['地址：http://app.scf-uat.dianliantech.com'])
     r = runner.run(suite)
     fp.close()
 

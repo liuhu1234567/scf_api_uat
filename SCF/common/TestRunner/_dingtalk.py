@@ -6,7 +6,7 @@ import base64
 import hashlib
 import requests
 from jinja2 import Environment, FileSystemLoader
-from common.XTestRunner.config import RunResult
+from common.TestRunner.config import RunResult
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DINGTALK_TMP = os.path.join(BASE_DIR, 'html', 'notice_tmp.md')

@@ -6,6 +6,8 @@
     },
     "restime": 3,
     "env_now": "test",
+    "environment": "UAT",
+    "test_type": "API",
     "report_name": "供应链金融接口测试报告_${start_time}.html",
     "scf_financier": {
         "//": "资金方账号",
@@ -39,7 +41,7 @@
     },
         "upload_report": {
         "upload_MeterShpere": false,
-        "upload_robot": true,
+        "upload_robot": false,
         "upload_email": false
     }
 }

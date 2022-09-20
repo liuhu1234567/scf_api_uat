@@ -5,11 +5,11 @@ import datetime
 import functools
 from xml.sax import saxutils
 from jinja2 import Environment, FileSystemLoader
-from common.XTestRunner.htmlrunner.result import _TestResult
-from common.XTestRunner.config import RunResult, Config
-from common.XTestRunner.version import get_version
-from common.XTestRunner._email import SMTP
-from common.XTestRunner._dingtalk import DingTalk
+from common.TestRunner.htmlrunner.result import _TestResult
+from common.TestRunner.config import RunResult, Config
+from common.TestRunner.version import get_version
+from common.TestRunner._email import SMTP
+from common.TestRunner._dingtalk import DingTalk
 from common.global_variable import customize_dict
 
 
@@ -35,22 +35,26 @@ class CustomTemplate:
     """
 
     STATUS = {
-        0: 'pass',
-        1: 'fail',
-        2: 'error',
-        3: 'skip',
+        0: '通过',
+        1: '失败',
+        2: '超时',
+        3: '错误',
+        4: '跳过'
     }
+
+     # <td><a href="javascript:showClassDetail('%(cid)s',%(count)s)">Detail</a></td>
 
     REPORT_CLASS_TMPL = r"""
 <tr class='%(style)s'>
     <td>%(name)s</td>
     <td>%(desc)s</td>
-    <td></td>
     <td>%(count)s</td>
     <td>%(Pass)s</td>
     <td>%(fail)s</td>
+    <td>%(timeout)s</td>
     <td>%(error)s</td>
-    <td><a href="javascript:showClassDetail('%(cid)s',%(count)s)">Detail</a></td>
+    <td>%(skip)s</td>
+    <td></td>
     <td>&nbsp;</td>
 </tr>
 """  # variables: (style, desc, count, Pass, fail, error, cid)
@@ -66,7 +70,7 @@ class CustomTemplate:
     <td style="color: #495057">
         <div>%(runtime)s s</div>
     </td>
-    <td colspan='5' align='center' class='caseStatistics'>
+    <td colspan='5' align='right' class='caseStatistics'>
         <!--css div popup start-->
         <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_%(tid)s')">%(status)s</a>
         <div id='div_%(tid)s' class="modal show" style="display: none; background-color: #000000c7;">
@@ -74,10 +78,7 @@ class CustomTemplate:
                 <div class="modal-content shadow-3">
                     <div class="modal-header">
                         <div>
-                            <h5 class="mb-1">%(log_title)s</h5>
-                        </div>
-                        <div>
-                            <h5 class="mb-1">detailed log</h5>
+                            <h5 class="mb-1">详情日志</h5>
                         </div>
                         <div>
                             <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_%(tid)s')">X</button>
@@ -93,7 +94,7 @@ class CustomTemplate:
         </div>
         <!--css div popup end-->
     </td>
-    <td>%(img)s</td>
+    <td colspan='2'>%(img)s</td>
 </tr>
 """  # variables: (tid, Class, style, desc, status)
 
@@ -239,6 +240,7 @@ class HTMLTestRunner(object):
         run_map = {}
         classes = []
         for num, test, out, error in result_list:
+            # print(num, test, out, error)
             cls = test.__class__
             if cls not in run_map:
                 run_map[cls] = []
@@ -266,6 +268,7 @@ class HTMLTestRunner(object):
         RunResult.timeout = result.timeout_count
         RunResult.failed = result.failure_count - RunResult.timeout
         count = RunResult.passed + RunResult.failed + RunResult.errors + RunResult.skipped + RunResult.timeout
+        # print(RunResult.failed,RunResult.errors)
         p_percent = '0.00'
         e_percent = '0.00'
         f_percent = '0.00'
@@ -291,7 +294,7 @@ class HTMLTestRunner(object):
             "end_time": end_time_format,
             "duration": duration
         }
-
+        # print(duration)
         statistics_info = {
             "o": {
                 "number": RunResult.count,
@@ -328,11 +331,8 @@ class HTMLTestRunner(object):
                       'beginTime': str(RunResult.start_time),
                       'totalTime': durations
                       }
-        # print('durations------------------------------------------------')
-        # print(durations)
         customize_dict['resultData'] = resultData
-        # print('customize_dict------------------------------------------------')
-        # print(customize_dict)
+        # print(statistics_info)
         return base_info, statistics_info
 
     def generate_report(self, test, result):
@@ -344,6 +344,7 @@ class HTMLTestRunner(object):
         heading = self._generate_heading(base, statistics)
         report = self._generate_report(result)
 
+
         html_content = template.render(
             title=saxutils.escape(self.title),
             version=version,
@@ -352,6 +353,7 @@ class HTMLTestRunner(object):
             report=report,
             channel=self.run_times,
         )
+        # print(report)
         self.stream.write(html_content.encode('utf8'))
 
     def _generate_heading(self, base, statistics):
@@ -386,16 +388,21 @@ class HTMLTestRunner(object):
     def _generate_report(self, result):
         rows = []
         sorted_result = self.sort_result(result.result)
+        # print(sorted_result)
         for cid, (cls, cls_results) in enumerate(sorted_result):
             # subtotal for a class
-            num_pass = num_fail = num_error = num_skip = 0
+            # print(cls_results)
+            num_pass = num_fail = num_timeout = num_error = num_skip = 0
             for num, test, out, error in cls_results:
+                # print(num)
                 if num == 0:
                     num_pass += 1
                 elif num == 1:
                     num_fail += 1
                 elif num == 2:
-                    num_fail += 1
+                    num_timeout += 1
+                elif num == 3:
+                    num_error += 1
                 else:
                     num_skip += 1
 
@@ -408,18 +415,22 @@ class HTMLTestRunner(object):
             # desc = doc and '%s: %s' % (name, doc) or name
 
             row = CustomTemplate.REPORT_CLASS_TMPL % dict(
-                style=num_error > 0 and 'errorClass' or num_fail > 0 and 'failClass' or 'passClass',
+                style=num_error > 0 and 'errorClass' or num_fail > 0
+                      and 'failClass' or num_timeout > 0 and 'timeoutClass' or  num_skip > 0 and 'skipClass' or 'passClass',
                 name=name,
                 desc=doc,
-                count=num_pass + num_fail + num_error,
+                count=num_pass + num_fail + num_error + num_timeout,
                 Pass=num_pass,
                 fail=num_fail,
+                timeout=num_timeout,
                 error=num_error,
+                skip=num_skip,
                 cid='c{}.{}'.format(self.run_times, cid + 1),
             )
             rows.append(row)
 
             for tid, (num, test, out, error) in enumerate(cls_results):
+                # print(tid,(num, test, out, error))
                 self._generate_report_test(rows, cid, tid, num, test, out, error)
 
         if Config.language == "en":
@@ -441,17 +452,21 @@ class HTMLTestRunner(object):
         return report
 
     def _generate_report_test(self, rows, cid, tid, num, test, out, error):
-        # e.g. 'pt1.1', 'ft1.1','et1.1', 'st1.1' etc
+        # e.g. 'pt1.1', 'ft1.1','l', 'st1.1' etc
         has_output = bool(out or error)
+        # print(has_output)
         if num == 0:
             tmp = "p"
         elif num == 1:
             tmp = "f"
         elif num == 2:
+            tmp = "t"
+        elif num == 3:
             tmp = "e"
         else:
             tmp = "s"
         tid = tmp + 't{}.{}.{}'.format(self.run_times, cid + 1, tid + 1)
+        # print(tid, num)
         # tid = (n == 0 and 'p' or 'f') + 't%s.%s' % (cid + 1, tid + 1)
         name = test.id().split('.')[-1]
         doc = test.shortDescription() or ""
@@ -496,7 +511,9 @@ class HTMLTestRunner(object):
         row = tmpl % dict(
             tid=tid,
             Class=(num == 0 and 'hiddenRow' or 'none'),
-            style=num == 2 and 'errorCase' or (num == 1 and 'failCase' or 'passCase'),
+            # style=num == 2 and 'errorCase' or (num == 1 and 'failCase' or 'passCase'),
+            style=num == 3 and 'errorCase' or (num == 4 and 'skipCase') or
+                  (num == 1 and 'failCase')  or(num == 2 and 'timeoutCase' or 'passCase'),
             casename=name,
             desc=doc,
             runtime=runtime,
@@ -505,6 +522,18 @@ class HTMLTestRunner(object):
             status=CustomTemplate.STATUS[num],
             img=screenshots_html
         )
+        # print(dict(
+        #     tid=tid,
+        #     Class=(num == 0 and 'hiddenRow' or 'none'),
+        #     style=num == 2 and 'errorCase' or (num == 1 and 'failCase' or 'passCase'),
+        #     casename=name,
+        #     desc=doc,
+        #     runtime=runtime,
+        #     log_title=name,
+        #     script=script,
+        #     status=CustomTemplate.STATUS[num],
+        #     img=screenshots_html
+        # ))
         rows.append(row)
         if not has_output:
             return

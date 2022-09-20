@@ -1,6 +1,7 @@
 import requests
 import json
 from common.global_variable import customize_dict
+from common.do_config import environment
 
 
 def send_robot(file_url):
@@ -17,7 +18,7 @@ def send_robot(file_url):
     testSkip = customize_dict['resultData']['testSkip']
     testError = customize_dict['resultData']['testError']
     testTimeout = customize_dict['resultData']['testTimeout']
-    totalTime = str('%.2f'%totalTime) + 's'
+    totalTime = str(int(totalTime)) + 's'
     md = f"""# {testName}
 
 
@@ -29,7 +30,7 @@ def send_robot(file_url):
     └─ <font color="#B8860B">跳过用例数：{testSkip}</font>
 
 
-运行环境：UAT
+运行环境：{environment}
 运行时间：{totalTime}
 
 点击查看 [详细报告]({file_url})"""

@@ -15,6 +15,8 @@ start_time = time.strftime('%Y%m%d_%H-%M-%S')
 _config = read_config()
 restime = _config['restime']
 env_now = _config['env_now']
+environment = _config['environment']
+test_type = _config['test_type']
 api_host = _config['all_host'][env_now]
 report_name = Template(_config['report_name']).safe_substitute(start_time=start_time)
 scf_financier = _config['scf_financier']
@@ -26,3 +28,4 @@ scf_subsidiaries = _config['scf_subsidiaries']
 upload_MeterShpere = _config['upload_report']['upload_MeterShpere']
 upload_robot = _config['upload_report']['upload_robot']
 upload_email = _config['upload_report']['upload_email']
+host = _config['all_host']['test']

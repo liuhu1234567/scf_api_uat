@@ -175,9 +175,11 @@ class _TestResult(TestResult):
         TestResult.addError(self, test, err)
         _, _exc_str = self.errors[-1]
         output = self.complete_output()
-        self.result.append((2, test, output, _exc_str))
-        if 'Test api timeout' in _exc_str:
-            self.timeout_count += 1
+        ###错误的状态从2 改为3
+        self.result.append((3, test, output, _exc_str))
+        # if 'Test api timeout' in _exc_str:
+        #     self.timeout_count += 1
+        #     self.result.append((2, test, output, _exc_str))
         if type(getattr(test, "driver", "")).__name__ == 'WebDriver':
             driver = getattr(test, "driver")
             test.images.append(driver.get_screenshot_as_base64())
@@ -201,12 +203,20 @@ class _TestResult(TestResult):
         TestResult.addFailure(self, test, err)
         _, _exc_str = self.failures[-1]
         output = self.complete_output()
-        self.result.append((1, test, output, _exc_str))
         if 'Test api timeout' in _exc_str:
             self.timeout_count += 1
+            self.result.append((2, test, output, _exc_str))
+        else:
+            self.result.append((1, test, output, _exc_str))
+
+        # self.result.append((1, test, output, _exc_str))
+        # if 'Test api timeout' in _exc_str:
+        #     self.timeout_count += 1
+        #     self.result.append((2, test, output, _exc_str))
         if type(getattr(test, "driver", "")).__name__ == 'WebDriver':
             driver = getattr(test, "driver")
             test.images.append(driver.get_screenshot_as_base64())
+        # print(test)
         if self.verbosity > 1:
             sys.stderr.write('F  ')
             sys.stderr.write(str(test))
@@ -220,7 +230,8 @@ class _TestResult(TestResult):
         self.status = 0
         TestResult.addSkip(self, test, reason)
         output = self.complete_output()
-        self.result.append((3, test, output, reason))
+        ####跳过状态从3 改为4
+        self.result.append((4, test, output, reason))
         if self.verbosity > 1:
             sys.stderr.write('S')
             sys.stderr.write(str(test))
