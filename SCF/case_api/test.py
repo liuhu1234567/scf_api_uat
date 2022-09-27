@@ -1,6 +1,7 @@
 import random
 import datetime
 import time
+from case_api.login_password import encrypt
 from faker import Faker
 from jsonpath import jsonpath
 import json
@@ -32,11 +33,12 @@ import json
 #     str_list = [random.choice(a + b) for i in range(6)]
 #     random_str = ''.join(str_list)
 #     return random_str + fake.company()
-start = datetime.datetime.now()
-time.sleep(1)
-now = datetime.datetime.now()
-e = (now - start).total_seconds()
-
-s = str(now)
-print(type(e))
-print('%.2f'%e)
+# start = datetime.datetime.now()
+# time.sleep(1)
+# now = datetime.datetime.now()
+# e = (now - start).total_seconds()
+#
+# s = str(now)
+# print(type(e))
+# print('%.2f'%e)
+print(encrypt('Aa1234567'))

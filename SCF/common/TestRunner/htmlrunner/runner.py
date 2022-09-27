@@ -466,7 +466,7 @@ class HTMLTestRunner(object):
         else:
             tmp = "s"
         tid = tmp + 't{}.{}.{}'.format(self.run_times, cid + 1, tid + 1)
-        # print(tid, num)
+        # print(tid)
         # tid = (n == 0 and 'p' or 'f') + 't%s.%s' % (cid + 1, tid + 1)
         name = test.id().split('.')[-1]
         doc = test.shortDescription() or ""

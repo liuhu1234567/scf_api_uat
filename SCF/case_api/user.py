@@ -52,30 +52,30 @@ def api_user_query_users_page(token, payload):
     return r
 
 class User(unittest.TestCase):
-    def test_001_user_insert_user(self):
-        """【平台方】用户新增"""
-        rolename = get_name()
-        descnum = get_number(10)
-        sfz = get_sfz()
-        email = get_email()
-        payload = {
-            "employeeNo": "123123",
-            "mailbox": f"{email}",
-            "mobile": f"{descnum}",
-            "nickName": f"{rolename}",
-            "numId": f"{sfz}",
-            "organizationName": "123123",
-            "postName": "123123",
-            "roleId": "1549711236625432577"
-        }
-        r = api_user_insert_user(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-
-        self.assertEqual(200, r_json['resp_code'])
-        # self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_001_user_insert_user(self):
+    #     """【平台方】用户新增"""
+    #     rolename = get_name()
+    #     descnum = get_number(10)
+    #     sfz = get_sfz()
+    #     email = get_email()
+    #     payload = {
+    #         "employeeNo": "123123",
+    #         "mailbox": f"{email}",
+    #         "mobile": f"{descnum}",
+    #         "nickName": f"{rolename}",
+    #         "numId": f"{sfz}",
+    #         "organizationName": "123123",
+    #         "postName": "123123",
+    #         "roleId": "1549711236625432577"
+    #     }
+    #     r = api_user_insert_user(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     # self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_user_auth_user_role(self):
         """【平台方】用户分配角色"""

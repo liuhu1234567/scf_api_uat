@@ -48,9 +48,10 @@ class Blockchain(unittest.TestCase):
         """【平台方】入库区块链信息"""
         g_d['busType'] = api_scfProjectBasis_getBusinessTypes(token_scf_platform).json()['datas'][0]['value']
         payload = {
-            "businessType": random.randint(1, 5)
+            "businessType": random.randint(1, 3)
         }
         g_d['busId'] = api_scfProjectBasis_listProjectBasisByType(token_scf_platform, payload).json()['datas'][0]['id']
+
         payload = {
             "busId": g_d.get('busId'),
             "busType": g_d.get('busType'),

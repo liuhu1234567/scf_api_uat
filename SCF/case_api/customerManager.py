@@ -127,42 +127,42 @@ g_d = {}
 
 
 class CustomerManager(unittest.TestCase):
-    def test_001_customerManager_importCustomerFromExcel(self):
-        """【平台方】客户管理-导入用户数据"""
-        file_name = insert_excel_importCustomerFromExcel(1)
-        path = api_template_uploadfile(token_scf_platform, file_name).json()['datas']['path']
-        fileId = "group1/" + path
-        payload = {
-            "fileId": fileId
-        }
-        r = api_customerManager_importCustomerFromExcel(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_001_customerManager_importCustomerFromExcel(self):
+    #     """【平台方】客户管理-导入用户数据"""
+    #     file_name = insert_excel_importCustomerFromExcel(1)
+    #     path = api_template_uploadfile(token_scf_platform, file_name).json()['datas']['path']
+    #     fileId = "group1/" + path
+    #     payload = {
+    #         "fileId": fileId
+    #     }
+    #     r = api_customerManager_importCustomerFromExcel(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_002_customerManager_insert(self):
-        """【平台方】客户新增"""
-        payload = {
-            "auditStatus": 0,
-            "channel": 1,
-            "contact": get_name(),
-            "contactEmail": get_email(),
-            "contactMobile": get_phone(),
-            "coreEnterprise": "",
-            "creditCode": get_number(10),
-            "customerType": random.choice([1, 3, 4, 5, 6]),
-            "entName": get_company()
-        }
-        r = api_customerManager_insert(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_002_customerManager_insert(self):
+    #     """【平台方】客户新增"""
+    #     payload = {
+    #         "auditStatus": 0,
+    #         "channel": 1,
+    #         "contact": get_name(),
+    #         "contactEmail": get_email(),
+    #         "contactMobile": get_phone(),
+    #         "coreEnterprise": "",
+    #         "creditCode": get_number(10),
+    #         "customerType": random.choice([1, 3, 4, 5, 6]),
+    #         "entName": get_company()
+    #     }
+    #     r = api_customerManager_insert(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_customerManager_queryAuditPage(self):
         """【平台方】分页查询客户审核列表"""

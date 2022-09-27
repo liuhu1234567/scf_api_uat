@@ -1,6 +1,6 @@
 {
     "all_host": {
-        "test": "http://app.scf-uat.dianliantech.com",
+        "test": "https://app-scf-uat.dianliantech.com",
         "prod": "",
         "dev": "http://172.30.206.58:33099"
     },
@@ -11,17 +11,17 @@
     "report_name": "供应链金融接口测试报告_${start_time}.html",
     "scf_financier": {
         "//": "资金方账号",
-        "username": "3BFW17585245519",
+        "username": "BFW17585245519",
         "password": "Aa1234567"
     },
     "scf_enterprise": {
         "//": "核心企业账号",
-        "username": "F1DN17585245519",
+        "username": "FDN17585245519",
         "password": "Aa1234567"
     },
     "scf_supplier": {
         "//": "供应商账号",
-        "username": "2A6317585245519",
+        "username": "AEW6317585245519",
         "password": "Aa1234567"
     },
     "scf_subsidiaries": {
@@ -31,7 +31,7 @@
     },
     "scf_factor": {
         "//": "保理商账号",
-        "username": "8BZW17585245519",
+        "username": "BZW17585245519",
         "password": "Aa1234567"
     },
     "scf_platform": {

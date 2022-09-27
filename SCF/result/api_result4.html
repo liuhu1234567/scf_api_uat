@@ -508,7 +508,7 @@
                             <div class="flex-1">
                                 <div class="d-flex align-items-center mb-1">开始时间 - 结束时间</div>
                                 <div class="d-flex align-items-center">
-                                    <div class="text-sm text-muted line-clamp-1 me-auto">2022-09-20 17:33:43 - 2022-09-20 17:33:43</div>
+                                    <div class="text-sm text-muted line-clamp-1 me-auto">2022-09-20 18:18:04 - 2022-09-20 18:18:04</div>
                                 </div>
                             </div>
                         </div>
@@ -734,20 +734,20 @@
     <td>&nbsp;</td>
 </tr>
 
-<tr id='st1.1.1' class='none'>
-    <td class='skipCase'>
-        <div class='testcase'>test_delete</div>
+<tr id='et1.1.1' class='none'>
+    <td class='errorCase'>
+        <div class='testcase'>test_errer</div>
     </td>
     <td style="color: #495057">
-        <div>测试delete接口</div>
+        <div>测试errer</div>
     </td>
     <td style="color: #495057">
         <div>0.00 s</div>
     </td>
     <td colspan='5' align='right' class='caseStatistics'>
         <!--css div popup start-->
-        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_st1.1.1')">跳过</a>
-        <div id='div_st1.1.1' class="modal show" style="display: none; background-color: #000000c7;">
+        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_et1.1.1')">错误</a>
+        <div id='div_et1.1.1' class="modal show" style="display: none; background-color: #000000c7;">
             <div class="modal-dialog modal-dialog-centered log_window">
                 <div class="modal-content shadow-3">
                     <div class="modal-header">
@@ -755,12 +755,16 @@
                             <h5 class="mb-1">详情日志</h5>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_st1.1.1')">X</button>
+                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_et1.1.1')">X</button>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div>
-                            <pre>st1.1.1:   </pre>
+                            <pre>et1.1.1: Traceback (most recent call last):
+  File ".\testdemo.py", line 28, in test_errer
+    raise Exception
+Exception
+</pre>
                         </div>
                     </div>
                 </div>
@@ -771,20 +775,20 @@
     <td colspan='2'></td>
 </tr>
 
-<tr id='tt1.1.2' class='none'>
-    <td class='timeoutCase'>
-        <div class='testcase'>test_get</div>
+<tr id='ft1.1.2' class='none'>
+    <td class='failCase'>
+        <div class='testcase'>test_fail</div>
     </td>
     <td style="color: #495057">
-        <div>测试get接口</div>
+        <div>测试fail</div>
     </td>
     <td style="color: #495057">
         <div>0.00 s</div>
     </td>
     <td colspan='5' align='right' class='caseStatistics'>
         <!--css div popup start-->
-        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_tt1.1.2')">超时</a>
-        <div id='div_tt1.1.2' class="modal show" style="display: none; background-color: #000000c7;">
+        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_ft1.1.2')">失败</a>
+        <div id='div_ft1.1.2' class="modal show" style="display: none; background-color: #000000c7;">
             <div class="modal-dialog modal-dialog-centered log_window">
                 <div class="modal-content shadow-3">
                     <div class="modal-header">
@@ -792,15 +796,15 @@
                             <h5 class="mb-1">详情日志</h5>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_tt1.1.2')">X</button>
+                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_ft1.1.2')">X</button>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div>
-                            <pre>tt1.1.2: Traceback (most recent call last):
-  File ".\testdemo.py", line 14, in test_get
-    self.assertLessEqual(4, 3,'Test api timeout')
-AssertionError: 4 not less than or equal to 3 : Test api timeout
+                            <pre>ft1.1.2: Traceback (most recent call last):
+  File ".\testdemo.py", line 20, in test_fail
+    self.assertEqual(1 + 1, 3)
+AssertionError: 2 != 3
 </pre>
                         </div>
                     </div>
@@ -817,43 +821,15 @@ AssertionError: 4 not less than or equal to 3 : Test api timeout
         <div class='testcase'>test_pass</div>
     </td>
     <td style="color: #495057">
-        <div>测试put接口</div>
-    </td>
-    <td style="color: #495057">
-        <div>0.00 s</div>
-    </td>
-    <td colspan='5' align='center'>通过</td>
-    <td></td>
-</tr>
-
-<tr id='pt1.1.4' class='hiddenRow'>
-    <td class='passCase'>
-        <div class='testcase'>test_pass2</div>
-    </td>
-    <td style="color: #495057">
-        <div>测试put接口</div>
-    </td>
-    <td style="color: #495057">
-        <div>0.00 s</div>
-    </td>
-    <td colspan='5' align='center'>通过</td>
-    <td></td>
-</tr>
-
-<tr id='ft1.1.5' class='none'>
-    <td class='failCase'>
-        <div class='testcase'>test_post</div>
-    </td>
-    <td style="color: #495057">
-        <div>测试post接口</div>
+        <div>测试pass</div>
     </td>
     <td style="color: #495057">
         <div>0.00 s</div>
     </td>
     <td colspan='5' align='right' class='caseStatistics'>
         <!--css div popup start-->
-        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_ft1.1.5')">失败</a>
-        <div id='div_ft1.1.5' class="modal show" style="display: none; background-color: #000000c7;">
+        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_pt1.1.3')">通过</a>
+        <div id='div_pt1.1.3' class="modal show" style="display: none; background-color: #000000c7;">
             <div class="modal-dialog modal-dialog-centered log_window">
                 <div class="modal-content shadow-3">
                     <div class="modal-header">
@@ -861,15 +837,12 @@ AssertionError: 4 not less than or equal to 3 : Test api timeout
                             <h5 class="mb-1">详情日志</h5>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_ft1.1.5')">X</button>
+                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_pt1.1.3')">X</button>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div>
-                            <pre>ft1.1.5: Traceback (most recent call last):
-  File ".\testdemo.py", line 20, in test_post
-    self.assertEqual(1 + 1, 3)
-AssertionError: 2 != 3
+                            <pre>pt1.1.3: set--------------
 </pre>
                         </div>
                     </div>
@@ -881,20 +854,20 @@ AssertionError: 2 != 3
     <td colspan='2'></td>
 </tr>
 
-<tr id='et1.1.6' class='none'>
-    <td class='errorCase'>
-        <div class='testcase'>test_put</div>
+<tr id='pt1.1.4' class='hiddenRow'>
+    <td class='passCase'>
+        <div class='testcase'>test_pass2</div>
     </td>
     <td style="color: #495057">
-        <div>测试put接口</div>
+        <div>测试pass2</div>
     </td>
     <td style="color: #495057">
         <div>0.00 s</div>
     </td>
     <td colspan='5' align='right' class='caseStatistics'>
         <!--css div popup start-->
-        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_et1.1.6')">错误</a>
-        <div id='div_et1.1.6' class="modal show" style="display: none; background-color: #000000c7;">
+        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_pt1.1.4')">通过</a>
+        <div id='div_pt1.1.4' class="modal show" style="display: none; background-color: #000000c7;">
             <div class="modal-dialog modal-dialog-centered log_window">
                 <div class="modal-content shadow-3">
                     <div class="modal-header">
@@ -902,15 +875,90 @@ AssertionError: 2 != 3
                             <h5 class="mb-1">详情日志</h5>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_et1.1.6')">X</button>
+                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_pt1.1.4')">X</button>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div>
-                            <pre>et1.1.6: Traceback (most recent call last):
-  File ".\testdemo.py", line 28, in test_put
-    raise Exception
-Exception
+                            <pre>pt1.1.4: set--------------
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--css div popup end-->
+    </td>
+    <td colspan='2'></td>
+</tr>
+
+<tr id='st1.1.5' class='none'>
+    <td class='skipCase'>
+        <div class='testcase'>test_skip</div>
+    </td>
+    <td style="color: #495057">
+        <div>测试skip</div>
+    </td>
+    <td style="color: #495057">
+        <div>0.00 s</div>
+    </td>
+    <td colspan='5' align='right' class='caseStatistics'>
+        <!--css div popup start-->
+        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_st1.1.5')">跳过</a>
+        <div id='div_st1.1.5' class="modal show" style="display: none; background-color: #000000c7;">
+            <div class="modal-dialog modal-dialog-centered log_window">
+                <div class="modal-content shadow-3">
+                    <div class="modal-header">
+                        <div>
+                            <h5 class="mb-1">详情日志</h5>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_st1.1.5')">X</button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <pre>st1.1.5:   </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--css div popup end-->
+    </td>
+    <td colspan='2'></td>
+</tr>
+
+<tr id='tt1.1.6' class='none'>
+    <td class='timeoutCase'>
+        <div class='testcase'>test_timeout</div>
+    </td>
+    <td style="color: #495057">
+        <div>测试timeout</div>
+    </td>
+    <td style="color: #495057">
+        <div>0.00 s</div>
+    </td>
+    <td colspan='5' align='right' class='caseStatistics'>
+        <!--css div popup start-->
+        <a class="popup_link" href="javascript:void(0)" onclick="showLog('div_tt1.1.6')">超时</a>
+        <div id='div_tt1.1.6' class="modal show" style="display: none; background-color: #000000c7;">
+            <div class="modal-dialog modal-dialog-centered log_window">
+                <div class="modal-content shadow-3">
+                    <div class="modal-header">
+                        <div>
+                            <h5 class="mb-1">详情日志</h5>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-square bg-tertiary bg-opacity-20 bg-opacity-100-hover text-tertiary text-white-hover" data-bs-dismiss="modal" onclick="hideLog('div_tt1.1.6')">X</button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <pre>tt1.1.6: Traceback (most recent call last):
+  File ".\testdemo.py", line 14, in test_timeout
+    self.assertLessEqual(4, 3,'Test api timeout')
+AssertionError: 4 not less than or equal to 3 : Test api timeout
 </pre>
                         </div>
                     </div>

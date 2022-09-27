@@ -116,7 +116,7 @@ class BackAccount(unittest.TestCase):
             "bankAccountName": f"账户名称{number}",
             "bankAccountNo": card_number,
             "bankAccountSite": "深圳市兴东路点链支行",
-            "bankAccountType": 1
+            "bankAccountType": 2
         }
         r = api_backAccount_insert(token_scf_supplier, payload)
         r_json = r.json()
@@ -188,7 +188,7 @@ class BackAccount(unittest.TestCase):
             "bankAccountName": f"账户名称{number}",
             "bankAccountNo": card_number,
             "bankAccountSite": "深圳市兴东路点链支行",
-            "bankAccountType": 1
+            "bankAccountType": 2
         }
         id_new = api_backAccount_insert(token_scf_supplier, payload).json()["datas"]
         payload_new = {

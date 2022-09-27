@@ -164,9 +164,9 @@ class FinancialFactoringAgain(unittest.TestCase):
 
     def test_003_financialFactoringAgain_queryConfigSet(self):
         """根据项目id查询融资流程配置"""
-        id_one = api_scfProjectBasis_listProjectBasis(token_scf_platform).json()["datas"][0]["id"]
+        # id_one = api_scfProjectBasis_listProjectBasis(token_scf_platform).json()["datas"][0]["id"]
         payload = {
-            "id": id_one
+            "id": 1573520796372992002
         }
         r = api_financialFactoringAgain_queryConfigSet(token_scf_platform, payload)
         r_json = r.json()

@@ -38,7 +38,7 @@ def api_sms_valid(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-class Sms(unittest.TestCase):
+# class Sms(unittest.TestCase):
     def test_001_sms_send(self):
         """【平台方】发送短信"""
         phone = get_phone()
@@ -50,7 +50,7 @@ class Sms(unittest.TestCase):
               "to": "",
               "userName": ""
             }
-        r = api_sms_send(token_scf_supplier, payload)
+        r = api_sms_send(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -70,7 +70,7 @@ class Sms(unittest.TestCase):
               "to": "",
               "userName": ""
             }
-        r = api_sms_valid(token_scf_supplier, payload)
+        r = api_sms_valid(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

@@ -276,15 +276,14 @@ def insert_excel_importCustomerFromExcel(num):
     excel = DoExcel('导入发票模板.xlsx', '普票')
     for n in range(num):
         row_value = (
-            n + 1,
+            '普票',
             get_number(10),
             get_number(8),
-            get_company(),
-            get_money(3),
-            get_money(3),
-            get_number(6),
             datetime.date(2022, 9, 2),
-            get_number(10)
+            '91440300279446850J',
+            '91320600673032592M',
+            get_number(6),
+            get_money(4)
         )
         excel.insert(row_value, 3 + n)
     file_name = excel.save()

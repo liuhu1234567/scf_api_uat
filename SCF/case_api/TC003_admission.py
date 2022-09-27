@@ -160,7 +160,9 @@ class Admission(unittest.TestCase):
 
     def test_001_admission_queryDownList(self):
         """【供应商】项目列表，核心企业，金融产品，金融机构下拉列表"""
-        payload = {}
+        payload = {
+            "entId": "1565532746930135041"
+        }
         r = api_admission_queryDownList(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()

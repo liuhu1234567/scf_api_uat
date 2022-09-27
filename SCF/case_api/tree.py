@@ -102,93 +102,104 @@ def api_tree_deleteInfo(token, payload):
     return r
 
 
-class Tree(unittest.TestCase):
-    def test_001_tree_insertInfo(self):
-        """【平台方】新增树形结构,文件"""
-        payload = {
-            "beOmit": True,
-            "contentType": "",
-            "entId": 0,
-            "goldenLetterId": 0,
-            "isImg": True,
-            "name": "头像.png",
-            "orderNo": "",
-            "path": f"path{get_number(6)}",
-            "size": 0,
-            "source": "",
-            "treeId": 1,
-            "url": f"url{get_number(6)}"
-        }
-        r = api_tree_insertInfo(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    def test_002_tree_queryTreeData(self):
-        """【平台方】查询菜单树"""
-        payload = {
-            "entId": 0,
-            "goldenLetterId": 0,
-            "orderNo": "",
-            "type": 0
-        }
-        r = api_tree_queryTreeData(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    def test_003_tree_dropdownList(self):
-        """【平台方】菜单分类枚举信息"""
-        r = api_tree_dropdownList(token_scf_platform)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    # def test_004_tree_imageByType(self):
-    #     """【平台方】指定类型获取影像文件"""
-    #     payload = {
-    #         "id": 0
-    #     }
-    #     r = api_tree_imageByType(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    def test_005_tree_imageByTypes(self):
-        """【平台方】指定类型获取影像文件-批量"""
-        payload = {
-            "ids": []
-        }
-        r = api_tree_imageByTypes(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    def test_006_tree_deleteInfo(self):
-        """【平台方】删除"""
-        payload = {
-            "beOmit": True,
-            "id": 0
-        }
-        r = api_tree_deleteInfo(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+# class Tree(unittest.TestCase):
+#     def test_001_tree_insertInfo(self):
+#         """【平台方】新增树形结构,文件"""
+#         # payload = {
+#         #     "beOmit": True,
+#         #     "contentType": "",
+#         #     "entId": 0,
+#         #     "goldenLetterId": 0,
+#         #     "isImg": True,
+#         #     "name": "头像.png",
+#         #     "orderNo": "",
+#         #     "path": f"path{get_number(6)}",
+#         #     "size": 0,
+#         #     "source": "",
+#         #     "treeId": 1,
+#         #     "url": f"url{get_number(6)}"
+#         # }
+#         payload = {"beOmit":True,
+#                    "contentType":"image/png",
+#                    "busId":"1564450373729406977",
+#                    "type":1,
+#                    "isImg":True,
+#                    "name":"11.png",
+#                    "path":"M00/02/6A/rB7ONGMxTsiAJDBtAADaun0krhQ636.png",
+#                    "size":55994,
+#                    "source":None,
+#                    "treeId":"5",
+#                    "url":"http://172.30.206.52:8100/group1/M00/02/6A/rB7ONGMxTsiAJDBtAADaun0krhQ636.png"}
+#         r = api_tree_insertInfo(token_scf_platform, payload)
+#         r_json = r.json()
+#         restime_now = r.elapsed.total_seconds()
+#         customize_dict['restime_now'] = restime_now
+#         self.assertEqual(200, r_json['resp_code'])
+#         self.assertEqual('SUCCESS', r_json['resp_msg'])
+#         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+#
+#     def test_002_tree_queryTreeData(self):
+#         """【平台方】查询菜单树"""
+#         payload = {
+#             "entId": 0,
+#             "goldenLetterId": 0,
+#             "orderNo": "",
+#             "type": 0
+#         }
+#         r = api_tree_queryTreeData(token_scf_platform, payload)
+#         r_json = r.json()
+#         restime_now = r.elapsed.total_seconds()
+#         customize_dict['restime_now'] = restime_now
+#         self.assertEqual(200, r_json['resp_code'])
+#         self.assertEqual('SUCCESS', r_json['resp_msg'])
+#         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+#
+#     # def test_003_tree_dropdownList(self):
+#     #     """【平台方】菜单分类枚举信息"""
+#     #     r = api_tree_dropdownList(token_scf_platform)
+#     #     r_json = r.json()
+#     #     restime_now = r.elapsed.total_seconds()
+#     #     customize_dict['restime_now'] = restime_now
+#     #     self.assertEqual(200, r_json['resp_code'])
+#     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+#     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+#
+#     # def test_004_tree_imageByType(self):
+#     #     """【平台方】指定类型获取影像文件"""
+#     #     payload = {
+#     #         "id": 0
+#     #     }
+#     #     r = api_tree_imageByType(token_scf_platform, payload)
+#     #     r_json = r.json()
+#     #     restime_now = r.elapsed.total_seconds()
+#     #     customize_dict['restime_now'] = restime_now
+#     #     self.assertEqual(200, r_json['resp_code'])
+#     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+#     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+#
+#     def test_005_tree_imageByTypes(self):
+#         """【平台方】指定类型获取影像文件-批量"""
+#         payload = {
+#             "ids": []
+#         }
+#         r = api_tree_imageByTypes(token_scf_platform, payload)
+#         r_json = r.json()
+#         restime_now = r.elapsed.total_seconds()
+#         customize_dict['restime_now'] = restime_now
+#         self.assertEqual(200, r_json['resp_code'])
+#         self.assertEqual('SUCCESS', r_json['resp_msg'])
+#         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+#
+#     def test_006_tree_deleteInfo(self):
+#         """【平台方】删除"""
+#         payload = {
+#             "beOmit": True,
+#             "id": 0
+#         }
+#         r = api_tree_deleteInfo(token_scf_platform, payload)
+#         r_json = r.json()
+#         restime_now = r.elapsed.total_seconds()
+#         customize_dict['restime_now'] = restime_now
+#         self.assertEqual(200, r_json['resp_code'])
+#         self.assertEqual('SUCCESS', r_json['resp_msg'])
+#         self.assertLessEqual(restime_now, restime, 'Test api timeout')
