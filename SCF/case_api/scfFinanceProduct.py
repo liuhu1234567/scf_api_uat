@@ -24,7 +24,7 @@ def api_scfFinanceProduct_listBank(token):
 
 
 def api_scfFinanceProduct_insert(token, payload):
-    """【平台方】新增金融产品"""
+    """"【平台方】新增项目"""""
     url = f'{api_host}/api-scf/scfFinanceProduct/insert'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
