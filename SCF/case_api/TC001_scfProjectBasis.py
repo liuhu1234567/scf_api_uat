@@ -494,6 +494,7 @@ class ScfProjectBasis(unittest.TestCase):
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
+
     def test_010_scfProjectBasis_listEnterprise(self):
         """【平台方】查询融资企业"""
         payload = {
