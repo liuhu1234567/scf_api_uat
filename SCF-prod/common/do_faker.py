@@ -16,13 +16,11 @@ def get_number(n):
     r = random.sample(l, n)
     return ''.join(r)
 
-
 def get_money(n):
     l = string.digits
     r = random.sample(l, n)
-    money = str(random.randint(1, 9)) + ''.join(r)
+    money = str(random.randint(1,9)) + ''.join(r)
     return money
-
 
 def get_phone():
     """获取随机手机号"""
@@ -60,7 +58,6 @@ def get_company():
     # companyName = fake.word() + fake.word() + fake.company()
     return companyName
 
-
 def get_card_number():
     """获取随机信用卡号"""
     return fake.credit_card_number(card_type=None)
@@ -73,6 +70,7 @@ def get_date():
 def get_url():
     """获取随机url"""
     return fake.url()
+
 
 if __name__ == '__main__':
     r = get_card_number()

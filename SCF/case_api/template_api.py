@@ -109,79 +109,79 @@ def api_template_api_zxLending_update(token, payload):
 g_d = {}
 
 
-# class TemplateApi(unittest.TestCase):
-    # def test_001_template_api_accessHistory_list(self):
-    #     """准入历史数据列表"""
-    #     payload = {
-    #         "coopCrLmt": 0,
-    #         "coopMonths": 0,
-    #         "createBy": 0,
-    #         "createTime": "",
-    #         "id": "",
-    #         "indEntpCtfNum": "",
-    #         "indEntpNm": "",
-    #         "lastOrderMaxAmt": 0,
-    #         "lastOrderTotalAmt": 0,
-    #         "lastOrderTotalNum": 0,
-    #         "num": 1,
-    #         "size": 10,
-    #         "tableId": 1562277848618438658,
-    #         "updateBy": 0,
-    #         "updateTime": "",
-    #         "vendorComplRate": "",
-    #         "vendorDeliveryFreq": 0
-    #     }
-    #     r = api_template_api_accessHistory_list(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     # g_d['id'] = r_json['datas'][0]['id']
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_002_template_api_accessHistory_update(self):
-    #     """准入历史数据修改"""
-    #     payload = {
-    #         "coopCrLmt": 0,
-    #         "coopMonths": 0,
-    #         "createBy": 0,
-    #         "createTime": "",
-    #         "id": g_d.get('id'),
-    #         "indEntpCtfNum": "",
-    #         "indEntpNm": "",
-    #         "lastOrderMaxAmt": 0,
-    #         "lastOrderTotalAmt": 0,
-    #         "lastOrderTotalNum": 0,
-    #         "num": 1,
-    #         "size": 10,
-    #         "tableId": 1562277848618438658,
-    #         "updateBy": 0,
-    #         "updateTime": "",
-    #         "vendorComplRate": "",
-    #         "vendorDeliveryFreq": 0
-    #     }
-    #     r = api_template_api_accessHistory_update(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_003_template_api_accessHistory_delete(self):
-    #     """准入历史数据删除"""
-    #     payload = {
-    #         "id": g_d.get('id'),
-    #         "tableId": 1562277848618438658
-    #     }
-    #     r = api_template_api_accessHistory_update(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+class TemplateApi(unittest.TestCase):
+    def test_001_template_api_accessHistory_list(self):
+        """准入历史数据列表"""
+        payload = {
+            "coopCrLmt": 0,
+            "coopMonths": 0,
+            "createBy": 0,
+            "createTime": "",
+            "id": "",
+            "indEntpCtfNum": "",
+            "indEntpNm": "",
+            "lastOrderMaxAmt": 0,
+            "lastOrderTotalAmt": 0,
+            "lastOrderTotalNum": 0,
+            "num": 1,
+            "size": 10,
+            "tableId": 1562277848618438658,
+            "updateBy": 0,
+            "updateTime": "",
+            "vendorComplRate": "",
+            "vendorDeliveryFreq": 0
+        }
+        r = api_template_api_accessHistory_list(token_scf_supplier, payload)
+        r_json = r.json()
+        # g_d['id'] = r_json['datas'][0]['id']
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_002_template_api_accessHistory_update(self):
+        """准入历史数据修改"""
+        payload = {
+            "coopCrLmt": 0,
+            "coopMonths": 0,
+            "createBy": 0,
+            "createTime": "",
+            "id": g_d.get('id'),
+            "indEntpCtfNum": "",
+            "indEntpNm": "",
+            "lastOrderMaxAmt": 0,
+            "lastOrderTotalAmt": 0,
+            "lastOrderTotalNum": 0,
+            "num": 1,
+            "size": 10,
+            "tableId": 1562277848618438658,
+            "updateBy": 0,
+            "updateTime": "",
+            "vendorComplRate": "",
+            "vendorDeliveryFreq": 0
+        }
+        r = api_template_api_accessHistory_update(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_003_template_api_accessHistory_delete(self):
+        """准入历史数据删除"""
+        payload = {
+            "id": g_d.get('id'),
+            "tableId": 1562277848618438658
+        }
+        r = api_template_api_accessHistory_update(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_004_template_api_zxLending_delete(self):
     #     """中信放款数据删除"""
@@ -282,70 +282,70 @@ g_d = {}
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_005_template_api_zxLending_list(self):
-    #     """中信放款数据列表"""
-    #     payload = {
-    #         "createBy": 0,
-    #         "createTime": "",
-    #         "ctfNum": "",
-    #         "ctfTp": "",
-    #         "ctrId": "",
-    #         "fncGistList": "",
-    #         "id": 0,
-    #         "iouNum": "",
-    #         "lndEntpCtfNum": "",
-    #         "num": 0,
-    #         "orderNum": "",
-    #         "pyAmt": 0,
-    #         "pyDt": "",
-    #         "pyStat": "",
-    #         "repyAcc": "",
-    #         "repyAccNm": "",
-    #         "repyAccNumDepBnkNm": "",
-    #         "repyDt": "",
-    #         "size": 0,
-    #         "tableId": 1562277848618438658,
-    #         "updateBy": 0,
-    #         "updateTime": ""
-    #     }
-    #     r = api_template_api_zxLending_list(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_006_template_api_zxLending_update(self):
-    #     """中信放款数据修改"""
-    #     payload = {
-    #         "createBy": 0,
-    #         "createTime": "",
-    #         "ctfNum": "",
-    #         "ctfTp": "",
-    #         "ctrId": "",
-    #         "fncGistList": "",
-    #         "id": 0,
-    #         "iouNum": "",
-    #         "lndEntpCtfNum": "",
-    #         "num": 0,
-    #         "orderNum": "",
-    #         "pyAmt": 0,
-    #         "pyDt": "",
-    #         "pyStat": "",
-    #         "repyAcc": "",
-    #         "repyAccNm": "",
-    #         "repyAccNumDepBnkNm": "",
-    #         "repyDt": "",
-    #         "size": 0,
-    #         "tableId": 1567802060780351489,
-    #         "updateBy": 0,
-    #         "updateTime": ""
-    #     }
-    #     r = api_template_api_zxLending_update(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_005_template_api_zxLending_list(self):
+        """中信放款数据列表"""
+        payload = {
+            "createBy": 0,
+            "createTime": "",
+            "ctfNum": "",
+            "ctfTp": "",
+            "ctrId": "",
+            "fncGistList": "",
+            "id": 0,
+            "iouNum": "",
+            "lndEntpCtfNum": "",
+            "num": 0,
+            "orderNum": "",
+            "pyAmt": 0,
+            "pyDt": "",
+            "pyStat": "",
+            "repyAcc": "",
+            "repyAccNm": "",
+            "repyAccNumDepBnkNm": "",
+            "repyDt": "",
+            "size": 0,
+            "tableId": 1562277848618438658,
+            "updateBy": 0,
+            "updateTime": ""
+        }
+        r = api_template_api_zxLending_list(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_006_template_api_zxLending_update(self):
+        """中信放款数据修改"""
+        payload = {
+            "createBy": 0,
+            "createTime": "",
+            "ctfNum": "",
+            "ctfTp": "",
+            "ctrId": "",
+            "fncGistList": "",
+            "id": 0,
+            "iouNum": "",
+            "lndEntpCtfNum": "",
+            "num": 0,
+            "orderNum": "",
+            "pyAmt": 0,
+            "pyDt": "",
+            "pyStat": "",
+            "repyAcc": "",
+            "repyAccNm": "",
+            "repyAccNumDepBnkNm": "",
+            "repyDt": "",
+            "size": 0,
+            "tableId": 1567802060780351489,
+            "updateBy": 0,
+            "updateTime": ""
+        }
+        r = api_template_api_zxLending_update(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

@@ -169,21 +169,21 @@ def insert_excel_importOrderFromExcel(num):
 g_d = {}
 
 class OrderLoan(unittest.TestCase):
-    # def test_001_orderLoan_import(self):
-    #     """【供应商】导入"""
-    #     file_name = insert_excel_importOrderFromExcel(3)
-    #     path = api_template_uploadfile(token_scf_platform, file_name).json()['datas']['path']
-    #     fileId = "group1/" + path
-    #     payload = {
-    #         "fileId": fileId
-    #     }
-    #     r = api_orderLoan_import(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_001_orderLoan_import(self):
+        """【供应商】导入"""
+        file_name = insert_excel_importOrderFromExcel(3)
+        path = api_template_uploadfile(token_scf_platform, file_name).json()['datas']['path']
+        fileId = "group1/" + path
+        payload = {
+            "fileId": fileId
+        }
+        r = api_orderLoan_import(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_orderLoan_list(self):
         """【供应商】列表"""
@@ -201,101 +201,101 @@ class OrderLoan(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_003_orderLoan_export(self):
-    #     """【供应商】下载"""
-    #     payload = {
-    #         "orderIds": g_d['orderIds']
-    #     }
-    #     r = api_orderLoan_export(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_003_orderLoan_export(self):
+        """【供应商】下载"""
+        payload = {
+            "orderIds": g_d['orderIds']
+        }
+        r = api_orderLoan_export(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_004_orderLoan_financing(self):
-    #     """【供应商】融资"""
-    #     payload = {
-    #         "financeAmount": 0,
-    #         "financingEnd": "",
-    #         "financingStart": "",
-    #         "id": 0,
-    #         "increaseTrustId": 0,
-    #         "projectId": 0,
-    #         "receiveBankAccount": "6011399232906354"
-    #     }
-    #     r = api_orderLoan_financing(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_005_orderLoan_revoke(self):
-    #     """【供应商】撤回"""
-    #     payload = {
-    #         "auditFlowItemId": 0,
-    #         "id": 0
-    #     }
-    #     r = api_orderLoan_revoke(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_006_orderLoan_review(self):
-    #     """【供应商】审核"""
-    #     payload = {
-    #         "auditEntId": 0,
-    #         "auditFlowItemId": 0,
-    #         "auditOpinion": "",
-    #         "auditStatus": 0,
-    #         "busType": "",
-    #         "creditEnhancerId": 0,
-    #         "entId": 0,
-    #         "id": 0,
-    #         "projectId": 0
-    #     }
-    #     r = api_orderLoan_review(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_007_orderLoan_review(self):
-    #     """【供应商】重新提交"""
-    #     payload = {
-    #         "auditFlowItemId": 0,
-    #         "financeAmount": 0,
-    #         "financingEnd": "",
-    #         "financingStart": "",
-    #         "id": 0,
-    #         "increaseTrustId": 0,
-    #         "receiveBankAccount": ""
-    #     }
-    #     r = api_orderLoan_resubmit(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_004_orderLoan_financing(self):
+        """【供应商】融资"""
+        payload = {
+            "financeAmount": 0,
+            "financingEnd": "",
+            "financingStart": "",
+            "id": 0,
+            "increaseTrustId": 0,
+            "projectId": 0,
+            "receiveBankAccount": "6011399232906354"
+        }
+        r = api_orderLoan_financing(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_008_orderLoan_detail(self):
-    #     """【供应商】详情"""
-    #     payload = {
-    #         "id": 0
-    #     }
-    #     r = api_orderLoan_detail(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_005_orderLoan_revoke(self):
+        """【供应商】撤回"""
+        payload = {
+            "auditFlowItemId": 0,
+            "id": 0
+        }
+        r = api_orderLoan_revoke(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_006_orderLoan_review(self):
+        """【供应商】审核"""
+        payload = {
+            "auditEntId": 0,
+            "auditFlowItemId": 0,
+            "auditOpinion": "",
+            "auditStatus": 0,
+            "busType": "",
+            "creditEnhancerId": 0,
+            "entId": 0,
+            "id": 0,
+            "projectId": 0
+        }
+        r = api_orderLoan_review(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_007_orderLoan_review(self):
+        """【供应商】重新提交"""
+        payload = {
+            "auditFlowItemId": 0,
+            "financeAmount": 0,
+            "financingEnd": "",
+            "financingStart": "",
+            "id": 0,
+            "increaseTrustId": 0,
+            "receiveBankAccount": ""
+        }
+        r = api_orderLoan_resubmit(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_008_orderLoan_detail(self):
+        """【供应商】详情"""
+        payload = {
+            "id": 0
+        }
+        r = api_orderLoan_detail(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

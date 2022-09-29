@@ -30,7 +30,6 @@ def api_goldenLetter_open_deleteBillTempById(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_goldenLetter_open_importBillExcel(token, payload):
     """开立-导入发票"""
     url = f'{api_host}/api-scf/goldenLetter/open/importBillExcel'
@@ -45,7 +44,6 @@ def api_goldenLetter_open_importBillExcel(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_goldenLetter_open_insert(token, payload):
     """开立新增"""
@@ -63,7 +61,6 @@ def api_goldenLetter_open_insert(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_goldenLetter_open_queryPage(token, payload):
     """查询开立审核列表"""
     url = f'{api_host}/api-scf/goldenLetter/open/queryPage'
@@ -78,7 +75,6 @@ def api_goldenLetter_open_queryPage(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_goldenLetter_open_updateAuditStatus(token, payload):
     """开立审核"""
@@ -95,7 +91,6 @@ def api_goldenLetter_open_updateAuditStatus(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_goldenLetter_queryBillList(token, payload):
     """开立-查询发票-临时表"""
     url = f'{api_host}/api-scf/goldenLetter/queryBillList'
@@ -110,7 +105,6 @@ def api_goldenLetter_queryBillList(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_goldenLetter_queryBillListById(token, payload):
     """根据金点信ID查询发票详情"""
@@ -127,7 +121,6 @@ def api_goldenLetter_queryBillListById(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_goldenLetter_queryByCode(token, payload):
     """根据code查询金点信详情"""
     url = f'{api_host}/api-scf/goldenLetter/queryByCode'
@@ -142,7 +135,6 @@ def api_goldenLetter_queryByCode(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_goldenLetter_queryById(token, payload):
     """根据ID查询金点信详情"""
@@ -159,7 +151,6 @@ def api_goldenLetter_queryById(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_goldenLetter_queryConfigSet(token, payload):
     """根据核心企业id查询开立基础项配置"""
     url = f'{api_host}/api-scf/goldenLetter/queryConfigSet'
@@ -174,7 +165,6 @@ def api_goldenLetter_queryConfigSet(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_goldenLetter_queryPage(token, payload):
     """查询金点信列表"""
@@ -191,7 +181,6 @@ def api_goldenLetter_queryPage(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_goldenLetter_resubmit(token, payload):
     """重新提交"""
     url = f'{api_host}/api-scf/goldenLetter/resubmit'
@@ -206,7 +195,6 @@ def api_goldenLetter_resubmit(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_goldenLetter_retrospective(token, payload):
     """金点信追溯"""
@@ -223,7 +211,6 @@ def api_goldenLetter_retrospective(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_goldenLetter_getCreditAmount(token, payload):
     """获取授信额度"""
     url = f'{api_host}/api-scf/goldenLetter/getCreditAmount'
@@ -238,7 +225,6 @@ def api_goldenLetter_getCreditAmount(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_goldenLetter_open_deleteBillTemp(token, payload):
     """删除全部导入的发票"""
@@ -255,7 +241,6 @@ def api_goldenLetter_open_deleteBillTemp(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_goldenLetter_selectProject(token, payload):
     """查询融资项目"""
     url = f'{api_host}/api-scf/goldenLetter/selectProject'
@@ -270,7 +255,6 @@ def api_goldenLetter_selectProject(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def insert_excel_importCustomerFromExcel(num):
     excel = DoExcel('导入发票模板.xlsx', '普票')
@@ -289,7 +273,6 @@ def insert_excel_importCustomerFromExcel(num):
     file_name = excel.save()
     return file_name
 
-
 def api_goldenLetter_open_getGoldenLetterCode(token, payload):
     """开立新增界面生成金点信编号"""
     url = f'{api_host}/api-scf/goldenLetter/open/getGoldenLetterCode'
@@ -304,7 +287,6 @@ def api_goldenLetter_open_getGoldenLetterCode(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_goldenLetter_open_preview(token, payload):
     """金点信预览"""
@@ -321,7 +303,6 @@ def api_goldenLetter_open_preview(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_goldenLetter_queryPdfById(token, payload):
     """根据ID查询金点信pdf详情"""
     url = f'{api_host}/api-scf/goldenLetter/queryPdfById'
@@ -337,76 +318,74 @@ def api_goldenLetter_queryPdfById(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 g_d = {}
 
-
 class GoldenLetter(unittest.TestCase):
-    def test_001_goldenLetter_open_getGoldenLetterCode(self):
-        """开立新增界面生成金点信编号"""
-        payload = {
-        }
-        r = api_goldenLetter_open_getGoldenLetterCode(token_scf_enterprise, payload)
-        r_json = r.json()
-        g_d["goldenLetterCode"] = r_json["datas"]
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_001_goldenLetter_open_getGoldenLetterCode(self):
+    #     """开立新增界面生成金点信编号"""
+    #     payload = {
+    #     }
+    #     r = api_goldenLetter_open_getGoldenLetterCode(token_scf_enterprise, payload)
+    #     r_json = r.json()
+    #     g_d["goldenLetterCode"] = r_json["datas"]
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_002_goldenLetter_open_importBillExcel(self):
-        """开立-导入发票"""
-        file_name = insert_excel_importCustomerFromExcel(1)
-        path = api_template_uploadfile(token_scf_platform, file_name).json()["datas"]["path"]
-        fileId_new = "group1/" + path
-        payload = {
-            "fileId": fileId_new
-        }
-        r = api_goldenLetter_open_importBillExcel(token_scf_enterprise, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_002_goldenLetter_open_importBillExcel(self):
+    #     """开立-导入发票"""
+    #     file_name = insert_excel_importCustomerFromExcel(1)
+    #     path = api_template_uploadfile(token_scf_platform, file_name).json()["datas"]["path"]
+    #     fileId_new = "group1/" + path
+    #     payload = {
+    #         "fileId": fileId_new
+    #     }
+    #     r = api_goldenLetter_open_importBillExcel(token_scf_enterprise, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_003_goldenLetter_open_insert(self):
-        """开立新增"""
-        g_d["coreEntId"] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
-        g_d["recipientId"] = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()["datas"]["id"]
-        payload = {
-            "bills": ["1562284267547848706", "1562284267556237314"],
-            "coreEntId": g_d.get("coreEntId"),
-            "coreEntName": "核心企业",
-            "creditEnhancerId": 1544611013257465857,
-            "creditEnhancerName": "西咸新区沣东新城一",
-            "founderEnt": "核心企业",
-            "founderEntId": g_d.get("coreEntId"),
-            "goldenLetterCode" : g_d.get("goldenLetterCode"),
-            "goldenLetterEndDate": "2024-07-09T14:00:00",
-            "goldenLetterMoney": 1000,
-            "goldenLetterOpenDate": "2023-07-09T10:00:00",
-            "invoiceAmountProportion": "100%",
-            "invoiceWithTax": 1000,
-            "orderName": "合同/订单名称",
-            "orderNumber": "合同/订单编号",
-            "promisedPaymentDate": "2023-07-09T10:00:00",
-            "recipient": "供应商",
-            "recipientId": g_d.get("recipientId"),
-            "remainingAvailableQuota": 0,
-            "remainingOpenableInvoice": 0,
-            "statementNumber": "对账单编号",
-            "totalIssuerQuota": 1000,
-            "usedQuota": 1000
-        }
-        r = api_goldenLetter_open_insert(token_scf_enterprise, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_003_goldenLetter_open_insert(self):
+    #     """开立新增"""
+    #     g_d["coreEntId"] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
+    #     g_d["recipientId"] = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()["datas"]["id"]
+    #     payload = {
+    #         "bills": ["1562284267547848706", "1562284267556237314"],
+    #         "coreEntId": g_d.get("coreEntId"),
+    #         "coreEntName": "核心企业",
+    #         "creditEnhancerId": 1544611013257465857,
+    #         "creditEnhancerName": "西咸新区沣东新城一",
+    #         "founderEnt": "核心企业",
+    #         "founderEntId": g_d.get("coreEntId"),
+    #         "goldenLetterCode" : g_d.get("goldenLetterCode"),
+    #         "goldenLetterEndDate": "2024-07-09T14:00:00",
+    #         "goldenLetterMoney": 1000,
+    #         "goldenLetterOpenDate": "2023-07-09T10:00:00",
+    #         "invoiceAmountProportion": "100%",
+    #         "invoiceWithTax": 1000,
+    #         "orderName": "合同/订单名称",
+    #         "orderNumber": "合同/订单编号",
+    #         "promisedPaymentDate": "2023-07-09T10:00:00",
+    #         "recipient": "供应商",
+    #         "recipientId": g_d.get("recipientId"),
+    #         "remainingAvailableQuota": 0,
+    #         "remainingOpenableInvoice": 0,
+    #         "statementNumber": "对账单编号",
+    #         "totalIssuerQuota": 1000,
+    #         "usedQuota": 1000
+    #     }
+    #     r = api_goldenLetter_open_insert(token_scf_enterprise, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_open_queryPage(self):
         """查询开立审核列表"""
@@ -441,34 +420,34 @@ class GoldenLetter(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_006_goldenLetter_queryBillList(self):
-        """开立-查询发票-临时表"""
-        payload = {
-            "coreEntName": "欣旺达",
-            "date": "2022-07",
-            "division": "电池事业部",
-            "recipient": "AAA公司"
-        }
-        r = api_goldenLetter_queryBillList(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_006_goldenLetter_queryBillList(self):
+    #     """开立-查询发票-临时表"""
+    #     payload = {
+    #         "coreEntName": "欣旺达",
+    #         "date": "2022-07",
+    #         "division": "电池事业部",
+    #         "recipient": "AAA公司"
+    #     }
+    #     r = api_goldenLetter_queryBillList(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_007_goldenLetter_queryBillListById(self):
-        """根据金点信ID查询发票详情"""
-        payload = {
-            "id": 1562699313327308802
-        }
-        r = api_goldenLetter_queryBillListById(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_007_goldenLetter_queryBillListById(self):
+    #     """根据金点信ID查询发票详情"""
+    #     payload = {
+    #         "id": 1562699313327308802
+    #     }
+    #     r = api_goldenLetter_queryBillListById(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_goldenLetter_queryByCode(self):
         """根据code查询金点信详情"""
@@ -485,42 +464,42 @@ class GoldenLetter(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_009_goldenLetter_open_updateAuditStatus(self):
-        """开立审核"""
-        payload = {
-            "auditEntId": g_d.get("coreEntId"),
-            "auditFlowItemId": g_d.get("auditFlowItemId"),
-            "auditOpinion": "",
-            "auditStatus": 3,
-            "busType": "",
-            "coreEntId": g_d.get("coreEntId"),
-            "creditEnhancerId": 0,
-            "entId": g_d.get("coreEntId"),
-            "id": g_d.get("id"),
-            "projectId": 0,
-            "recipientId": g_d.get("recipientId")
-        }
-        r = api_goldenLetter_open_updateAuditStatus(token_scf_enterprise, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_009_goldenLetter_open_updateAuditStatus(self):
+    #     """开立审核"""
+    #     payload = {
+    #         "auditEntId": g_d.get("coreEntId"),
+    #         "auditFlowItemId": g_d.get("auditFlowItemId"),
+    #         "auditOpinion": "",
+    #         "auditStatus": 3,
+    #         "busType": "",
+    #         "coreEntId": g_d.get("coreEntId"),
+    #         "creditEnhancerId": 0,
+    #         "entId": g_d.get("coreEntId"),
+    #         "id": g_d.get("id"),
+    #         "projectId": 0,
+    #         "recipientId": g_d.get("recipientId")
+    #     }
+    #     r = api_goldenLetter_open_updateAuditStatus(token_scf_enterprise, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_010_goldenLetter_queryConfigSet(self):
-        """根据核心企业id查询开立基础项配置"""
-        Id = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
-        payload = {
-            "id": Id
-        }
-        r = api_goldenLetter_queryConfigSet(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_010_goldenLetter_queryConfigSet(self):
+    #     """根据核心企业id查询开立基础项配置"""
+    #     Id = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
+    #     payload = {
+    #         "id": Id
+    #     }
+    #     r = api_goldenLetter_queryConfigSet(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_011_goldenLetter_queryPage(self):
         """查询金点信列表"""
@@ -542,73 +521,73 @@ class GoldenLetter(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_012_goldenLetter_resubmit(self):
-        """重新提交"""
-        company = get_company()
-        payload = {
-            "auditFlowItemId": g_d.get("auditFlowItemId"),
-            "bills": ["1562284267547848706", "1562284267556237314"],
-            "coreEntId": g_d.get("coreEntId"),
-            "coreEntName": "核心企业",
-            "creditEnhancerId": 0,
-            "creditEnhancerName": company,
-            "currentHolder": "",
-            "currentHolderId": 0,
-            "founderEnt": company,
-            "founderEntId": 0,
-            "goldenLetterCode": "金电信编号",
-            "goldenLetterEndDate": "2018-07-09T14:00:00",
-            "goldenLetterMoney": 0,
-            "goldenLetterOpenDate": "2018-07-09T10:00:00",
-            "id": 0,
-            "initialHolder": "",
-            "initialHolderId": 0,
-            "invoiceAmountProportion": "发票开立金额比例",
-            "invoiceWithTax": 0,
-            "openApplicationNumber": "开立申请编号",
-            "orderName": "合同/订单名称",
-            "orderNumber": "合同/订单编号",
-            "promisedPaymentDate": "2018-07-09T14:00:00",
-            "recipient": company,
-            "recipientId": 0,
-            "remainingAvailableQuota": 0,
-            "remainingOpenableInvoice": 0,
-            "statementNumber": "对账单编号",
-            "totalIssuerQuota": 0,
-            "usedQuota": 0
-        }
-        r = api_goldenLetter_resubmit(token_scf_enterprise, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_012_goldenLetter_resubmit(self):
+    #     """重新提交"""
+    #     company = get_company()
+    #     payload = {
+    #         "auditFlowItemId": g_d.get("auditFlowItemId"),
+    #         "bills": ["1562284267547848706", "1562284267556237314"],
+    #         "coreEntId": g_d.get("coreEntId"),
+    #         "coreEntName": "核心企业",
+    #         "creditEnhancerId": 0,
+    #         "creditEnhancerName": company,
+    #         "currentHolder": "",
+    #         "currentHolderId": 0,
+    #         "founderEnt": company,
+    #         "founderEntId": 0,
+    #         "goldenLetterCode": "金电信编号",
+    #         "goldenLetterEndDate": "2018-07-09T14:00:00",
+    #         "goldenLetterMoney": 0,
+    #         "goldenLetterOpenDate": "2018-07-09T10:00:00",
+    #         "id": 0,
+    #         "initialHolder": "",
+    #         "initialHolderId": 0,
+    #         "invoiceAmountProportion": "发票开立金额比例",
+    #         "invoiceWithTax": 0,
+    #         "openApplicationNumber": "开立申请编号",
+    #         "orderName": "合同/订单名称",
+    #         "orderNumber": "合同/订单编号",
+    #         "promisedPaymentDate": "2018-07-09T14:00:00",
+    #         "recipient": company,
+    #         "recipientId": 0,
+    #         "remainingAvailableQuota": 0,
+    #         "remainingOpenableInvoice": 0,
+    #         "statementNumber": "对账单编号",
+    #         "totalIssuerQuota": 0,
+    #         "usedQuota": 0
+    #     }
+    #     r = api_goldenLetter_resubmit(token_scf_enterprise, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_013_goldenLetter_getCreditAmount(self):
-        """获取授信额度"""
-        payload = {
-            "id": 1549684806067781633
-        }
-        r = api_goldenLetter_getCreditAmount(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_013_goldenLetter_getCreditAmount(self):
+    #     """获取授信额度"""
+    #     payload = {
+    #         "id": 1549684806067781633
+    #     }
+    #     r = api_goldenLetter_getCreditAmount(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_014_goldenLetter_open_deleteBillTemp(self):
-        """删除全部导入的发票"""
-        payload = {
-        }
-        r = api_goldenLetter_open_deleteBillTemp(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_014_goldenLetter_open_deleteBillTemp(self):
+    #     """删除全部导入的发票"""
+    #     payload = {
+    #     }
+    #     r = api_goldenLetter_open_deleteBillTemp(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_015_goldenLetter_selectProject(self):
         """查询融资项目"""
@@ -622,18 +601,18 @@ class GoldenLetter(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_016_goldenLetter_open_deleteBillTempById(self):
-        """根据id删除发票"""
-        payload = {
-            "id": 0
-        }
-        r = api_goldenLetter_open_deleteBillTempById(token_scf_enterprise, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_016_goldenLetter_open_deleteBillTempById(self):
+    #     """根据id删除发票"""
+    #     payload = {
+    #         "id": 0
+    #     }
+    #     r = api_goldenLetter_open_deleteBillTempById(token_scf_enterprise, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     ###接口还没弄好，2022-9-6
     # def test_017_goldenLetter_open_preview(self):

@@ -22,6 +22,7 @@ def api_scfFinanceProduct_listBank(token):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_scfFinanceProduct_insert(token, payload):
     """"【平台方】新增项目"""""
     url = f'{api_host}/api-scf/scfFinanceProduct/insert'
@@ -36,6 +37,7 @@ def api_scfFinanceProduct_insert(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
+
 
 def api_scfFinanceProduct_update(token, payload):
     """【平台方】修改金融产品"""
@@ -52,6 +54,7 @@ def api_scfFinanceProduct_update(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_scfFinanceProduct_enable(token, payload):
     """【平台方】启用-停用金融产品"""
     url = f'{api_host}/api-scf/scfFinanceProduct/enable'
@@ -66,6 +69,7 @@ def api_scfFinanceProduct_enable(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
+
 
 def api_scfFinanceProduct_delete(token, payload):
     """【平台方】删除金融产品"""
@@ -82,6 +86,7 @@ def api_scfFinanceProduct_delete(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_scfFinanceProduct_search(token, payload):
     """【平台方】搜索金融产品"""
     url = f'{api_host}/api-scf/scfFinanceProduct/search'
@@ -97,6 +102,7 @@ def api_scfFinanceProduct_search(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_scfFinanceProduct_simpleList(token):
     """产品下拉列表"""
     url = f'{api_host}/api-scf/scfFinanceProduct/simpleList'
@@ -110,6 +116,7 @@ def api_scfFinanceProduct_simpleList(token):
     print(f'请求头：{headers}')
     print(f'接口响应为：{r.text}')
     return r
+
 
 def api_scfFinanceProduct_projectDeliverSearch(token, payload):
     """产品分配列表(平台、供应商)-搜索"""
@@ -126,6 +133,7 @@ def api_scfFinanceProduct_projectDeliverSearch(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_scfFinanceProduct_projectDeliverBankSearch(token, payload):
     """产品分配列表(金融机构)-搜索"""
     url = f'{api_host}/api-scf/scfFinanceProduct/projectDeliverBankSearch'
@@ -140,6 +148,7 @@ def api_scfFinanceProduct_projectDeliverBankSearch(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
+
 
 def api_scfFinanceProduct_projectDeliverCoreSearch(token, payload):
     """产品分配列表(核心企业)-搜索"""
@@ -156,7 +165,9 @@ def api_scfFinanceProduct_projectDeliverCoreSearch(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 g_d = {}
+
 
 class ScfFinanceProduct(unittest.TestCase):
     def test_001_scfFinanceProduct_listBank(self):
@@ -170,113 +181,113 @@ class ScfFinanceProduct(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_002_scfFinanceProduct_insert(self):
-    #     """【平台方】新增金融产品"""
-    #     nowTime = str(datetime.datetime.now()).split('.')[0]
-    #     futureTime = str(datetime.datetime.now() + datetime.timedelta(days=365)).split('.')[0]
-    #     payload = {
-    #         "amountMax": "100000",
-    #         "amountMin": "1000",
-    #         "availableBegin": nowTime,
-    #         "availableEnd": futureTime,
-    #         "enable": True,
-    #         "financeId": g_d.get('financeId'),
-    #         "id": 0,
-    #         "loanBegin": nowTime,
-    #         "loanEnd": futureTime,
-    #         "loop": True,
-    #         "name": f"金融产品名称{get_number(6)}",
-    #         "pay": True,
-    #         "rateMax": "3.8",
-    #         "rateMin": "0.1",
-    #         "single": True
-    #     }
-    #     r = api_scfFinanceProduct_insert(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     g_d['id'] = r_json['datas']
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_003_scfFinanceProduct_update(self):
-    #     """【平台方】修改金融产品"""
-    #     nowTime = str(datetime.datetime.now()).split('.')[0]
-    #     futureTime = str(datetime.datetime.now() + datetime.timedelta(days=365)).split('.')[0]
-    #     payload = {
-    #         "amountMax": "100000",
-    #         "amountMin": "1000",
-    #         "availableBegin": nowTime,
-    #         "availableEnd": futureTime,
-    #         "financeId": g_d.get('financeId'),
-    #         "id": g_d.get('id'),
-    #         "introduction": f"产品介绍{get_number(6)}",
-    #         "loanBegin": nowTime,
-    #         "loanEnd": futureTime,
-    #         "loop": True,
-    #         "name": f"金融产品名称{get_number(6)}",
-    #         "pay": True,
-    #         "purpose": f"资金用途{get_number(6)}",
-    #         "rateMax": "3.8",
-    #         "rateMin": "0.1",
-    #         "single": False,
-    #         "source": f"还款来源{get_number(6)}"
-    #     }
-    #     r = api_scfFinanceProduct_update(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_004_scfFinanceProduct_enable(self):
-    #     """【平台方】启用-停用金融产品"""
-    #     payload = {
-    #         "enable": 1,
-    #         "id": g_d['id']
-    #     }
-    #     r = api_scfFinanceProduct_enable(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_005_scfFinanceProduct_delete(self):
-    #     """【平台方】删除金融产品"""
-    #     nowTime = str(datetime.datetime.now()).split('.')[0]
-    #     futureTime = str(datetime.datetime.now() + datetime.timedelta(days=365)).split('.')[0]
-    #     payload = {
-    #         "amountMax": "100000",
-    #         "amountMin": "1000",
-    #         "availableBegin": nowTime,
-    #         "availableEnd": futureTime,
-    #         "enable": True,
-    #         "financeId": g_d.get('financeId'),
-    #         "id": 0,
-    #         "loanBegin": nowTime,
-    #         "loanEnd": futureTime,
-    #         "loop": True,
-    #         "name": f"金融产品名称{get_number(6)}",
-    #         "pay": True,
-    #         "rateMax": "3.8",
-    #         "rateMin": "0.1",
-    #         "single": True
-    #     }
-    #     id = api_scfFinanceProduct_insert(token_scf_platform, payload).json()['datas']
-    #     payload = {
-    #         "id": id
-    #     }
-    #     r = api_scfFinanceProduct_delete(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_002_scfFinanceProduct_insert(self):
+        """【平台方】新增金融产品"""
+        nowTime = str(datetime.datetime.now()).split('.')[0]
+        futureTime = str(datetime.datetime.now() + datetime.timedelta(days=365)).split('.')[0]
+        payload = {
+            "amountMax": "100000",
+            "amountMin": "1000",
+            "availableBegin": nowTime,
+            "availableEnd": futureTime,
+            "enable": True,
+            "financeId": g_d.get('financeId'),
+            "id": 0,
+            "loanBegin": nowTime,
+            "loanEnd": futureTime,
+            "loop": True,
+            "name": f"金融产品名称{get_number(6)}",
+            "pay": True,
+            "rateMax": "3.8",
+            "rateMin": "0.1",
+            "single": True
+        }
+        r = api_scfFinanceProduct_insert(token_scf_platform, payload)
+        r_json = r.json()
+        g_d['id'] = r_json['datas']
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_003_scfFinanceProduct_update(self):
+        """【平台方】修改金融产品"""
+        nowTime = str(datetime.datetime.now()).split('.')[0]
+        futureTime = str(datetime.datetime.now() + datetime.timedelta(days=365)).split('.')[0]
+        payload = {
+            "amountMax": "100000",
+            "amountMin": "1000",
+            "availableBegin": nowTime,
+            "availableEnd": futureTime,
+            "financeId": g_d.get('financeId'),
+            "id": g_d.get('id'),
+            "introduction": f"产品介绍{get_number(6)}",
+            "loanBegin": nowTime,
+            "loanEnd": futureTime,
+            "loop": True,
+            "name": f"金融产品名称{get_number(6)}",
+            "pay": True,
+            "purpose": f"资金用途{get_number(6)}",
+            "rateMax": "3.8",
+            "rateMin": "0.1",
+            "single": False,
+            "source": f"还款来源{get_number(6)}"
+        }
+        r = api_scfFinanceProduct_update(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_004_scfFinanceProduct_enable(self):
+        """【平台方】启用-停用金融产品"""
+        payload = {
+            "enable": 1,
+            "id": g_d['id']
+        }
+        r = api_scfFinanceProduct_enable(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_005_scfFinanceProduct_delete(self):
+        """【平台方】删除金融产品"""
+        nowTime = str(datetime.datetime.now()).split('.')[0]
+        futureTime = str(datetime.datetime.now() + datetime.timedelta(days=365)).split('.')[0]
+        payload = {
+            "amountMax": "100000",
+            "amountMin": "1000",
+            "availableBegin": nowTime,
+            "availableEnd": futureTime,
+            "enable": True,
+            "financeId": g_d.get('financeId'),
+            "id": 0,
+            "loanBegin": nowTime,
+            "loanEnd": futureTime,
+            "loop": True,
+            "name": f"金融产品名称{get_number(6)}",
+            "pay": True,
+            "rateMax": "3.8",
+            "rateMin": "0.1",
+            "single": True
+        }
+        id = api_scfFinanceProduct_insert(token_scf_platform, payload).json()['datas']
+        payload = {
+            "id": id
+        }
+        r = api_scfFinanceProduct_delete(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_scfFinanceProduct_search(self):
         """【平台方】搜索金融产品"""

@@ -124,29 +124,29 @@ g_d = {}
 
 
 class Lending(unittest.TestCase):
-    # def test_001_lending_save(self):
-    #     """【平台方】新增"""
-    #     payload = {
-    #                 "data":
-    #                 [{
-    #                     "lndEntpCtfNum": get_sfz(),
-    #                     "ctfTp": "身份证",
-    #                     "ctfNum": get_company(),
-    #                     "pyStat": "通过",
-    #                     "pyAmt": "1",
-    #                     "pyDt": "2022-09-19",
-    #                     "repyDt": "2027-09-30",
-    #                     "repyAcc": "12233",
-    #                     "repyAccNm": get_name(),
-    #                     "repyAccNumDepBnkNm": "中国银行"}],
-    #                 "tableId": "1571686015498084353"}
-    #     r = api_lending_save(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_001_lending_save(self):
+        """【平台方】新增"""
+        payload = {
+                    "data":
+                    [{
+                        "lndEntpCtfNum": get_sfz(),
+                        "ctfTp": "身份证",
+                        "ctfNum": get_company(),
+                        "pyStat": "通过",
+                        "pyAmt": "1",
+                        "pyDt": "2022-09-19",
+                        "repyDt": "2027-09-30",
+                        "repyAcc": "12233",
+                        "repyAccNm": get_name(),
+                        "repyAccNumDepBnkNm": "中国银行"}],
+                    "tableId": "1571686015498084353"}
+        r = api_lending_save(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_lending_findByItem(self):
         """【平台方】通过项目查询"""
@@ -162,36 +162,36 @@ class Lending(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_003_lending_findDataTable(self):
-    #     """【平台方】获取放款对应数据表"""
-    #     payload = {
-    #         "bankId": 1550024604376743937,
-    #         "coreId": 1565528298128351233,
-    #         "productId": 1557972677441433601,
-    #         "projectId": 1571685055048740866
-    #     }
-    #     r = api_lending_findDataTable(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_003_lending_findDataTable(self):
+        """【平台方】获取放款对应数据表"""
+        payload = {
+            "bankId": 1550024604376743937,
+            "coreId": 1565528298128351233,
+            "productId": 1557972677441433601,
+            "projectId": 1571685055048740866
+        }
+        r = api_lending_findDataTable(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_004_lending_findDataTableContent(self):
-    #     """【平台方】获取数据表内容"""
-    #     payload = {
-    #         "ctfNum": "",
-    #         "ctfTp": "",
-    #         "tableId": 1571686015498084353
-    #     }
-    #     r = api_lending_findDataTableContent(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_004_lending_findDataTableContent(self):
+        """【平台方】获取数据表内容"""
+        payload = {
+            "ctfNum": "",
+            "ctfTp": "",
+            "tableId": 1571686015498084353
+        }
+        r = api_lending_findDataTableContent(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_005_lending_update(self):
     #     """【平台方】修改"""
@@ -222,18 +222,18 @@ class Lending(unittest.TestCase):
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_007_lending_download(self):
-    #     """【平台方】放款下载"""
-    #     payload = {
-    #         "bankId": 1550024604376743937,
-    #         "coreId": 1565528298128351233,
-    #         "productId": 1557972677441433601,
-    #         "projectId": 1571685055048740866
-    #     }
-    #     r = api_lending_download(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_007_lending_download(self):
+        """【平台方】放款下载"""
+        payload = {
+            "bankId": 1550024604376743937,
+            "coreId": 1565528298128351233,
+            "productId": 1557972677441433601,
+            "projectId": 1571685055048740866
+        }
+        r = api_lending_download(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

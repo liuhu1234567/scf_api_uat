@@ -99,23 +99,23 @@ def api_role_delete(token, payload):
 g_d = {}
 
 class Role(unittest.TestCase):
-    # def test_001_role_insert(self):
-    #     """【供应商/经销商】新增角色"""
-    #     rolename = get_name()
-    #     descnum = get_number(10)
-    #     payload = {
-    #         "roleName": f"{rolename}",
-    #         "roleDesc": f"{descnum}"
-    #     }
-    #     r = api_role_insert(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     g_d['id'] = r_json['datas']
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     # self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_001_role_insert(self):
+        """【供应商/经销商】新增角色"""
+        rolename = get_name()
+        descnum = get_number(10)
+        payload = {
+            "roleName": f"{rolename}",
+            "roleDesc": f"{descnum}"
+        }
+        r = api_role_insert(token_scf_supplier, payload)
+        r_json = r.json()
+        g_d['id'] = r_json['datas']
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+
+        self.assertEqual(200, r_json['resp_code'])
+        # self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_roles_page(self):
         """【供应商/经销商】角色分页查询"""
@@ -132,52 +132,52 @@ class Role(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_003_role_update(self):
-    #     """【供应商/经销商】编辑角色"""
-    #     rolename = get_name()
-    #     descnum = get_number(10)
-    #     payload = {
-    #         "id": g_d.get('id'),
-    #         "roleName": f"修改后的{rolename}",
-    #         "roleDesc": f"修改后的{descnum}"
-    #     }
-    #     r = api_role_update(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_003_role_update(self):
+        """【供应商/经销商】编辑角色"""
+        rolename = get_name()
+        descnum = get_number(10)
+        payload = {
+            "id": g_d.get('id'),
+            "roleName": f"修改后的{rolename}",
+            "roleDesc": f"修改后的{descnum}"
+        }
+        r = api_role_update(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
 
-    # def test_004_role_updateenabled(self):
-    #     """【供应商/经销商】编辑角色状态"""
-    #     payload = {
-    #         "enabled": "1",
-    #         "id": g_d.get('id')
-    #     }
-    #     r = api_role_updateenabled(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_005_role_delete(self):
-    #     """【供应商/经销商】删除角色"""
-    #     payload = {
-    #         "id": g_d.get('id')
-    #     }
-    #     r = api_role_delete(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_004_role_updateenabled(self):
+        """【供应商/经销商】编辑角色状态"""
+        payload = {
+            "enabled": "1",
+            "id": g_d.get('id')
+        }
+        r = api_role_updateenabled(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_005_role_delete(self):
+        """【供应商/经销商】删除角色"""
+        payload = {
+            "id": g_d.get('id')
+        }
+        r = api_role_delete(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_roles_all(self):
         """【供应商/经销商】查询所有角色"""

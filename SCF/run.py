@@ -51,5 +51,3 @@ if __name__ == '__main__':
     # unittest_beautiful()
     unittest_xtestrunner()
     send_report()
-
-

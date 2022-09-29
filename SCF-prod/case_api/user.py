@@ -77,20 +77,20 @@ class User(unittest.TestCase):
     #     # self.assertEqual('SUCCESS', r_json['resp_msg'])
     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_002_user_auth_user_role(self):
-        """【平台方】用户分配角色"""
-        payload = {
-            "roleId": 0,
-            "userId": 0
-        }
-        r = api_user_auth_user_role(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-
-        self.assertEqual(200, r_json['resp_code'])
-        # self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_002_user_auth_user_role(self):
+    #     """【平台方】用户分配角色"""
+    #     payload = {
+    #         "roleId": 0,
+    #         "userId": 0
+    #     }
+    #     r = api_user_auth_user_role(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     # self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
 
     def test_003_user_query_users_page(self):

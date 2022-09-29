@@ -8,7 +8,6 @@ from Crypto.Cipher import AES
 import base64
 from Crypto.Cipher import PKCS1_v1_5 as Cipher_pksc1_v1_5
 from Crypto.PublicKey import RSA
-import uuid
 
 
 # def encrypt(password):
@@ -36,7 +35,7 @@ def encrypt(pwd):
 
 def api_login_password(payload):
     """用户名密码登录"""
-    url = 'https://gateway.dianliantech.com/api-uaa/login/password'
+    url = 'https://uat-gateway.dianliantech.com/api-uaa/login/password'
     headers = {
         'Content-Type': 'application/json;charset=UTF-8',
         'Accept-Language': 'zh-CN,zh;q=0.9'
@@ -53,8 +52,7 @@ class LoginPassword(unittest.TestCase):
 
     def test_login_password(self):
         """账号正确，密码正确"""
-        password = encrypt("Aa12345678")
-        # print(password)
+        password = encrypt("Ss123456")
         # payload = {
         #     "username": "ZVXS17585245519",
         #     "password": password,
@@ -66,17 +64,17 @@ class LoginPassword(unittest.TestCase):
         #     "type": 1
         # }
         payload = {
-            "username": "dlkjBa00008",
+            "username": "ML4W17585245519",
             "password": password,
-            "code": "ths9tgwwlx",
+            "code": "是",
             "grant_type": "password",
             "clientId": "webApp",
             "clientSecret": "webApp",
-            "key": str(uuid.uuid4()),
+            "key": "",
             "type": 1}
         r = api_login_password(payload)
         r_json = r.json()
-        # print(r)
+        print(r_json)
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
 

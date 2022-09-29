@@ -1,6 +1,6 @@
 from case_api.login_password import api_login_password, encrypt
 from common.do_config import scf_financier, scf_enterprise, scf_supplier, scf_platform, scf_factor, scf_subsidiaries
-import uuid
+
 
 def get_scf_financier():
     """获取资金方账号token"""
@@ -8,11 +8,11 @@ def get_scf_financier():
     data = {
         "username": scf_financier['username'],
         "password": password,
-        "code": "ths9tgwwlx",
+        "code": "是",
         "grant_type": "password",
         "clientId": "webApp",
         "clientSecret": "webApp",
-        "key": str(uuid.uuid4()),
+        "key": "",
         "type": 1}
     r_json = api_login_password(data).json()
     print(r_json)
@@ -27,11 +27,11 @@ def get_scf_enterprise():
     data = {
         "username": scf_enterprise['username'],
         "password": password,
-        "code": "ths9tgwwlx",
+        "code": "是",
         "grant_type": "password",
         "clientId": "webApp",
         "clientSecret": "webApp",
-        "key": str(uuid.uuid4()),
+        "key": "",
         "type": 1}
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
@@ -45,11 +45,11 @@ def get_scf_supplier():
     data = {
         "username": scf_supplier['username'],
         "password": password,
-        "code": "ths9tgwwlx",
+        "code": "是",
         "grant_type": "password",
         "clientId": "webApp",
         "clientSecret": "webApp",
-        "key": str(uuid.uuid4()),
+        "key": "",
         "type": 1}
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
@@ -63,11 +63,11 @@ def get_scf_platform():
     data = {
         "username": scf_platform['username'],
         "password": password,
-        "code": "ths9tgwwlx",
+        "code": "是",
         "grant_type": "password",
         "clientId": "webApp",
         "clientSecret": "webApp",
-        "key": str(uuid.uuid4()),
+        "key": "",
         "type": 1}
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
@@ -81,11 +81,11 @@ def get_scf_subsidiaries():
     data = {
         "username": scf_subsidiaries['username'],
         "password": password,
-        "code": "ths9tgwwlx",
+        "code": "是",
         "grant_type": "password",
         "clientId": "webApp",
         "clientSecret": "webApp",
-        "key": str(uuid.uuid4()),
+        "key": "",
         "type": 1}
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
@@ -99,11 +99,11 @@ def get_scf_factor():
     data = {
         "username": scf_factor['username'],
         "password": password,
-        "code": "ths9tgwwlx",
+        "code": "是",
         "grant_type": "password",
         "clientId": "webApp",
         "clientSecret": "webApp",
-        "key": str(uuid.uuid4()),
+        "key": "",
         "type": 1}
     r_json = api_login_password(data).json()
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"

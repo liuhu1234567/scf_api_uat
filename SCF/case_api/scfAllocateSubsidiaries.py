@@ -113,19 +113,19 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_002_scfAllocateSubsidiaries_ueryList(self):
-    #     """【核心企业】获取子公司分配额度信息"""
-    #     payload = {
-    #         "coreId": 1564518555001581569,
-    #         "creditId": 1564541140355543041
-    #     }
-    #     r = api_scfAllocateSubsidiaries_queryList(token_scf_enterprise, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_002_scfAllocateSubsidiaries_ueryList(self):
+        """【核心企业】获取子公司分配额度信息"""
+        payload = {
+            "coreId": 1564518555001581569,
+            "creditId": 1564541140355543041
+        }
+        r = api_scfAllocateSubsidiaries_queryList(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     #开发专用接口，新增后会造成前端页面字段展示bug
     # def test_003_scfAllocateSubsidiaries_insert(self):
@@ -144,39 +144,39 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_004_scfAllocateSubsidiaries_batch(self):
-    #     """【核心企业】批量"""
-    #     payload = [
-    #         {
-    #             "allocateAmount": 111,
-    #             "creditCode": "X2342342X",
-    #             "subsidiariesName": "中国恭敬公司"
-    #         }
-    #     ]
-    #     r = api_scfAllocateSubsidiaries_batch(token_scf_enterprise, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_005_scfAllocateSubsidiaries_update(self):
-    #     """【核心企业】编辑"""
-    #     payload = {
-    #         "allocateAmount": 111,
-    #         "applyAmount": 1,
-    #         "creditCode": "X2342342X",
-    #         "id": 0,
-    #         "subsidiariesName": "中国恭敬公司"
-    #     }
-    #     r = api_scfAllocateSubsidiaries_update(token_scf_enterprise, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_004_scfAllocateSubsidiaries_batch(self):
+        """【核心企业】批量"""
+        payload = [
+            {
+                "allocateAmount": 111,
+                "creditCode": "X2342342X",
+                "subsidiariesName": "中国恭敬公司"
+            }
+        ]
+        r = api_scfAllocateSubsidiaries_batch(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_005_scfAllocateSubsidiaries_update(self):
+        """【核心企业】编辑"""
+        payload = {
+            "allocateAmount": 111,
+            "applyAmount": 1,
+            "creditCode": "X2342342X",
+            "id": 0,
+            "subsidiariesName": "中国恭敬公司"
+        }
+        r = api_scfAllocateSubsidiaries_update(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_scfAllocateSubsidiaries_update(self):
         """【核心企业】分页查询"""

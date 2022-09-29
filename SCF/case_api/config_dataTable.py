@@ -334,18 +334,18 @@ class ConfigDataTable(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_002_config_dataTable_detail(self):
-    #     """数据表详情"""
-    #     payload = {
-    #         "id": 1566717067710705666
-    #     }
-    #     r = api_config_dataTable_detail(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_002_config_dataTable_detail(self):
+        """数据表详情"""
+        payload = {
+            "id": 1566717067710705666
+        }
+        r = api_config_dataTable_detail(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_config_dataTable_fieldTable(self):
         """根据模板ID查询模板"""
@@ -475,37 +475,37 @@ class ConfigDataTable(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_007_config_dataTable_update(self):
-    #     """修改数据表"""
-    #     payload = {"id": "1566717067710705666", "name": "自动化专用勿动"+ get_number(4), "type": 2, "tenantType": "1", "templateId": "1",
-    #                "itemId": "1566714084775821314", "productName": "名称54", "institutionName": "创汇传媒有限公司",
-    #                "tenantName": "接口自动化核心企业账号", "tenantId": "1565528298128351233", "fieldList": [
-    #             {"id": "1", "fieldName": "ind_entp_ctf_num", "desc": "统一社会信用代码", "sort": 0, "isShow": 0, "isSearch": 0,
-    #              "isEdit": 0, "haveSearch": 1},
-    #             {"id": "2", "fieldName": "ind_entp_nm", "desc": "借款企业名称", "sort": 1, "isShow": 0, "isSearch": 0,
-    #              "isEdit": 0, "haveSearch": 1},
-    #             {"id": "3", "fieldName": "coop_months", "desc": "合作时长（月）", "sort": 2, "isShow": 0, "isSearch": 0,
-    #              "isEdit": 0, "haveSearch": 1},
-    #             {"id": "4", "fieldName": "last_order_total_num", "desc": "近12个月订单总笔数", "sort": 3, "isShow": 0,
-    #              "isSearch": 0, "isEdit": 0, "haveSearch": 1},
-    #             {"id": "5", "fieldName": "last_order_total_amt", "desc": "近12个月订单总金额（元）", "sort": 4, "isShow": 0,
-    #              "isSearch": 0, "isEdit": 0, "haveSearch": 0},
-    #             {"id": "6", "fieldName": "last_order_max_amt", "desc": "近12个月最大订购金额（元）", "sort": 5, "isShow": 0,
-    #              "isSearch": 0, "isEdit": 0, "haveSearch": 0},
-    #             {"id": "7", "fieldName": "vendor_compl_rate", "desc": "供应商履约完成率[*%]", "sort": 6, "isShow": 0,
-    #              "isSearch": 0, "isEdit": 0, "haveSearch": 1},
-    #             {"id": "8", "fieldName": "vendor_delivery_freq", "desc": "供应商供货频次", "sort": 7, "isShow": 0,
-    #              "isSearch": 0, "isEdit": 0, "haveSearch": 1},
-    #             {"id": "9", "fieldName": "coop_cr_lmt", "desc": "核心企业建议贷款额度（元）", "sort": 8, "isShow": 0, "isSearch": 0,
-    #              "isEdit": 0, "haveSearch": 0}]}
-    #
-    #     r = api_config_dataTable_update(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_007_config_dataTable_update(self):
+        """修改数据表"""
+        payload = {"id": "1566717067710705666", "name": "自动化专用勿动"+ get_number(4), "type": 2, "tenantType": "1", "templateId": "1",
+                   "itemId": "1566714084775821314", "productName": "名称54", "institutionName": "创汇传媒有限公司",
+                   "tenantName": "接口自动化核心企业账号", "tenantId": "1565528298128351233", "fieldList": [
+                {"id": "1", "fieldName": "ind_entp_ctf_num", "desc": "统一社会信用代码", "sort": 0, "isShow": 0, "isSearch": 0,
+                 "isEdit": 0, "haveSearch": 1},
+                {"id": "2", "fieldName": "ind_entp_nm", "desc": "借款企业名称", "sort": 1, "isShow": 0, "isSearch": 0,
+                 "isEdit": 0, "haveSearch": 1},
+                {"id": "3", "fieldName": "coop_months", "desc": "合作时长（月）", "sort": 2, "isShow": 0, "isSearch": 0,
+                 "isEdit": 0, "haveSearch": 1},
+                {"id": "4", "fieldName": "last_order_total_num", "desc": "近12个月订单总笔数", "sort": 3, "isShow": 0,
+                 "isSearch": 0, "isEdit": 0, "haveSearch": 1},
+                {"id": "5", "fieldName": "last_order_total_amt", "desc": "近12个月订单总金额（元）", "sort": 4, "isShow": 0,
+                 "isSearch": 0, "isEdit": 0, "haveSearch": 0},
+                {"id": "6", "fieldName": "last_order_max_amt", "desc": "近12个月最大订购金额（元）", "sort": 5, "isShow": 0,
+                 "isSearch": 0, "isEdit": 0, "haveSearch": 0},
+                {"id": "7", "fieldName": "vendor_compl_rate", "desc": "供应商履约完成率[*%]", "sort": 6, "isShow": 0,
+                 "isSearch": 0, "isEdit": 0, "haveSearch": 1},
+                {"id": "8", "fieldName": "vendor_delivery_freq", "desc": "供应商供货频次", "sort": 7, "isShow": 0,
+                 "isSearch": 0, "isEdit": 0, "haveSearch": 1},
+                {"id": "9", "fieldName": "coop_cr_lmt", "desc": "核心企业建议贷款额度（元）", "sort": 8, "isShow": 0, "isSearch": 0,
+                 "isEdit": 0, "haveSearch": 0}]}
+
+        r = api_config_dataTable_update(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_config_dataTable_allSelect(self):
         """数据表页面下拉列表集合"""

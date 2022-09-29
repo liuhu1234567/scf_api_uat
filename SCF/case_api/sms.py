@@ -39,42 +39,42 @@ def api_sms_valid(token, payload):
     return r
 
 # class Sms(unittest.TestCase):
-    # def test_001_sms_send(self):
-    #     """【平台方】发送短信"""
-    #     phone = get_phone()
-    #     payload = {
-    #           "code": "1234",
-    #           "entName": "",
-    #           "password": "",
-    #           "phone": 15338760344,
-    #           "to": "",
-    #           "userName": ""
-    #         }
-    #     r = api_sms_send(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
-    #
-    # def test_002_sms_valid(self):
-    #     """【平台方】手机与短信检测"""
-    #     phone = get_phone()
-    #     payload = {
-    #           "code": "1234",
-    #           "entName": "",
-    #           "password": "",
-    #           "phone": 15338760344,
-    #           "to": "",
-    #           "userName": ""
-    #         }
-    #     r = api_sms_valid(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_001_sms_send(self):
+        """【平台方】发送短信"""
+        phone = get_phone()
+        payload = {
+              "code": "1234",
+              "entName": "",
+              "password": "",
+              "phone": 15338760344,
+              "to": "",
+              "userName": ""
+            }
+        r = api_sms_send(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_002_sms_valid(self):
+        """【平台方】手机与短信检测"""
+        phone = get_phone()
+        payload = {
+              "code": "1234",
+              "entName": "",
+              "password": "",
+              "phone": 15338760344,
+              "to": "",
+              "userName": ""
+            }
+        r = api_sms_valid(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
