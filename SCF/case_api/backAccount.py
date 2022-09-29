@@ -102,30 +102,28 @@ def api_backAccount_validCardID(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 g_d = {}
 
-
 class BackAccount(unittest.TestCase):
-    def test_001_backAccount_insert(self):
-        """【平台方】新增银行账户"""
-        number = get_number(10)
-        card_number = get_card_number()
-        payload = {
-            "bankAccountDebutNo": number,
-            "bankAccountName": f"账户名称{number}",
-            "bankAccountNo": card_number,
-            "bankAccountSite": "深圳市兴东路点链支行",
-            "bankAccountType": 2
-        }
-        r = api_backAccount_insert(token_scf_supplier, payload)
-        r_json = r.json()
-        g_d['id'] = r_json['datas']
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_001_backAccount_insert(self):
+    #     """【平台方】新增银行账户"""
+    #     number = get_number(10)
+    #     card_number = get_card_number()
+    #     payload = {
+    #         "bankAccountDebutNo": number,
+    #         "bankAccountName": f"账户名称{number}",
+    #         "bankAccountNo": card_number,
+    #         "bankAccountSite": "深圳市兴东路点链支行",
+    #         "bankAccountType": 2
+    #     }
+    #     r = api_backAccount_insert(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     g_d['id'] = r_json['datas']
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_backAccount_queryPage(self):
         """【平台方】分页查询银行账户"""
@@ -148,60 +146,60 @@ class BackAccount(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_003_backAccount_update(self):
-        """【平台方】修改银行账户"""
-        number = get_number(10)
-        card_number = get_card_number()
-        payload = {
-            "bankAccountDebutNo": number,
-            "bankAccountName": f"账户名称{number}",
-            "bankAccountNo": card_number,
-            "bankAccountSite": "深圳市兴东路点链支行",
-            "bankAccountType": 0,
-            "id": g_d.get('id')
-        }
-        r = api_backAccount_update(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_003_backAccount_update(self):
+    #     """【平台方】修改银行账户"""
+    #     number = get_number(10)
+    #     card_number = get_card_number()
+    #     payload = {
+    #         "bankAccountDebutNo": number,
+    #         "bankAccountName": f"账户名称{number}",
+    #         "bankAccountNo": card_number,
+    #         "bankAccountSite": "深圳市兴东路点链支行",
+    #         "bankAccountType": 0,
+    #         "id": g_d.get('id')
+    #     }
+    #     r = api_backAccount_update(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_004_backAccount_delete(self):
-        """【平台方】删除银行账户"""
-        payload = {"id": g_d.get('id')}
-        r = api_backAccount_delete(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_004_backAccount_delete(self):
+    #     """【平台方】删除银行账户"""
+    #     payload = {"id": g_d.get('id')}
+    #     r = api_backAccount_delete(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_005_backAccount_bindByProjectId(self):
-        """绑定项目-银行卡"""
-        number = get_number(10)
-        card_number = get_card_number()
-        payload = {
-            "bankAccountDebutNo": number,
-            "bankAccountName": f"账户名称{number}",
-            "bankAccountNo": card_number,
-            "bankAccountSite": "深圳市兴东路点链支行",
-            "bankAccountType": 2
-        }
-        id_new = api_backAccount_insert(token_scf_supplier, payload).json()["datas"]
-        payload_new = {
-            "id": id_new,
-            "projectId": 1231231
-        }
-        r = api_backAccount_bindByProjectId(token_scf_supplier, payload_new)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_005_backAccount_bindByProjectId(self):
+    #     """绑定项目-银行卡"""
+    #     number = get_number(10)
+    #     card_number = get_card_number()
+    #     payload = {
+    #         "bankAccountDebutNo": number,
+    #         "bankAccountName": f"账户名称{number}",
+    #         "bankAccountNo": card_number,
+    #         "bankAccountSite": "深圳市兴东路点链支行",
+    #         "bankAccountType": 2
+    #     }
+    #     id_new = api_backAccount_insert(token_scf_supplier, payload).json()["datas"]
+    #     payload_new = {
+    #         "id": id_new,
+    #         "projectId": 1231231
+    #     }
+    #     r = api_backAccount_bindByProjectId(token_scf_supplier, payload_new)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_006_backAccount_validCardID(self):
     #     """获取认证过的银行卡信息"""

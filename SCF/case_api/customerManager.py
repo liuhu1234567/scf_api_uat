@@ -172,7 +172,7 @@ class CustomerManager(unittest.TestCase):
         }
         r = api_customerManager_queryAuditPage(token_scf_platform, payload)
         r_json = r.json()
-        g_d['id'] = r_json['datas'][0]['id']
+        # g_d['id'] = r_json['datas'][0]['id']
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
@@ -211,18 +211,18 @@ class CustomerManager(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_006_customerManager_update_auditStatus(self):
-        """【平台方】修改审核状态"""
-        payload = {
-            "auditBy": 0,
-            "auditOpinion": "通过啦",
-            "auditStatus": 3,
-            "id": g_d.get('id')
-        }
-        r = api_customerManager_update_auditStatus(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_006_customerManager_update_auditStatus(self):
+    #     """【平台方】修改审核状态"""
+    #     payload = {
+    #         "auditBy": 0,
+    #         "auditOpinion": "通过啦",
+    #         "auditStatus": 3,
+    #         "id": g_d.get('id')
+    #     }
+    #     r = api_customerManager_update_auditStatus(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
