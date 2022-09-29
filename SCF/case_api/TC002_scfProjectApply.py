@@ -116,54 +116,54 @@ class ScfProjectApply(unittest.TestCase):
         self.assertEqual(repayName, jsonpath(r_json, '$..name'))
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_003_scfProjectApply_toApply(self):
-        """【供应商】跳转至 ”申请融资“ 页面"""
-        payload = {
-            "enable": True,
-            "entName": "",
-            "enterpriseId": 0,
-            "financeName": "",
-            "isApply": False,
-            "num": 1,
-            "productName": "",
-            "projectName": "",
-            "size": 10
-        }
-        g_d['projectDeliverId'] = \
-        api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload).json()['datas'][0]['id']
-        payload = {
-            "projectDeliverId": g_d.get('projectDeliverId')
-        }
-        r = api_scfProjectApply_toApply(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_003_scfProjectApply_toApply(self):
+    #     """【供应商】跳转至 ”申请融资“ 页面"""
+    #     payload = {
+    #         "enable": True,
+    #         "entName": "",
+    #         "enterpriseId": 0,
+    #         "financeName": "",
+    #         "isApply": False,
+    #         "num": 1,
+    #         "productName": "",
+    #         "projectName": "",
+    #         "size": 10
+    #     }
+    #     g_d['projectDeliverId'] = \
+    #     api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload).json()['datas'][0]['id']
+    #     payload = {
+    #         "projectDeliverId": g_d.get('projectDeliverId')
+    #     }
+    #     r = api_scfProjectApply_toApply(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    #
+    # def test_004_scfProjectApply_apply(self):
+    #     """【供应商】申请融资"""
+    #     payload = {
+    #         "projectDeliverId": g_d.get('projectDeliverId')
+    #     }
+    #     r = api_scfProjectApply_apply(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_004_scfProjectApply_apply(self):
-        """【供应商】申请融资"""
-        payload = {
-            "projectDeliverId": g_d.get('projectDeliverId')
-        }
-        r = api_scfProjectApply_apply(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    def test_005_scfProjectApply_viewApply(self):
-        """【供应商】查看融资申请信息"""
-        payload = {
-            "id": g_d.get('projectDeliverId')
-        }
-        r = api_scfProjectApply_viewApply(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_005_scfProjectApply_viewApply(self):
+    #     """【供应商】查看融资申请信息"""
+    #     payload = {
+    #         "id": g_d.get('projectDeliverId')
+    #     }
+    #     r = api_scfProjectApply_viewApply(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')

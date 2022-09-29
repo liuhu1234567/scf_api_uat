@@ -21,7 +21,6 @@ def api_dataManager_finance_getSearchField(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_dataManager_finance_getTableHeader(token, payload):
     """获取表头"""
     url = f'{api_host}/api-scf-data/dataManager/getTableHeader'
@@ -36,7 +35,6 @@ def api_dataManager_finance_getTableHeader(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_dataManager_finance_kind(token):
     """获取財務数据种类"""
@@ -67,34 +65,34 @@ def api_dataManager_purchase_kind(token):
     return r
 
 
-g_d = {'id': api_dataManager_finance_kind(token_scf_supplier).json()['datas'][0]['id']}
+# g_d = {'id': api_dataManager_finance_kind(token_scf_supplier).json()['datas'][0]['id']}
 
 class DataManagerFinance(unittest.TestCase):
-    def test_dataManager_finance_getSearchField(self):
-        """获取搜索表单数据"""
-        payload = {
-            "id": g_d['id']
-        }
-        r = api_dataManager_finance_getSearchField(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_dataManager_finance_getSearchField(self):
+    #     """获取搜索表单数据"""
+    #     payload = {
+    #         "id": g_d['id']
+    #     }
+    #     r = api_dataManager_finance_getSearchField(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_dataManager_finance_getTableHeader(self):
-        """获取表头"""
-        payload = {
-            "id": g_d['id']
-        }
-        r = api_dataManager_finance_getTableHeader(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_dataManager_finance_getTableHeader(self):
+    #     """获取表头"""
+    #     payload = {
+    #         "id": g_d['id']
+    #     }
+    #     r = api_dataManager_finance_getTableHeader(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_dataManager_finance_kind(self):
         """获取财务数据种类"""
