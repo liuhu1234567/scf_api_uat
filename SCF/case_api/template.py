@@ -61,16 +61,16 @@ def api_template_get_codeBillBase(token, params):
 g_d = {}
 
 
-class Template(unittest.TestCase):
-    def test_001_template_uploadfile(self):
-        """【平台方】上传文件"""
-        r = api_template_uploadfile(token_scf_supplier, 'test.png')
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+# class Template(unittest.TestCase):
+    # def test_001_template_uploadfile(self):
+    #     """【平台方】上传文件"""
+    #     r = api_template_uploadfile(token_scf_supplier, 'test.png')
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     # def test_002_template_get_codeCustomerBase(self):
     #     """【平台方】批量邀请客户建档模板.xlsx"""

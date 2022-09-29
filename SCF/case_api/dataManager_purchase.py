@@ -21,7 +21,6 @@ def api_dataManager_purchase_getSearchField(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
 def api_dataManager_purchase_getTableHeader(token, payload):
     """获取表头"""
     url = f'{api_host}/api-scf-data/dataManager/getTableHeader'
@@ -36,7 +35,6 @@ def api_dataManager_purchase_getTableHeader(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
-
 
 def api_dataManager_purchase_kind(token):
     """获取采购数据种类"""
