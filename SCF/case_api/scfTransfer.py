@@ -237,6 +237,118 @@ def api_scfTransfer_transfer(token, payload):
     return r
 
 
+def api_scfTransfer_getLetterCode(token, payload):
+    """获取金点信编号"""
+    url = f'{api_host}/api-scf/scfTransfer/getLetterCode'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_scfTransfer_listPaymentStatusEnum(token, payload):
+    """获取兑付状态"""
+    url = f'{api_host}/api-scf/scfTransfer/listPaymentStatusEnum'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_scfTransfer_listScfAuditStatusEnum(token, payload):
+    """获取审批状态"""
+    url = f'{api_host}/api-scf/scfTransfer/listScfAuditStatusEnum'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_scfTransfer_pullByCoreId(token, payload):
+    """根据核心ID-授信配置-表单"""
+    url = f'{api_host}/api-scf/scfTransfer/pullByCoreId'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_scfTransfer_queryConfigSet(token, payload):
+    """根据核心企业id查询转让基础项配置"""
+    url = f'{api_host}/api-scf/scfTransfer/queryConfigSet'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_scfTransfer_signProtocol(token, payload):
+    """转让协议签署"""
+    url = f'{api_host}/api-scf/scfTransfer/signProtocol'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_scfTransfer_transferSeal(token, payload):
+    """转让平台方审核签章返回地址"""
+    url = f'{api_host}/api-scf/scfTransfer/transferSeal'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -340,7 +452,6 @@ class ScfTransfer(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-
     def test_006_scfTransfer_searchNotSupplier(self):
         """转让列表-非供应商"""
         payload = {
@@ -363,6 +474,7 @@ class ScfTransfer(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+        g_d["goldenLetterCode"] = r_json["datas"][0]["goldenLetterCode"]
 
     def test_007_scfTransfer_searchSupplier(self):
         """转让列表-供应商"""
@@ -485,6 +597,95 @@ class ScfTransfer(unittest.TestCase):
         payload = {
         }
         r = api_scfTransfer_listCoreSub(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_015_scfTransfer_getLetterCode(self):
+        """获取金点信编号"""
+        payload = {
+        }
+        r = api_scfTransfer_getLetterCode(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_016_scfTransfer_listPaymentStatusEnum(self):
+        """获取兑付状态"""
+        payload = {
+        }
+        r = api_scfTransfer_listPaymentStatusEnum(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_017_scfTransfer_listScfAuditStatusEnum(self):
+        """获取审批状态"""
+        payload = {
+        }
+        r = api_scfTransfer_listScfAuditStatusEnum(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_018_scfTransfer_pullByCoreId(self):
+        """根据核心ID-授信配置-表单"""
+        payload = {
+            "id": g_d["coreSub"]
+        }
+        r = api_scfTransfer_pullByCoreId(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_019_scfTransfer_queryConfigSet(self):
+        """根据核心企业id查询转让基础项配置"""
+        payload = {
+            "id": g_d["coreSub"]
+        }
+        r = api_scfTransfer_queryConfigSet(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    """还未开发完成"""
+    # def test_020_scfTransfer_signProtocol(self):
+    #     """转让协议签署"""
+    #     payload = {
+    #         "id": 1566672651710578689
+    #     }
+    #     r = api_scfTransfer_signProtocol(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_021_scfTransfer_transferSeal(self):
+        """转让平台方审核签章返回地址"""
+        payload = {
+            "auditStatus": 3,
+            "id": g_d["id_new"]
+        }
+        r = api_scfTransfer_transferSeal(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

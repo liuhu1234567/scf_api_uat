@@ -105,6 +105,21 @@ def api_scfProjectOpenTransfer_selectName(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+def api_scfProjectOpenTransfer_selectNameOpen(token, payload):
+    """选择流程节点名称-开立"""
+    url = f'{api_host}/api-scf/scfProjectOpenTransfer/selectNameOpen'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
 
 g_d = {}
 
@@ -276,6 +291,18 @@ class ScfProjectOpenTransfer(unittest.TestCase):
             "id": coreId
         }
         r = api_scfProjectOpenTransfer_delete(token_scf_platform, payload_new)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_007_scfProjectOpenTransfer_selectNameOpen(self):
+        """选择流程节点名称-开立"""
+        payload = {
+        }
+        r = api_scfProjectOpenTransfer_selectNameOpen(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
