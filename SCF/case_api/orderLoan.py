@@ -1,15 +1,18 @@
 from common.global_variable import customize_dict
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from case_api.template import api_template_uploadfile
 from case_api.enterprise import api_enterprise_queryEntArchivesDetail
+from case_api.backAccount import api_backAccount_queryPage, api_backAccount_bindByProjectId
 from common.do_config import api_host, restime
 import requests
 import json
 import unittest
 from common.do_excel import DoExcel
-from common.do_faker import get_number, get_company
-import datetime
+from common.do_faker import get_number
 from jsonpath import jsonpath
+import datetime
+
 
 def api_orderLoan_import(token, payload):
     """导入"""
@@ -46,6 +49,22 @@ def api_orderLoan_list(token, payload):
 def api_orderLoan_export(token, payload):
     """下载"""
     url = f'{api_host}/api-scf/orderLoan/export'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_orderLoan_projectList(token, payload):
+    """项目下拉列表"""
+    url = f'{api_host}/api-scf/orderLoan/projectList'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "2",
@@ -168,6 +187,7 @@ def insert_excel_importOrderFromExcel(num):
 
 g_d = {}
 
+
 class OrderLoan(unittest.TestCase):
     def test_001_orderLoan_import(self):
         """【供应商】导入"""
@@ -195,7 +215,7 @@ class OrderLoan(unittest.TestCase):
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        orderIds = jsonpath(r_json,'$..id')
+        orderIds = jsonpath(r_json, '$..id')
         g_d['orderIds'] = orderIds
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
@@ -214,16 +234,43 @@ class OrderLoan(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_004_orderLoan_financing(self):
+    def test_004_orderLoan_projectList(self):
+        """【供应商】项目下拉列表"""
+        payload = {
+            "orderId": g_d['orderIds'][0]
+        }
+        r = api_orderLoan_projectList(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        datas = r_json['datas']
+        g_d['projectId'] = r_json['datas'][len(datas)-1]['id']
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_005_orderLoan_financing(self):
         """【供应商】融资"""
         payload = {
-            "financeAmount": 0,
-            "financingEnd": "",
-            "financingStart": "",
-            "id": 0,
-            "increaseTrustId": 0,
-            "projectId": 0,
-            "receiveBankAccount": "6011399232906354"
+            "num": 1,
+            "size": 10,
+        }
+        bankCardInfo = api_backAccount_queryPage(token_scf_supplier, payload).json()["datas"]
+        bankCardId = bankCardInfo[0]['id']
+        bankAccountNo = bankCardInfo[0]['bankAccountNo']
+        payload = {
+            "id": bankCardId,
+            "projectId": g_d['projectId']
+        }
+        r = api_backAccount_bindByProjectId(token_scf_supplier, payload)
+        payload = {
+            "financeAmount": 1000,
+            "financingEnd": "2023-09-10",
+            "financingStart": "2022-09-10",
+            "id": g_d['orderIds'][0],
+            "increaseTrustId": "",
+            "projectId": g_d['projectId'],
+            "receiveBankAccount": bankAccountNo
         }
         r = api_orderLoan_financing(token_scf_supplier, payload)
         r_json = r.json()
@@ -268,7 +315,7 @@ class OrderLoan(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_007_orderLoan_review(self):
+    def test_007_orderLoan_resubmit(self):
         """【供应商】重新提交"""
         payload = {
             "auditFlowItemId": 0,

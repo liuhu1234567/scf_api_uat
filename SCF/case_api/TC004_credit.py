@@ -1,12 +1,15 @@
 from common.global_variable import customize_dict
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.do_config import api_host, restime
+from common.do_faker import get_number
 import random
 import requests
 import json
 import unittest
 from case_api.TC001_scfProjectBasis import api_scfProjectBasis_queryProjectBasicInfo
 from case_api.scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 
 
 def api_credit_insert(token, payload):
@@ -169,6 +172,22 @@ def api_credit_delete(token, payload):
     return r
 
 
+def api_credit_result_insert(token, payload):
+    """新增授信结果"""
+    url = f'{api_host}/api-scf/credit/result/insert'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -180,7 +199,8 @@ class Credit(unittest.TestCase):
             "num": 1,
             "size": 10
         }
-        projectDeliverSearch = api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload).json()['datas'][0]
+        projectDeliverSearch = api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload).json()['datas'][
+            0]
         g_d['projectId'] = projectDeliverSearch['basisId']
         g_d['entId'] = projectDeliverSearch['enterpriseId']
         g_d['creditApplyCardId'] = projectDeliverSearch['creditCode']
@@ -351,7 +371,6 @@ class Credit(unittest.TestCase):
             "projectId": g_d.get('projectId'),
             "tenantId": g_d.get('entId')
         }
-
         r = api_credit_result_getCreditAmount(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
@@ -360,12 +379,48 @@ class Credit(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_010_credit_delete(self):
-        """【平台方】删除授信"""
+    # def test_010_credit_delete(self):
+    #     """【平台方】删除授信"""
+    #     payload = {
+    #         "id": g_d.get('id')
+    #     }
+    #     r = api_credit_delete(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_011_credit_result_insert(self):
+        """【平台方】新增授信结果"""
+        supplierInfo = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']
+        creditCode = supplierInfo['creditCode']
+        entName = supplierInfo['entName']
+        tenantId = supplierInfo['id']
         payload = {
-            "id": g_d.get('id')
+            "auditAmount": 10000,
+            "creditApplyCardId": creditCode,
+            "creditApplyName": entName,
+            "creditCardIdType": 1,
+            "creditId": g_d['creditId'],
+            "creditName": g_d['creditName'],
+            "creditScope": 1,
+            "creditType": 1,
+            "dataUuid": f"dataUuid{get_number(10)}",
+            "enterprise": g_d['coreEntName'],
+            "enterpriseId": g_d['coreEntId'],
+            "financialInstitutionId": g_d['creditId'],
+            "financialInstitutionName": g_d['creditName'],
+            "financialProductId": g_d.get('financialProductId'),
+            "financialProductName": g_d.get('financialProductName'),
+            "loanBegin": "2022-09-30 00:00:00",
+            "loanEnd": "2023-09-30 00:00:00",
+            "projectId": g_d['projectId'],
+            "projectName": g_d['projectName'],
+            "tenantId": tenantId,
         }
-        r = api_credit_delete(token_scf_platform, payload)
+        r = api_credit_result_insert(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

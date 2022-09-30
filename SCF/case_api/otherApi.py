@@ -94,6 +94,20 @@ def api_template_upload_file(token, file_name):
     return r
 
 
+def api_otherApi_queryProjectList(token):
+    """项目下拉列表"""
+    url = f'{api_host}/api-scf/otherApi/queryProjectList'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
 class OtherApi(unittest.TestCase):
     def test_001_otherApi_initDropdownListInfo(self):
         """【平台方】枚举下拉列表信息集"""
@@ -158,6 +172,16 @@ class OtherApi(unittest.TestCase):
     def test_005_template_upload_file(self):
         """【平台方】上传文件"""
         r = api_template_upload_file(token_scf_platform, "test.png")
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_006_otherApi_queryProjectList(self):
+        """【供应商】项目下拉列表"""
+        r = api_otherApi_queryProjectList(token_scf_supplier)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

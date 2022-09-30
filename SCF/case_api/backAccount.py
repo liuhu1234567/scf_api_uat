@@ -1,6 +1,7 @@
 from common.do_config import api_host, restime
 from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
 from common.global_variable import customize_dict
+from case_api.otherApi import api_otherApi_queryProjectList
 from common.do_faker import get_number, get_card_number
 import requests
 import unittest
@@ -191,9 +192,10 @@ class BackAccount(unittest.TestCase):
             "bankAccountType": 2
         }
         id_new = api_backAccount_insert(token_scf_supplier, payload).json()["datas"]
+        projectId = api_otherApi_queryProjectList(token_scf_supplier).json()['datas'][0]['id']
         payload_new = {
             "id": id_new,
-            "projectId": 1231231
+            "projectId": projectId
         }
         r = api_backAccount_bindByProjectId(token_scf_supplier, payload_new)
         r_json = r.json()
