@@ -387,20 +387,21 @@ class ScfTransfer(unittest.TestCase):
         """转让重新提交"""
         payload = {
             "bills": [
-                ""
+                "1575684533347487746"
             ],
             "coreSub": "",
             "founderEnt": "接口自动化核心企业账号",
             "creditEnhancerId": "",
-            "id": g_d["id_resubmit"],
+            "id": "1575684533322321922",
             "invoiceWithTax": 0,
             "orderName": "0",
             "orderNumber": "0",
-            "receiver": "1572912397683884034",
+            "receiver": "1565532746930135041",
             "statementNumber": "91440300279446850J",
             "transferAmount": 1000,
             "transferIntroduce": ""
         }
+
         r = api_scfTransfer_reSubmit(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
@@ -408,6 +409,12 @@ class ScfTransfer(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+        payload = {"auditOpinion": "0",
+                   "auditStatus": 3,
+                   "id": g_d["id_resubmit"]}
+        r = api_scfTransfer_audit(token_scf_supplier, payload)
+        r_json = r.json()
 
     def test_009_scfTransfer_sign(self):
         """签收"""
