@@ -244,7 +244,7 @@ class OrderLoan(unittest.TestCase):
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         datas = r_json['datas']
-        g_d['projectId'] = r_json['datas'][len(datas)-1]['id']
+        g_d['projectId'] = r_json['datas'][len(datas) - 1]['id']
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
@@ -257,20 +257,22 @@ class OrderLoan(unittest.TestCase):
         }
         bankCardInfo = api_backAccount_queryPage(token_scf_supplier, payload).json()["datas"]
         bankCardId = bankCardInfo[0]['id']
-        bankAccountNo = bankCardInfo[0]['bankAccountNo']
+        g_d['bankAccountNo'] = bankCardInfo[0]['bankAccountNo']
         payload = {
             "id": bankCardId,
             "projectId": g_d['projectId']
         }
         r = api_backAccount_bindByProjectId(token_scf_supplier, payload)
+        g_d['financingStart'] = str(datetime.date.today())
+        g_d['financingEnd'] = str(datetime.date.today() + datetime.timedelta(days=30))
         payload = {
             "financeAmount": 1000,
-            "financingEnd": "2023-09-10",
-            "financingStart": "2022-09-10",
+            "financingEnd": g_d['financingEnd'],
+            "financingStart": g_d['financingStart'],
             "id": g_d['orderIds'][0],
             "increaseTrustId": "",
             "projectId": g_d['projectId'],
-            "receiveBankAccount": bankAccountNo
+            "receiveBankAccount": g_d['bankAccountNo']
         }
         r = api_orderLoan_financing(token_scf_supplier, payload)
         r_json = r.json()
@@ -280,34 +282,12 @@ class OrderLoan(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_005_orderLoan_revoke(self):
+    def test_006_orderLoan_revoke(self):
         """【供应商】撤回"""
         payload = {
-            "auditFlowItemId": 0,
-            "id": 0
+            "id": g_d['orderIds'][0]
         }
         r = api_orderLoan_revoke(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    def test_006_orderLoan_review(self):
-        """【供应商】审核"""
-        payload = {
-            "auditEntId": 0,
-            "auditFlowItemId": 0,
-            "auditOpinion": "",
-            "auditStatus": 0,
-            "busType": "",
-            "creditEnhancerId": 0,
-            "entId": 0,
-            "id": 0,
-            "projectId": 0
-        }
-        r = api_orderLoan_review(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -318,13 +298,12 @@ class OrderLoan(unittest.TestCase):
     def test_007_orderLoan_resubmit(self):
         """【供应商】重新提交"""
         payload = {
-            "auditFlowItemId": 0,
-            "financeAmount": 0,
-            "financingEnd": "",
-            "financingStart": "",
-            "id": 0,
-            "increaseTrustId": 0,
-            "receiveBankAccount": ""
+            "financeAmount": 1001,
+            "financingEnd": g_d['financingEnd'],
+            "financingStart": g_d['financingEnd'],
+            "id": g_d['orderIds'][0],
+            "increaseTrustId": "",
+            "receiveBankAccount": g_d['bankAccountNo']
         }
         r = api_orderLoan_resubmit(token_scf_supplier, payload)
         r_json = r.json()
@@ -334,10 +313,25 @@ class OrderLoan(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_008_orderLoan_detail(self):
+    def test_008_orderLoan_review(self):
+        """【供应商】审核"""
+        payload = {
+            "auditOpinion": "",
+            "auditStatus": 3,
+            "id": g_d['orderIds'][0]
+        }
+        r = api_orderLoan_review(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_009_orderLoan_detail(self):
         """【供应商】详情"""
         payload = {
-            "id": 0
+            "id": g_d['orderIds'][0]
         }
         r = api_orderLoan_detail(token_scf_supplier, payload)
         r_json = r.json()
