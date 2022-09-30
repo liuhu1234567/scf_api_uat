@@ -6,6 +6,7 @@ import json
 import unittest
 import random
 from case_api.TC001_scfProjectBasis import api_scfProjectBasis_getBusinessTypes, api_scfProjectBasis_listProjectBasisByType
+from case_api.goldenLetter_ import api_goldenLetter_queryPage
 
 def api_blockchain_info(token, payload):
     """查询区块链信息"""
@@ -30,15 +31,18 @@ class Blockchain(unittest.TestCase):
     def test_001_blockchain_info(self):
         """【平台方】查询区块链信息"""
         payload = {
-            "busId": g_d.get('busId'),
-            "busType": g_d.get('busType'),
-            "dataArea": [
-                {
-                    "label": "",
-                    "value": ""
-                }
-            ]
+            "auditStatus": 1,
+            "currentHolder": "",
+            "founderEnt": "",
+            "goldenLetterCode": "",
+            "num": 1,
+            "paymentStatus": 0,
+            "size": 10
         }
+        r = api_goldenLetter_queryPage(token_scf_platform, payload)
+        r_json = r.json()
+
+        payload = {"busId":r_json["datas"][0]["goldenLetterCode"],"busType":"2"}
         r = api_blockchain_info(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()

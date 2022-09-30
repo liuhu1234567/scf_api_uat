@@ -244,11 +244,11 @@ class ScfTransfer(unittest.TestCase):
 
     def test_001_scfTransfer_transfer(self):
         """【供应商】发起转让保存转让信息"""
-        goldenLetterCoden_nwe = Bus_orderLoan().audit_credentials()
+        g_d["goldenLetterCoden_nwe"] = Bus_orderLoan().audit_credentials()
         payload = {
             "auditStatus": 1,
             "founderEnt": "",
-            "goldenLetterCode": goldenLetterCoden_nwe,
+            "goldenLetterCode": g_d["goldenLetterCoden_nwe"],
             "num": 1,
             "recipient": "",
             "size": 10
@@ -318,31 +318,28 @@ class ScfTransfer(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_005_scfTransfer_reSubmit(self):
-        """转让重新提交"""
-        payload = {
-            "bills": [
-                "1575332444490444802"
-            ],
-            "coreSub": 0,
-            "founderEnt": "接口自动化核心企业账号",
-            "creditEnhancerId": 0,
-            "id": g_d["id_new"],
-            "invoiceWithTax": 0,
-            "orderName": "0",
-            "orderNumber": "0",
-            "receiver": "1565532746930135041",
-            "statementNumber": "91440300279446850J",
-            "transferAmount": 1000,
-            "transferIntroduce": 0
+    def test_005_scfTransfer_detail(self):
+        """转让详情"""
+        searchSupplier_payload = {
+            "founderEnt": "",
+            "goldenLetterCode": "",
+            "currentHolder": "",
+            "paymentStatus": "",
+            "num": 1,
+            "size": 10
         }
-        r = api_scfTransfer_reSubmit(token_scf_supplier, payload)
+        id = api_scfTransfer_searchSupplier(token_scf_platform, searchSupplier_payload).json()['datas'][0]['id']
+        payload = {
+            "id": id
+        }
+        r = api_scfTransfer_detail(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
 
     def test_006_scfTransfer_searchNotSupplier(self):
         """转让列表-非供应商"""
@@ -384,12 +381,27 @@ class ScfTransfer(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+        g_d["id_resubmit"] = r_json["datas"][0]["id"]
 
-    def test_008_scfTransfer_selectReceiver(self):
-        """查询接收人"""
+    def test_008_scfTransfer_reSubmit(self):
+        """转让重新提交"""
         payload = {
+            "bills": [
+                ""
+            ],
+            "coreSub": "",
+            "founderEnt": "接口自动化核心企业账号",
+            "creditEnhancerId": "",
+            "id": g_d["id_resubmit"],
+            "invoiceWithTax": 0,
+            "orderName": "0",
+            "orderNumber": "0",
+            "receiver": "1572912397683884034",
+            "statementNumber": "91440300279446850J",
+            "transferAmount": 1000,
+            "transferIntroduce": ""
         }
-        r = api_scfTransfer_selectReceiver(token_scf_platform, payload)
+        r = api_scfTransfer_reSubmit(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -410,15 +422,11 @@ class ScfTransfer(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_010_scfTransfer_detail(self):
-        """转让详情"""
-        searchSupplier_payload = {"founderEnt": "", "goldenLetterCode": "", "currentHolder": "", "paymentStatus": "",
-                                  "num": 1, "size": 10}
-        id = api_scfTransfer_searchSupplier(token_scf_platform, searchSupplier_payload).json()['datas'][0]['id']
+    def test_010_scfTransfer_selectReceiver(self):
+        """查询接收人"""
         payload = {
-            "id": id
         }
-        r = api_scfTransfer_detail(token_scf_platform, payload)
+        r = api_scfTransfer_selectReceiver(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

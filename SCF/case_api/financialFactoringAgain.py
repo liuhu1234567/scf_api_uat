@@ -4,11 +4,15 @@ from common.get_token import token_scf_platform, token_scf_supplier, token_scf_f
 from common.global_variable import customize_dict
 from common.do_faker import get_number
 from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
+from modware.bus_orderLoan import Bus_orderLoan
+from case_api.goldenLetter_ import api_goldenLetter_queryPage
 import requests
 import unittest
 import json
 
 """再融资保理控制层"""
+
+g_d = {}
 
 
 def api_financialFactoringAgain_insert(token, payload):
@@ -125,7 +129,8 @@ def api_financialFactoringAgain_queryByApplicationNumber(token, payload):
 
 class FinancialFactoringAgain(unittest.TestCase):
     def test_001_financialFactoringAgain_insert(self):
-        """新增再"""
+        """新增再保理融资"""
+        g_d["goldenLetterCode"] = Bus_orderLoan().break_financing()
         payload = {
             "bankAccountNo": "41234123",
             "estimatedDisbursementDate": "2022-09-29T07:39:50.154Z",
@@ -136,7 +141,7 @@ class FinancialFactoringAgain(unittest.TestCase):
             "financingRemainAmount": 0,
             "financingServiceCharge": "1.09",
             "financingTerm": 397,
-            "goldenLetterCode": "JDX20220929063",
+            "goldenLetterCode": g_d["goldenLetterCode"],
             "platformServiceCharge": "1.00",
             "platformServiceRate": 0.1,
             "projectId": "1575389575205949442",
@@ -171,7 +176,6 @@ class FinancialFactoringAgain(unittest.TestCase):
 
     def test_003_financialFactoringAgain_queryConfigSet(self):
         """根据项目id查询融资流程配置"""
-        # id_one = api_scfProjectBasis_listProjectBasis(token_scf_platform).json()["datas"][0]["id"]
         payload = {
             "id": 1573520796372992002
         }
@@ -186,12 +190,12 @@ class FinancialFactoringAgain(unittest.TestCase):
     def test_004_financialFactoringAgain_queryFinancialFactoringPage(self):
         """查询融资保理审核列表"""
         payload = {
-            "auditStatus": 0,
+            "auditStatus": "",
             "creditEnhancerEntName": "",
             "financeEntName": "",
-            "goldenLetterCode": "",
-            "num": 0,
-            "size": 0
+            "goldenLetterCode": g_d["goldenLetterCode"],
+            "num": 1,
+            "size": 10
         }
         r = api_financialFactoringAgain_queryFinancialFactoringPage(token_scf_platform, payload)
         r_json = r.json()
@@ -200,28 +204,24 @@ class FinancialFactoringAgain(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+        g_d["goldenLetterId"] = r_json["datas"][0]["id"]
 
-    def test_005_financialFactoringAgain_resubmit(self):
-        """重新提交"""
+    def test_005_financialFactoringAgain_updateAuditStatus(self):
+        """融资保理审核"""
         payload = {
-            "auditFlowItemId": 0,
-            "bankAccountNo": 0,
-            "creditEnhancerEntId": 0,
-            "creditEnhancerEntName": "",
-            "estimatedDisbursementDate": "",
-            "financeEntId": 0,
-            "financeEntName": "",
-            "financingAmount": 0,
-            "financingRate": "",
-            "financingRemainAmount": 0,
-            "financingServiceCharge": 0,
-            "financingTerm": 0,
-            "goldenLetterId": 0,
-            "id": 0,
-            "platformServiceCharge": 0,
-            "platformServiceRate": ""
+            "coreEntId": "1565528298128351233",
+            "auditEntId": "1565532904946343937",
+            "auditFlowItemId": "1575389889157992449",
+            "auditOpinion": "0",
+            "auditStatus": 5,
+            "creditEnhancerId": 0,
+            "entId": "1565528298128351233",
+            "id": g_d["goldenLetterId"],
+            "recipientId": "1565532746930135041",
+            "financeEntId": "1547048461623263234",
+            "goldenLetterId": "1575384878552145921"
         }
-        r = api_financialFactoringAgain_resubmit(token_scf_platform, payload)
+        r = api_financialFactoringAgain_updateAuditStatus(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -229,21 +229,28 @@ class FinancialFactoringAgain(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_006_financialFactoringAgain_updateAuditStatus(self):
-        """融资保理审核"""
+    def test_006_financialFactoringAgain_resubmit(self):
+        """重新提交"""
         payload = {
-            "auditEntId": 0,
-            "auditFlowItemId": 0,
-            "auditOpinion": "",
-            "auditStatus": 0,
-            "busType": "",
-            "creditEnhancerId": 0,
-            "entId": 0,
-            "id": 0,
-            "projectId": 0,
-            "recipientId": 0
+            "id": g_d["goldenLetterId"],
+            "auditFlowItemId": "1575389889157992449",
+            "bankAccountNo": "41234123",
+            "creditEnhancerEntId": 0,
+            "creditEnhancerEntName": 0,
+            "estimatedDisbursementDate": "2022-09-28T15:39:50.000Z",
+            "financeEntId": "1547048461623263234",
+            "financeEntName": "泛光灯",
+            "financingAmount": 1000,
+            "financingRate": "0.1",
+            "financingRemainAmount": 0,
+            "financingServiceCharge": 1.09,
+            "financingTerm": 397,
+            "goldenLetterCode": g_d["goldenLetterCode"],
+            "platformServiceCharge": 1,
+            "platformServiceRate": "0.1",
+            "financingInstructions": "0"
         }
-        r = api_financialFactoringAgain_updateAuditStatus(token_scf_platform, payload)
+        r = api_financialFactoringAgain_resubmit(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
@@ -254,7 +261,7 @@ class FinancialFactoringAgain(unittest.TestCase):
     def test_007_financialFactoringAgain_queryByApplicationNumber(self):
         """根据再保理申请编号查询再保理详情"""
         payload = {
-            "financeApplicationNumber": ""
+            "financeApplicationNumber": "22093000108"
         }
         r = api_financialFactoringAgain_queryByApplicationNumber(token_scf_platform, payload)
         r_json = r.json()

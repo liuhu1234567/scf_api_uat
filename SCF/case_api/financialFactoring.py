@@ -160,8 +160,9 @@ class FinancialFactoring(unittest.TestCase):
 
     def test_002_financialFactoring_queryById(self):
         """根据ID查询融资保理详情"""
+        id_one = api_scfProjectBasis_listProjectBasis(token_scf_platform).json()["datas"][0]["id"]
         payload = {
-            "id": 0
+            "id": id_one
         }
         r = api_financialFactoring_queryById(token_scf_platform, payload)
         r_json = r.json()
@@ -192,16 +193,17 @@ class FinancialFactoring(unittest.TestCase):
             "creditEnhancerEntName": "",
             "financeEntName": "",
             "goldenLetterCode": "",
-            "num": 0,
-            "size": 0
+            "num": 1,
+            "size": 10
         }
-        r = api_financialFactoring_queryFinancialFactoringPage(token_scf_platform, payload)
+        r = api_financialFactoring_queryFinancialFactoringPage(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
 
     def test_005_financialFactoring_resubmit(self):
         """重新提交"""
@@ -263,7 +265,7 @@ class FinancialFactoring(unittest.TestCase):
     def test_007_financialFactoring_queryByApplicationNumber(self):
         """根据融资申请编号查询融资保理详情"""
         payload = {
-            "financeApplicationNumber": ""
+            "financeApplicationNumber": "75643585578"
         }
         r = api_financialFactoring_queryByApplicationNumber(token_scf_platform, payload)
         r_json = r.json()
