@@ -6,7 +6,7 @@
     },
     "restime": 3,
     "env_now": "prod",
-    "environment": "UAT",
+    "environment": "生产环境",
     "test_type": "API",
     "report_name": "供应链金融接口测试报告_${start_time}.html",
     "scf_financier": {
