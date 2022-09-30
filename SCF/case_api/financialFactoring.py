@@ -124,6 +124,57 @@ def api_financialFactoring_queryByApplicationNumber(token, payload):
     return r
 
 
+def api_financialFactoring_checkByProjectId(token, payload):
+    """根据项目id校验是否完成前面流程"""
+    url = f'{api_host}/api-scf/financialFactoring/checkByProjectId'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_financialFactoring_queryByGoldLetterCode(token, payload):
+    """根据金点信编号查询融资详情"""
+    url = f'{api_host}/api-scf/financialFactoring/queryByGoldLetterCode'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_financialFactoring_queryPage(token, payload):
+    """查询融资保理列表"""
+    url = f'{api_host}/api-scf/financialFactoring/queryPage'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+g_d = {}
+
+
 class FinancialFactoring(unittest.TestCase):
     def test_001_financialFactoring_insert(self):
         """【供应商】新增保理融资"""
@@ -150,6 +201,8 @@ class FinancialFactoring(unittest.TestCase):
             "initialHolder": "自动化供应商企业名称",
             "promisedPaymentDate": "2023-09-30T07:41:53.796"
         }
+        g_d["projectId"] = payload["projectId"]
+        g_d["goldenLetterCoden_nwe"] = goldenLetterCoden_nwe
         r = api_financialFactoring_insert(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
@@ -203,7 +256,6 @@ class FinancialFactoring(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
 
     def test_005_financialFactoring_resubmit(self):
         """重新提交"""
@@ -268,6 +320,51 @@ class FinancialFactoring(unittest.TestCase):
             "financeApplicationNumber": "75643585578"
         }
         r = api_financialFactoring_queryByApplicationNumber(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_008_financialFactoring_checkByProjectId(self):
+        """根据项目id校验是否完成前面流程"""
+        payload = {
+            "id": g_d["projectId"]
+        }
+        r = api_financialFactoring_checkByProjectId(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_009_financialFactoring_queryByGoldLetterCode(self):
+        """根据金点信编号查询融资详情"""
+        payload = {
+            "goldenLetterCode": g_d["goldenLetterCoden_nwe"]
+        }
+        r = api_financialFactoring_queryByGoldLetterCode(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_010_financialFactoring_queryPage(self):
+        """根据金点信编号查询融资详情"""
+        payload = {
+            "auditStatus": 0,
+            "currentHolder": "",
+            "founderEnt": "",
+            "goldenLetterCode": "",
+            "num": 1,
+            "paymentStatus": 0,
+            "size": 10
+        }
+        r = api_financialFactoring_queryPage(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
