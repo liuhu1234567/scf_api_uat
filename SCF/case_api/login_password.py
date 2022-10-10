@@ -26,6 +26,8 @@ def encrypt(pwd):
     """RSA加密"""
     public_key = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKSItqTh99pxpM9iRuqtFy/f81g3hTXCdGMPjWGgMTziNMxK60BmzOqw24bjXQQ+pgKQhSsPhxT4QsgaG0QbDE8CAwEAAQ=="
     key = '-----BEGIN PUBLIC KEY-----\n' + public_key + '\n-----END PUBLIC KEY-----'
+    # print('key---------------------')
+    # print(key)
     rsakey = RSA.importKey(key)
     cipher = Cipher_pksc1_v1_5.new(rsakey)
     encrypt_text = cipher.encrypt(pwd.encode())
@@ -74,7 +76,7 @@ class LoginPassword(unittest.TestCase):
             "type": 1}
         r = api_login_password(payload)
         r_json = r.json()
-        print(r_json)
+        # print(r_json)
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
 

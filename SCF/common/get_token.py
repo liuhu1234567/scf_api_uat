@@ -15,7 +15,7 @@ def get_scf_financier():
         "key": "",
         "type": 1}
     r_json = api_login_password(data).json()
-    print(r_json)
+    # print(r_json)
     token = f"{r_json['datas']['token_type']} {r_json['datas']['access_token']}"
     # token = {'token_type': r_json['datas']['token_type'], 'access_token': r_json['datas']['access_token']}
     return token
@@ -96,6 +96,8 @@ def get_scf_subsidiaries():
 def get_scf_factor():
     """获取保理商账号token"""
     password = encrypt(scf_factor['password'])
+    # print('set----------------------------------------')
+    # print(password)
     data = {
         "username": scf_factor['username'],
         "password": password,
@@ -122,5 +124,5 @@ if __name__ == '__main__':
     # print(token_scf_enterprise)
     print(token_scf_supplier)
     # print(token_scf_platform)
-    # print(token_scf_factor)
+    print(token_scf_factor)
     # print(token_scf_subsidiaries)
