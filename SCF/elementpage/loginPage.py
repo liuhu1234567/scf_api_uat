@@ -24,9 +24,11 @@ class loginPage(BasePage):
 
 
 
+#调试
 obj = loginPage()
 obj.open('https://uat-cloud.dianliantech.com/user/login')
 obj.user_input('AEW6317585245519')
 obj.password_input('Aa1234567')
 obj.code_input('1234')
 obj.loginButton_clike()
+obj.exit()
