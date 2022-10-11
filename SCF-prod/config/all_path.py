@@ -36,3 +36,6 @@ def get_config_path(file_name):
     """获取配置文件的绝对路径"""
     config_path = os.path.join(project_path, 'config', file_name)
     return config_path
+
+
+print(report_dir)
