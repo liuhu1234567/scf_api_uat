@@ -6,7 +6,8 @@ from common.do_config import environment
 
 def send_robot(file_url):
     """发送报告到企业微信机器人"""
-    url = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=b91c3820-ebc9-4af1-a4a3-39d4f56dd827'
+    # url = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=b91c3820-ebc9-4af1-a4a3-39d4f56dd827'
+    url = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=b1a53a00-c8c3-4b17-87d6-a5a3d6a3a2c0'
     headers = {'Content-Type': 'application/json'}
     # print(customize_dict)
     testName = customize_dict['resultData']['testName']
