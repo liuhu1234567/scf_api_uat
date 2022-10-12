@@ -7,6 +7,7 @@ from common.do_robot import send_robot
 from common.do_email import send_email
 from common.TestRunner import HTMLTestRunner
 # import HtmlTestRunner
+import os
 
 
 def create_suite():
@@ -24,14 +25,15 @@ def unittest_beautiful():
     runner.report(filename=report_name, report_dir=report_dir, description='供应链金融接口自动化测试报告')
 
 def unittest_xtestrunner():
-    report = report_dir + '\\' + report_name
+    # report = report_dir + '\\' + report_name
+    report = os.path.join(report_dir, report_name)
     fp = open(report, 'wb')
     suite = unittest.TestLoader().discover(case_api_dir, pattern='*.py', top_level_dir=project_path)
     runner = HTMLTestRunner(stream=fp,
                             title='供应链金融接口自动化测试报告',
                             language='zh-CN',
                             description=['地址：http://app.scf-uat.dianliantech.com'])
-    r = runner.run(suite)
+    runner.run(suite)
     fp.close()
 
 def send_report():
