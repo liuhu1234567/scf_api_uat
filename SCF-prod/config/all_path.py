@@ -1,6 +1,7 @@
 import os
 
-project_path = os.path.dirname(os.path.dirname(__file__))
+# project_path = os.path.dirname(os.path.dirname(__file__))
+project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 report_dir = os.path.join(project_path, 'result', 'report')
 case_api_dir = os.path.join(project_path, 'case_api')
 
@@ -38,4 +39,7 @@ def get_config_path(file_name):
     return config_path
 
 
-print(report_dir)
+# print(os.path.abspath(__file__))
+# print(os.path.dirname(os.path.abspath(__file__)))
+# print(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# print(os.path.dirname(__file__))
