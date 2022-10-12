@@ -41,7 +41,7 @@ def send_report():
     file_url = None
     if upload_MeterShpere or upload_robot or upload_email:
         file_url = get_file_url(report_name)
-        print(file_url)
+        # print(file_url)
     if upload_MeterShpere:
         insert_report('cloud', report_name, file_url)
     if upload_robot:
