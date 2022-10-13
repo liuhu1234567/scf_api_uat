@@ -33,5 +33,7 @@ if __name__ == '__main__':
         "type": 1}
     url = 'https://gateway.dianliantech.com/api-uaa/login/password'
     r = requests.post(url, data=json.dumps(payload), headers=headers)
-    r = r.json()
-    print(r)
+    re = r.json()
+    restime_now = r.elapsed.total_seconds()
+    print(re)
+    print(restime_now)
