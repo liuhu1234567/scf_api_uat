@@ -17,23 +17,24 @@ def encrypt(pwd):
     return r
 
 if __name__ == '__main__':
-    headers = {
-        'Content-Type': 'application/json;charset=UTF-8',
-        'Accept-Language': 'zh-CN,zh;q=0.9'
-    }
-    password = encrypt("Aa12345678")
-    payload = {
-        "username": "dlkjBa00008",
-        "password": password,
-        "code": "ths9tgwwlx",
-        "grant_type": "password",
-        "clientId": "webApp",
-        "clientSecret": "webApp",
-        "key": str(uuid.uuid4()),
-        "type": 1}
-    url = 'https://gateway.dianliantech.com/api-uaa/login/password'
-    r = requests.post(url, data=json.dumps(payload), headers=headers)
-    re = r.json()
-    restime_now = r.elapsed.total_seconds()
-    print(re)
-    print(restime_now)
+    for i in range(0,2):
+        headers = {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Accept-Language': 'zh-CN,zh;q=0.9'
+        }
+        password = encrypt("Aa12345678")
+        payload = {
+            "username": "dlkjBa00008",
+            "password": password,
+            "code": "ths9tgwwlx",
+            "grant_type": "password",
+            "clientId": "webApp",
+            "clientSecret": "webApp",
+            "key": str(uuid.uuid4()),
+            "type": 1}
+        url = 'http://172.30.206.5:9900/api-uaa/login/password'
+        r = requests.post(url, data=json.dumps(payload), headers=headers)
+        re = r.json()
+        restime_now = r.elapsed.total_seconds()
+        print(re)
+        print(restime_now)
