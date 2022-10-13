@@ -36,6 +36,7 @@ def encrypt(pwd):
 
 def api_login_password(payload):
     """用户名密码登录"""
+    # url = 'https://cloud.dianliantech.com/user/login'
     url = 'https://gateway.dianliantech.com/api-uaa/login/password'
     headers = {
         'Content-Type': 'application/json;charset=UTF-8',
