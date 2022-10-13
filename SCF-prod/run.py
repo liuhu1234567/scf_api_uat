@@ -28,7 +28,7 @@ def unittest_xtestrunner():
     # report = report_dir + '\\' + report_name
     report = os.path.join(report_dir, report_name)
     fp = open(report, 'wb')
-    suite = unittest.TestLoader().discover(case_api_dir, pattern='*.py', top_level_dir=project_path)
+    suite = unittest.TestLoader().discover(case_api_dir, pattern='login*.py', top_level_dir=project_path)
     runner = HTMLTestRunner(stream=fp,
                             title='供应链金融接口自动化测试报告',
                             language='zh-CN',
