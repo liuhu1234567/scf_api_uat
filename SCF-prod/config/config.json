@@ -4,6 +4,8 @@
         "prod": "https://app-scf.dianliantech.com",
         "dev": "http://172.30.206.58:33099"
     },
+    "git_url": "http://luozhaofeng:ll*123456@git.dianliantech.com/TestAutoGroup/SCF-test.git",
+    "git_msg_robot": "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=7dbff58a-74c5-410d-b754-829e9a3f5bd2",
     "restime": 3,
     "env_now": "prod",
     "environment": "生产环境",
