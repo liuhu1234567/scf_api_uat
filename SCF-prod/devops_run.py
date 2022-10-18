@@ -42,13 +42,13 @@ class getFromGit():
         # branch_now, repo = self.git_branch_checkout(local_path)
         if not dir_msg:
             Repo.clone_from(remote_url, to_path=local_path, branch='develop')
-            msg = "供应链金融代码已克隆到本地！"
+            msg = "代码已克隆到本地！"
             print(msg)
             return msg
         else:
             repo = Repo(local_path)
             repo.git.pull()
-            msg = "供应链金融本地代码已覆盖！"
+            msg = "本地代码已覆盖！"
             print(msg)
             return msg
 
