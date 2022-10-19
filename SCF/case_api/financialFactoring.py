@@ -199,7 +199,9 @@ class FinancialFactoring(unittest.TestCase):
             "goldenLetterMoney": 1000,
             "goldenLetterOpenDate": "2022-09-28T07:41:59.41",
             "initialHolder": "自动化供应商企业名称",
-            "promisedPaymentDate": "2023-09-30T07:41:53.796"
+            "promisedPaymentDate": "2023-09-30T07:41:53.796",
+            "bankRate": "1000",
+            "bankServiceCharge": 1
         }
         g_d["projectId"] = payload["projectId"]
         g_d["goldenLetterCoden_nwe"] = goldenLetterCoden_nwe
@@ -297,16 +299,15 @@ class FinancialFactoring(unittest.TestCase):
         payload = {
             "coreEntId": "1565528298128351233",
             "auditEntId": "1565532746930135041",
-            "auditFlowItemId": "1575309807613652994",
+            "auditFlowItemId": "1575306492444160002",
             "auditStatus": 3,
-            "creditEnhancerId": 0,
-            "entId": "1565528298128351233",
-            "id": "1575309807659790337",
+            "entId": "1565532746930135041",
+            "id": "1575303286704058370",
             "recipientId": "1565532746930135041",
             "financeEntId": "1565532904946343937",
-            "goldenLetterId": "1575309800575610882"
+            "goldenLetterId": "1575306485586472962"
         }
-        r = api_financialFactoring_updateAuditStatus(token_scf_platform, payload)
+        r = api_financialFactoring_updateAuditStatus(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

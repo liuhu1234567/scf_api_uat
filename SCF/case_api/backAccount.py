@@ -1,5 +1,6 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.global_variable import customize_dict
 from case_api.otherApi import api_otherApi_queryProjectList
 from common.do_faker import get_number, get_card_number
@@ -182,20 +183,14 @@ class BackAccount(unittest.TestCase):
 
     def test_005_backAccount_bindByProjectId(self):
         """绑定项目-银行卡"""
-        number = get_number(10)
-        card_number = get_card_number()
-        payload = {
-            "bankAccountDebutNo": number,
-            "bankAccountName": f"账户名称{number}",
-            "bankAccountNo": card_number,
-            "bankAccountSite": "深圳市兴东路点链支行",
-            "bankAccountType": 2
-        }
-        id_new = api_backAccount_insert(token_scf_supplier, payload).json()["datas"]
-        projectId = api_otherApi_queryProjectList(token_scf_supplier).json()['datas'][0]['id']
         payload_new = {
-            "id": id_new,
-            "projectId": projectId
+            "id": "1567401221412044802",
+            "scfBankAccountBindProjectReqList": [
+                {
+                    "projectId": "1582635711985631234",
+                    "projectName": "项目名称762149"
+                }
+            ]
         }
         r = api_backAccount_bindByProjectId(token_scf_supplier, payload_new)
         r_json = r.json()

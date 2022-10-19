@@ -401,22 +401,28 @@ class ScfTransfer(unittest.TestCase):
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
-        # self.assertEqual(200, r_json['resp_code'])
-        # self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_003_scfTransfer_audit(self):
-        """审核"""
-        payload = {"auditOpinion": "0",
-                   "auditStatus": 5,
-                   "id": g_d["id_new"]}
-        r = api_scfTransfer_audit(token_scf_supplier, payload)
+    def test_003_scfTransfer_searchSupplier(self):
+        """转让列表-供应商"""
+        payload = {
+            "currentHolder": "",
+            "founderEnt": "",
+            "goldenLetterCode": "",
+            "num": 1,
+            "paymentStatus": 0,
+            "size": 10
+        }
+        r = api_scfTransfer_searchSupplier(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+        g_d["id_resubmit"] = r_json["datas"][0]["id"]
 
     def test_004_scfTransfer_listGuarantor(self):
         """获取担保方"""
@@ -476,24 +482,16 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
         g_d["goldenLetterCode"] = r_json["datas"][0]["goldenLetterCode"]
 
-    def test_007_scfTransfer_searchSupplier(self):
-        """转让列表-供应商"""
-        payload = {
-            "currentHolder": "",
-            "founderEnt": "",
-            "goldenLetterCode": "",
-            "num": 1,
-            "paymentStatus": 0,
-            "size": 10
-        }
-        r = api_scfTransfer_searchSupplier(token_scf_platform, payload)
+    def test_007_scfTransfer_audit(self):
+        """审核"""
+        payload = {"auditStatus":3,"id":"1579777826251362306"}
+        r = api_scfTransfer_audit(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
-        g_d["id_resubmit"] = r_json["datas"][0]["id"]
 
     def test_008_scfTransfer_reSubmit(self):
         """转让重新提交"""
@@ -569,9 +567,9 @@ class ScfTransfer(unittest.TestCase):
     def test_012_scfTransfer_toSign(self):
         """跳转至签收页面"""
         payload = {
-            "id": g_d["id_new"]
+            "id":"1579777819196542977"
         }
-        r = api_scfTransfer_toSign(token_scf_platform, payload)
+        r = api_scfTransfer_toSign(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
