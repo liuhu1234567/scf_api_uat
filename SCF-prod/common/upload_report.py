@@ -130,3 +130,7 @@ def insert_report(project, report_name, file_url):
     r = db.insert(sql)
     print(f'报告插入结果：{r}')
     db.close()
+
+if __name__ == '__main__':
+    r = get_file_url('name1')
+    print(r)
