@@ -43,7 +43,7 @@
     },
         "upload_report": {
         "upload_MeterShpere": false,
-        "upload_robot": false,
+        "upload_robot": true,
         "upload_email": false
     }
 }
