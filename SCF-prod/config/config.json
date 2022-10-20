@@ -42,7 +42,7 @@
         "password": "Aa12345678"
     },
         "upload_report": {
-        "upload_MeterShpere": true,
+        "upload_MeterShpere": false,
         "upload_robot": true,
         "upload_email": false
     }
