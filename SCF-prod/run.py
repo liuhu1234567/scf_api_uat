@@ -1,3 +1,4 @@
+# -*- coding:UTF-8 -*-
 import unittest
 from config.all_path import case_api_dir, project_path, report_dir
 from common.BeautifulReport.BeautifulReport import BeautifulReport
