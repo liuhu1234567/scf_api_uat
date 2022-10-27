@@ -1,11 +1,15 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.global_variable import customize_dict
 from common.do_faker import get_number
 import json
 import requests
 import unittest
 from case_api.enterprise import api_enterprise_queryEntArchivesDetail
+from config.all_path import get_file_path
+from common.do_excel import DoExcel
+from case_api.customerManager import api_customerManager_queryPage
 
 
 def api_scfProjectBasis_listProjectBasis(token):
@@ -276,7 +280,7 @@ def api_scfProjectBasis_queryProjectBasicInfo(token, payload):
 
 
 def api_scfProjectBasis_editAllDetail(token, payload):
-    """【平台方】跳转至编辑项目页面"""
+    """【平台方】产品配置详情"""
     url = f'{api_host}/api-scf/scfProjectBasis/editAllDetail'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -307,10 +311,63 @@ def api_scfProjectBasis_delete(token, payload):
     return r
 
 
+def api_scfProjectBasis_batchDeliver(token, file, data):
+    """批量分配"""
+    url = f'{api_host}/api-scf/scfProjectBasis/batchDeliver'
+    headers = {
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.request("POST", url, headers=headers, files=file, data=data)
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_scfProjectBasis_queryProjectBasicInfoById(token, payload):
+    """【平台方】通过项目ID查询相关信息-基础信息"""
+    url = f'{api_host}/api-scf/scfProjectBasis/queryProjectBasicInfoById'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def insert_excel_batchAssign(num):
+    payload = {
+        "entName": "",
+        "contact": "",
+        "contactMobile": "",
+        "customerType": 3,
+        "auditStatus": -1,
+        "num": 1,
+        "size": 10
+    }
+    entName = api_customerManager_queryPage(token_scf_platform, payload).json()['datas'][0]['entName']
+    excel = DoExcel('批量分配模板.xlsx', 'Sheet1')
+    for n in range(num):
+        row_value = (
+            n + 1,
+            entName
+        )
+        excel.insert(row_value, 2 + n)
+    file_name = excel.save()
+    return file_name
+
+
 g_d = {}
 
 
 class ScfProjectBasis(unittest.TestCase):
+
     def test_001_scfProjectBasis_listProjectBasis(self):
         """【平台方】查询项目列表"""
         r = api_scfProjectBasis_listProjectBasis(token_scf_platform)
@@ -629,7 +686,7 @@ class ScfProjectBasis(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_018_scfProjectBasis_editAllDetail(self):
-        """【平台方】跳转至编辑项目页面"""
+        """【平台方】产品配置详情"""
         payload = {
             "id": g_d.get('id')
         }
@@ -662,6 +719,38 @@ class ScfProjectBasis(unittest.TestCase):
             "id": id
         }
         r = api_scfProjectBasis_delete(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_020_scfProjectBasis_batchDeliver(self):
+        """【平台方】批量分配"""
+        file_name = insert_excel_batchAssign(1)
+        fo = open(get_file_path(file_name), "rb")
+        file = {
+            "file": (file_name, fo, "application/octet-stream")
+        }
+        data = {
+            "basisId": g_d.get('id')
+        }
+        r = api_scfProjectBasis_batchDeliver(token_scf_platform, file, data)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+        fo.close()
+
+    def test_021_scfProjectBasis_queryProjectBasicInfoById(self):
+        """【平台方】通过项目ID查询相关信息-基础信息"""
+        payload = {
+            "projectId": g_d.get('id')
+        }
+        r = api_scfProjectBasis_queryProjectBasicInfoById(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
