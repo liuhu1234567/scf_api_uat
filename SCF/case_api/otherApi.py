@@ -28,20 +28,20 @@ def api_otherApi_initDropdownListInfo(token, payload):
     return r
 
 
-def api_otherApi_queryById(token, payload):
-    """根据传入的ID集返回名称详情"""
-    url = f'{api_host}/api-scf/otherApi/queryById'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "2",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
+# def api_otherApi_queryById(token, payload):
+#     """根据传入的ID集返回名称详情"""
+#     url = f'{api_host}/api-scf/otherApi/queryById'
+#     headers = {
+#         "Content-Type": "application/json;charset=UTF-8",
+#         "x-appid-header": "2",
+#         "Authorization": token
+#     }
+#     r = requests.post(url, headers=headers, data=json.dumps(payload))
+#     print(f'请求地址：{url}')
+#     print(f'请求头：{headers}')
+#     print(f'请求参数：{payload}')
+#     print(f'接口响应为：{r.text}')
+#     return r
 
 
 def api_otherApi_queryDownList(token, payload):
@@ -60,20 +60,20 @@ def api_otherApi_queryDownList(token, payload):
     return r
 
 
-def api_otherApi_queryProjectInfo(token, payload):
-    """服务-查询项目相关信息"""
-    url = f'{api_host}/api-scf/otherApi/queryProjectInfo'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "2",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
+# def api_otherApi_queryProjectInfo(token, payload):
+#     """服务-查询项目相关信息"""
+#     url = f'{api_host}/api-scf/otherApi/queryProjectInfo'
+#     headers = {
+#         "Content-Type": "application/json;charset=UTF-8",
+#         "x-appid-header": "2",
+#         "Authorization": token
+#     }
+#     r = requests.post(url, headers=headers, data=json.dumps(payload))
+#     print(f'请求地址：{url}')
+#     print(f'请求头：{headers}')
+#     print(f'请求参数：{payload}')
+#     print(f'接口响应为：{r.text}')
+#     return r
 
 
 def api_template_upload_file(token, file_name):
@@ -112,7 +112,7 @@ def api_otherApi_queryProjectList(token):
 
 
 def api_admission_queryDownList(token, payload):
-    """项目列表，核心企业，金融产品，金融机构下拉列表"""
+    """准入-项目列表，核心企业，金融产品，金融机构下拉列表"""
     url = f'{api_host}/api-scf/admission/queryDownList'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -281,6 +281,36 @@ def api_otherApi_queryProjectByIdList(token, payload):
     return r
 
 
+def api_anxinsign_downloading(token, payload):
+    """安心签章-下载合同"""
+    url = f'{api_host}/api-scf/anxinsign/downloading'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+def api_enterprise_pdf_document(token, payload):
+    """平台服务协议"""
+    url = f'{api_host}/api-scf/enterprise/pdf/document'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
 g_d = {}
 
 
@@ -297,24 +327,24 @@ class OtherApi(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_002_otherApi_queryById(self):
-        """【平台方】根据传入的ID集返回名称详情"""
-        payload = [
-            {
-                "institutionId": 0,
-                "itemId": 0,
-                "productId": 0,
-                "templateId": 0,
-                "tenantId": 0
-            }
-        ]
-        r = api_otherApi_queryById(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_002_otherApi_queryById(self):
+    #     """【平台方】根据传入的ID集返回名称详情"""
+    #     payload = [
+    #         {
+    #             "institutionId": 0,
+    #             "itemId": 0,
+    #             "productId": 0,
+    #             "templateId": 0,
+    #             "tenantId": 0
+    #         }
+    #     ]
+    #     r = api_otherApi_queryById(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_otherApi_queryDownList(self):
         """【平台方】项目列表，核心企业，金融产品，金融机构下拉列表"""
@@ -328,22 +358,22 @@ class OtherApi(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_004_otherApi_queryProjectInfo(self):
-        """【平台方】服务-查询项目相关信息"""
-        payload = {
-            "businessType": ""
-        }
-        itemId = api_scfProjectBasis_listProjectBasisByType(token_scf_platform, payload).json()["datas"][0]["id"]
-        payload = {
-            "itemId": itemId
-        }
-        r = api_otherApi_queryProjectInfo(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_004_otherApi_queryProjectInfo(self):
+    #     """【平台方】服务-查询项目相关信息"""
+    #     payload = {
+    #         "businessType": ""
+    #     }
+    #     itemId = api_scfProjectBasis_listProjectBasisByType(token_scf_platform, payload).json()["datas"][0]["id"]
+    #     payload = {
+    #         "itemId": itemId
+    #     }
+    #     r = api_otherApi_queryProjectInfo(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_template_upload_file(self):
         """【平台方】上传文件"""
@@ -484,6 +514,30 @@ class OtherApi(unittest.TestCase):
             "coreEntName": ""
         }
         r = api_otherApi_queryProjectByIdList(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_018_anxinsign_downloading(self):
+        """【平台方】安心签章-下载合同"""
+        payload = {
+            "id": ""
+        }
+        r = api_anxinsign_downloading(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_019_enterprise_pdf_document(self):
+        """【平台方】平台服务协议"""
+        payload = {}
+        r = api_enterprise_pdf_document(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
