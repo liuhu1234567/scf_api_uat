@@ -128,7 +128,7 @@ class Clearing(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_clearing_revoke(self):
-        """清分列表"""
+        """撤销"""
         payload = {
             "goldenLetterCode": "0"
         }

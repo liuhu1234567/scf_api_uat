@@ -1,5 +1,6 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.global_variable import customize_dict
 import requests
 import unittest
@@ -194,6 +195,7 @@ def api_enterprise_pdf_show(token, payload):
     r = requests.post(url, headers=headers, data=json.dumps(payload))
     print(f'请求地址：{url}')
     print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
 
@@ -336,7 +338,7 @@ def api_enterprise_querySupplierList(token):
 
 
 def api_enterprise_queryBuyerList(token, payload):
-    """买方列表，即核心企业子公司"""
+    """买方列表，即核心企业的子公司"""
     url = f'{api_host}/api-scf/enterprise/queryBuyerList'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -382,20 +384,22 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_002_enterprise_get_pdf_hash(self):
-    #     """经办人或者审核人确认获取pdf hash值,需要使用Ukey访问"""
-    #     payload = {
-    #         "certContent": "",
-    #         "fileId": "",
-    #         "keyWord": ""
-    #     }
-    #     r = api_enterprise_pdf_hash(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_002_enterprise_get_pdf_hash(self):
+        """经办人或者审核人确认获取pdf hash值,需要使用Ukey访问"""
+        payload = {
+            "certContent": "MIIEITCCAwmgAwIBAgIIMwAAAAg5VQYwDQYJKoZIhvcNAQELBQAwXTELMAkGA1UEBhMCQ04xMDAu\r\nBgNVBAoMJ0NoaW5hIEZpbmFuY2lhbCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTEcMBoGA1UEAwwT\r\nQ0ZDQSBBQ1MgVEVTVCBPQ0EzMzAeFw0yMTA5MTUwNTQ4NTZaFw0yNDA5MTUwNTQ4NTZaMIGAMQsw\r\nCQYDVQQGEwJDTjEYMBYGA1UECgwPQ0ZDQSBURVNUIE9DQTMzMREwDwYDVQQLDAhEaWFubGlhbjEZ\r\nMBcGA1UECwwQT3JnYW5pemF0aW9uYWwtMTEpMCcGA1UEAwwgMDUxQGRsMDkxNUBOOTE0NDAzMDBN\r\nQTVFUFBMQzVBQDEwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCmZ5alFKImO+ggic/I\r\n+DrS1upNazpyefcyfgfJqQG7GO9oh2auwbxRJRc16zV2fJpSGPgJn9eRm7MK4oYrs++toMxYNsUu\r\nAvixWIz7Kr9Bkfw3lh7noNnHrBqVNTlgezzu37D2HnGD6s1xPJJnow51unnZvmOB4otaTARvWGDB\r\nL4z/IFm3gcPpGy+94k8GtOMlH9bm1Ne/OwdbNIkkBj6F7fljkUQ5hnkJkX8P+zEWVmzaopT9rdzB\r\n1Ta6YDHxLzwQvnHs7RdwYRibe04akWwYmlOadLItHvRDpFD3IMaxn97Gl8UXC5SqaGr9voncbMnc\r\n/uQrBSnCHw+S3Qil7zLVAgMBAAGjgcAwgb0wHwYDVR0jBBgwFoAUnu5dMsxzrpI2zBQRz//XDjA+\r\nb9EwDAYDVR0TAQH/BAIwADA+BgNVHR8ENzA1MDOgMaAvhi1odHRwOi8vdWNybC5jZmNhLmNvbS5j\r\nbi9PQ0EzMy9SU0EvY3JsMTY2NS5jcmwwDgYDVR0PAQH/BAQDAgbAMB0GA1UdDgQWBBS0wvcza+tV\r\nLFKB8jMED2tq6XC/PTAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwDQYJKoZIhvcNAQEL\r\nBQADggEBADA+d9RTHUXNi/AJ+t7NTz7/o7Rls97BoJxloMq9HA+YivsRIieOvhp8xDDcxEZf76I8\r\nd8TkpBeozXZ3q7n4NTS+EDIbKo3E6JmJhK5/47Z6FpPimv7lPDRhd97P8tZBfDdSVrNEDDuZuPfZ\r\nNqncFarLXazOnItHOXKP/uv0p1vL88a44z9LVJGIdx9h8QqLbPjzOpXmYwiN4fDa5de0aiDmLl4L\r\nCOIKUWyVseykD1QfEyqJzA8Z+oV+xJ0RMGoZgRqp3ojnTOgqpAKYlMJbhd9qigayCdmEXJDeu01l\r\nVJM+P3vKrpPW7zjHGz8cT2hB2rGmnKVxSqbyTX9CrSYplJU=",
+            "fileId": "/group1/M00/02/91/rB7ONGNMyEOAW450AAQqOsZZM54810.pdf",
+            "keyWord": "则签署页，无"
+        }
+        r = api_enterprise_pdf_hash(token_scf_supplier, payload)
+        r_json = r.json()
+        g_d["pdfHash"] = r_json["datas"]["pdfHash"]
+        g_d["pdfHashId"] = r_json["datas"]["pdfHashId"]
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_enterprise_queryPage(self):
         """【供应商/经销商】分页查询企业档案列表"""
@@ -428,8 +432,8 @@ class Enterprise(unittest.TestCase):
         email = get_email()
         phone = get_phone()
         number = get_number(10)
-        number_two = get_number(7)
-        g_d["creditCode"] = f'{number}{number_two}H'
+        number_two = get_number(8)
+        g_d["creditCode"] = f'{number}{number_two}'
         company_name = get_company()
         payload = {
             "businessLicense": "",
@@ -441,7 +445,7 @@ class Enterprise(unittest.TestCase):
             "contactEmail": email,
             "contactMobile": phone,
             "contactPosition": "",
-            "creditCode": g_d.get("creditCode"),
+            "creditCode": "426315807907485916",
             "detailedAddress": "深圳",
             "entName": "自动化供应商企业名称",
             "entScale": 0,
@@ -468,10 +472,10 @@ class Enterprise(unittest.TestCase):
     def test_006_enterprise_step2_valid(self):
         """企业认证步骤2-检测银行卡"""
         payload = {
-            "bankAccountDebutNo": "深圳市天富包装制品有限公司",
-            "bankAccountName": f"账户{get_number(6)}",
-            "bankAccountNo": get_card_number(),
-            "bankAccountSite": "恒生银行中国有限公司深圳分行"
+            "bankAccountName": "深圳市天富包装制品有限公司",
+            "bankAccountDebutNo": "账户139756",
+            "bankAccountSite": "恒生银行中国有限公司深圳分行",
+            "bankAccountNo": "3578304794850711"
         }
         r = api_enterprise_step2_valid(token_scf_supplier, payload)
         r_json = r.json()
@@ -482,24 +486,23 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_007_enterprise_step2(self):
-    #     """【供应商/经销商】企业认证步骤2-开通电子签章"""
-    #     number = get_number(6)
-    #     payload = {
-    #         "bankAccountDebutNo": "深圳市天富包装制品有限公司",
-    #         "bankAccountName": f"账户{get_number(6)}",
-    #         "bankAccountNo": get_card_number(),
-    #         "bankAccountSite": "恒生银行中国有限公司深圳分行",
-    #         "originalTxSn": g_d.get('originalTxSn'),
-    #         "validMoney": "1"
-    #     }
-    #     r = api_enterprise_step2(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_007_enterprise_step2(self):
+        """【供应商/经销商】企业认证步骤2-开通电子签章"""
+        payload = {
+            "bankAccountName": "深圳市天富包装制品有限公司",
+            "bankAccountDebutNo": "账户139756",
+            "bankAccountSite": "恒生银行中国有限公司深圳分行",
+            "bankAccountNo": "3578304794850711",
+            "validMoney": "1",
+            "originalTxSn": g_d.get('originalTxSn')
+        }
+        r = api_enterprise_step2(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_enterprise_step3(self):
         """【供应商/经销商】企业认证步骤3-签署授权书及平台协议"""
@@ -621,21 +624,21 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_013_enterprise_pdf_show(self):
-    #     """展示签名信息"""
-    #     payload = {
-    #         "certContent": "",
-    #         "fileId": "",
-    #         "hashId": "",
-    #         "keyWord": ""
-    #     }
-    #     r = api_enterprise_pdf_show(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_013_enterprise_pdf_show(self):
+        """展示签名信息"""
+        payload = {
+            "certContent": "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",
+            "fileId": "/group1/M00/02/91/rB7ONGNMyEOAW450AAQqOsZZM54810.pdf",
+            "hashId": g_d.get("hashId"),
+            "keyWord": "则签署页，无"
+        }
+        r = api_enterprise_pdf_show(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_014_enterprise_queryEntArchivesDetail(self):
         """【供应商】企业档案详情-当前用户"""
@@ -731,9 +734,8 @@ class Enterprise(unittest.TestCase):
 
     def test_022_enterprise_queryBuyerList(self):
         """【核心企业】买方列表，即核心企业子公司"""
-        coreEntName = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['entName']
         payload = {
-            "coreEntName": coreEntName,
+            "coreEntName": "接口自动化核心企业账号",
         }
         r = api_enterprise_queryBuyerList(token_scf_supplier, payload)
         r_json = r.json()
