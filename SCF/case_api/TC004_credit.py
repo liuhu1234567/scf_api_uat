@@ -11,6 +11,8 @@ from case_api.TC001_scfProjectBasis import api_scfProjectBasis_queryProjectBasic
 from case_api.scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
 from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 
+"""授信管理"""
+
 
 def api_credit_insert(token, payload):
     """新增授信"""
@@ -44,20 +46,20 @@ def api_credit_queryConfigSet(token, payload):
     return r
 
 
-def api_credit_update(token, payload):
-    """修改授信"""
-    url = f'{api_host}/api-scf/credit/update'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "2",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
+# def api_credit_update(token, payload):
+#     """修改授信"""
+#     url = f'{api_host}/api-scf/credit/update'
+#     headers = {
+#         "Content-Type": "application/json;charset=UTF-8",
+#         "x-appid-header": "2",
+#         "Authorization": token
+#     }
+#     r = requests.post(url, headers=headers, data=json.dumps(payload))
+#     print(f'请求地址：{url}')
+#     print(f'请求头：{headers}')
+#     print(f'请求参数：{payload}')
+#     print(f'接口响应为：{r.text}')
+#     return r
 
 
 def api_credit_queryPage(token, payload):
@@ -140,9 +142,25 @@ def api_credit_get(token, payload):
     return r
 
 
-def api_credit_result_getCreditAmount(token, payload):
-    """获取授信额度"""
-    url = f'{api_host}/api-scf/credit/result/getCreditAmount'
+# def api_credit_delete(token, payload):
+#     """删除授信"""
+#     url = f'{api_host}/api-scf/credit/delete'
+#     headers = {
+#         "Content-Type": "application/json;charset=UTF-8",
+#         "x-appid-header": "2",
+#         "Authorization": token
+#     }
+#     r = requests.post(url, headers=headers, data=json.dumps(payload))
+#     print(f'请求地址：{url}')
+#     print(f'请求头：{headers}')
+#     print(f'请求参数：{payload}')
+#     print(f'接口响应为：{r.text}')
+#     return r
+
+
+def api_credit_pullByProjectId(token, payload):
+    """根据项目ID-授信配置-表单"""
+    url = f'{api_host}/api-scf/credit/pullByProjectId'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "2",
@@ -156,25 +174,9 @@ def api_credit_result_getCreditAmount(token, payload):
     return r
 
 
-def api_credit_delete(token, payload):
-    """删除授信"""
-    url = f'{api_host}/api-scf/credit/delete'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "2",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
-
-
-def api_credit_result_insert(token, payload):
-    """新增授信结果"""
-    url = f'{api_host}/api-scf/credit/result/insert'
+def api_credit_downArchives(token, payload):
+    """授信下载企业档案资料"""
+    url = f'{api_host}/api-scf/credit/downArchives'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "2",
@@ -253,40 +255,40 @@ class Credit(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def rtest_003_credit_update(self):
-        """【供应商】修改授信"""
-        payload = {
-            "auditFlowItemId": 0,
-            "auditOpinion": "",
-            "auditStatus": 0,
-            "createBy": "",
-            "createTime": "",
-            "creditApplyCardId": "授信申请人证件号码",
-            "creditApplyName": "授信申请人名称",
-            "creditCardIdType": 1,
-            "creditCode": "",
-            "creditId": 1,
-            "creditName": "授信方名称",
-            "creditScope": 1,
-            "creditType": 1,
-            "enterprise": "核心企业",
-            "enterpriseId": 1111,
-            "financialInstitutionName": "金融机构名称",
-            "financialProductId": 1,
-            "financialProductName": "金融产品名称",
-            "id": g_d.get('id'),
-            "projectId": 1,
-            "projectName": "项目名称",
-            "updateBy": "",
-            "updateTime": ""
-        }
-        r = api_credit_update(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_003_credit_update(self):
+    #     """【供应商】修改授信"""
+    #     payload = {
+    #         "auditFlowItemId": 0,
+    #         "auditOpinion": "",
+    #         "auditStatus": 0,
+    #         "createBy": "",
+    #         "createTime": "",
+    #         "creditApplyCardId": "授信申请人证件号码",
+    #         "creditApplyName": "授信申请人名称",
+    #         "creditCardIdType": 1,
+    #         "creditCode": "",
+    #         "creditId": 1,
+    #         "creditName": "授信方名称",
+    #         "creditScope": 1,
+    #         "creditType": 1,
+    #         "enterprise": "核心企业",
+    #         "enterpriseId": 1111,
+    #         "financialInstitutionName": "金融机构名称",
+    #         "financialProductId": 1,
+    #         "financialProductName": "金融产品名称",
+    #         "id": g_d.get('id'),
+    #         "projectId": 1,
+    #         "projectName": "项目名称",
+    #         "updateBy": "",
+    #         "updateTime": ""
+    #     }
+    #     r = api_credit_update(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_credit_queryPage(self):
         """【供应商】分页查询授信"""
@@ -364,22 +366,7 @@ class Credit(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_009_credit_getCreditAmount(self):
-        """【供应商】获取授信额度"""
-        payload = {
-            "creditId": g_d.get('creditId'),
-            "projectId": g_d.get('projectId'),
-            "tenantId": g_d.get('entId')
-        }
-        r = api_credit_result_getCreditAmount(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    # def test_010_credit_delete(self):
+    # def test_009_credit_delete(self):
     #     """【平台方】删除授信"""
     #     payload = {
     #         "id": g_d.get('id')
@@ -392,38 +379,30 @@ class Credit(unittest.TestCase):
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_011_credit_result_insert(self):
-        """【平台方】新增授信结果"""
-        supplierInfo = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']
-        creditCode = supplierInfo['creditCode']
-        entName = supplierInfo['entName']
-        tenantId = supplierInfo['id']
+    def test_010_credit_getCreditAmount(self):
+        """【平台方】根据项目ID-授信配置-表单"""
         payload = {
-            "auditAmount": 10000,
-            "creditApplyCardId": creditCode,
-            "creditApplyName": entName,
-            "creditCardIdType": 1,
-            "creditId": g_d['creditId'],
-            "creditName": g_d['creditName'],
-            "creditScope": 1,
-            "creditType": 1,
-            "dataUuid": f"dataUuid{get_number(10)}",
-            "enterprise": g_d['coreEntName'],
-            "enterpriseId": g_d['coreEntId'],
-            "financialInstitutionId": g_d['creditId'],
-            "financialInstitutionName": g_d['creditName'],
-            "financialProductId": g_d.get('financialProductId'),
-            "financialProductName": g_d.get('financialProductName'),
-            "loanBegin": "2022-09-30 00:00:00",
-            "loanEnd": "2023-09-30 00:00:00",
-            "projectId": g_d['projectId'],
-            "projectName": g_d['projectName'],
-            "tenantId": tenantId,
+            "id": g_d.get('projectId')
         }
-        r = api_credit_result_insert(token_scf_platform, payload)
+        r = api_credit_pullByProjectId(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    # def test_011_credit_downArchives(self):
+    #     """【平台方】授信下载企业档案资料"""
+    #     payload = {
+    #         "busId": "",
+    #         "entId": 0,
+    #         "type": 0
+    #     }
+    #     r = api_credit_downArchives(token_scf_platform, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
