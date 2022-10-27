@@ -1,5 +1,6 @@
 from common.global_variable import customize_dict
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.do_config import api_host, restime
 import requests
 import json
@@ -8,21 +9,7 @@ from case_api.enterprise import api_enterprise_queryBuyerList
 from case_api.TC001_scfProjectBasis import api_scfProjectBasis_queryProjectBasicInfo
 from case_api.scfFinanceProduct import api_scfFinanceProduct_projectDeliverSearch
 
-
-def api_admission_queryDownList(token, payload):
-    """项目列表，核心企业，金融产品，金融机构下拉列表"""
-    url = f'{api_host}/api-scf/admission/queryDownList'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "2",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
+"""准入申请"""
 
 
 def api_admission_insert(token, payload):
@@ -158,20 +145,7 @@ g_d = {}
 
 class Admission(unittest.TestCase):
 
-    def test_001_admission_queryDownList(self):
-        """【供应商】项目列表，核心企业，金融产品，金融机构下拉列表"""
-        payload = {
-            "entId": "1565532746930135041"
-        }
-        r = api_admission_queryDownList(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    def test_002_admission_queryPage(self):
+    def test_001_admission_queryPage(self):
         """【供应商】分页查询准入申请列表"""
         payload = {
             "num": 1,
@@ -185,14 +159,15 @@ class Admission(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_003_admission_insert(self):
+    def test_002_admission_insert(self):
         """【供应商】新增"""
         payload = {
             "enable": True,
             "num": 1,
             "size": 10
         }
-        projectDeliverSearch = api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload).json()['datas'][0]
+        projectDeliverSearch = api_scfFinanceProduct_projectDeliverSearch(token_scf_supplier, payload).json()['datas'][
+            0]
         g_d['projectId'] = projectDeliverSearch['basisId']
         g_d['entId'] = projectDeliverSearch['enterpriseId']
         g_d['entName'] = projectDeliverSearch['enterpriseId']
@@ -238,7 +213,7 @@ class Admission(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_004_admission_queryConfigSet(self):
+    def test_003_admission_queryConfigSet(self):
         """【供应商】根据项目id查询基础项配置,准入配置,流程配置"""
         payload = {
             "id": g_d.get('projectId')
@@ -251,20 +226,20 @@ class Admission(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_005_admission_queryByEntId(self):
-        """【供应商】根据企业ID查询企业详情"""
-        payload = {
-            "id": g_d.get('entId')
-        }
-        r = api_admission_queryByEntId(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_004_admission_queryByEntId(self):
+    #     """【供应商】根据企业ID查询企业详情"""
+    #     payload = {
+    #         "id": g_d.get('entId')
+    #     }
+    #     r = api_admission_queryByEntId(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_006_admission_queryById(self):
+    def test_005_admission_queryById(self):
         """【供应商】根据ID查询准入申请详情"""
         payload = {
             "id": g_d.get('id')
@@ -278,7 +253,7 @@ class Admission(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_007_admission_resubmit(self):
+    def test_006_admission_resubmit(self):
         """【供应商】重新提交"""
         payload = {
             "auditFlowItemId": 0,
@@ -293,7 +268,7 @@ class Admission(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_008_admission_queryAuditPage(self):
+    def test_007_admission_queryAuditPage(self):
         """【平台方】分页查询准入审批列表"""
         payload = {
             "auditStatus": 1,
@@ -311,7 +286,7 @@ class Admission(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_009_admission_update_auditStatus(self):
+    def test_008_admission_update_auditStatus(self):
         """【平台方】审核"""
         payload = {
             "buyerEntId": g_d.get('buyerEntId'),
