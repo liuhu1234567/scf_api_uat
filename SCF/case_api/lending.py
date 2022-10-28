@@ -1,11 +1,14 @@
 from common.global_variable import customize_dict
 from common.do_faker import *
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.do_config import api_host, restime
 import requests
 import json
 import unittest
 from case_api.TC001_scfProjectBasis import api_scfProjectBasis_listProjectBasis
+
+"""9放款管理"""
 
 
 def api_lending_save(token, payload):
@@ -120,6 +123,22 @@ def api_lending_download(token, payload):
     return r
 
 
+def api_lending_getItemForLending(token, payload):
+    """获取放款页面项目下拉列表"""
+    url = f'{api_host}/api-scf/lending/getItemForLending'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -127,19 +146,19 @@ class Lending(unittest.TestCase):
     def test_001_lending_save(self):
         """【平台方】新增"""
         payload = {
-                    "data":
-                    [{
-                        "lndEntpCtfNum": get_sfz(),
-                        "ctfTp": "身份证",
-                        "ctfNum": get_company(),
-                        "pyStat": "通过",
-                        "pyAmt": "1",
-                        "pyDt": "2022-09-19",
-                        "repyDt": "2027-09-30",
-                        "repyAcc": "12233",
-                        "repyAccNm": get_name(),
-                        "repyAccNumDepBnkNm": "中国银行"}],
-                    "tableId": "1571686015498084353"}
+            "data":
+                [{
+                    "lndEntpCtfNum": get_sfz(),
+                    "ctfTp": "身份证",
+                    "ctfNum": get_company(),
+                    "pyStat": "通过",
+                    "pyAmt": "1",
+                    "pyDt": "2022-09-19",
+                    "repyDt": "2027-09-30",
+                    "repyAcc": "12233",
+                    "repyAccNm": get_name(),
+                    "repyAccNumDepBnkNm": "中国银行"}],
+            "tableId": "1571686015498084353"}
         r = api_lending_save(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
@@ -149,7 +168,7 @@ class Lending(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_lending_findByItem(self):
-        """【平台方】通过项目查询"""
+        """【平台方】通过项目ID查询关联信息"""
         g_d['projectId'] = api_scfProjectBasis_listProjectBasis(token_scf_platform).json()['datas'][0]['id']
         payload = {
             "projectId": g_d.get('projectId')
@@ -208,7 +227,6 @@ class Lending(unittest.TestCase):
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-
     # def test_006_lending_detail(self):
     #     """【平台方】详情"""
     #     payload = {
@@ -231,6 +249,17 @@ class Lending(unittest.TestCase):
             "projectId": 1571685055048740866
         }
         r = api_lending_download(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_008_lending_getItemForLending(self):
+        """【平台方】获取放款页面项目下拉列表"""
+        payload = {}
+        r = api_lending_getItemForLending(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

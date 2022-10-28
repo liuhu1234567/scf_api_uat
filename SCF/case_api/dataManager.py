@@ -1,9 +1,13 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.global_variable import customize_dict
 import requests
 import unittest
 import json
+from case_api.template import api_template_uploadfile
+
+"""数据管理菜单"""
 
 
 def api_dataManager_download(token, payload):
@@ -69,6 +73,7 @@ def api_dataManager_getTableHeader(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_dataManager_purchase_kind(token, payload):
     """获取采购数据种类"""
     url = f'{api_host}/api-scf-data/dataManager/purchase/kind'
@@ -85,7 +90,23 @@ def api_dataManager_purchase_kind(token, payload):
     return r
 
 
-g_d = {'id' : api_dataManager_purchase_kind(token_scf_platform, {}).json()['datas'][0]['id']}
+def api_dataManager_batchImport(token, payload):
+    """批量导入"""
+    url = f'{api_host}/api-scf-data/dataManager/batchImport'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+g_d = {'id': api_dataManager_purchase_kind(token_scf_platform, {}).json()['datas'][0]['id']}
 
 
 class DataManager(unittest.TestCase):
@@ -145,6 +166,22 @@ class DataManager(unittest.TestCase):
         payload = {
         }
         r = api_dataManager_purchase_kind(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_006_DataManager_batchImport(self):
+        """批量导入"""
+        path = api_template_uploadfile(token_scf_platform, '批量导入放贷管理数据表配置.xlsx').json()['datas']['path']
+        fileId = "group1/" + path
+        payload = {
+            "dataTbaleId": g_d.get('id'),
+            "fileId": fileId
+        }
+        r = api_dataManager_batchImport(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

@@ -31,9 +31,9 @@ def unittest_xtestrunner():
     fp = open(report, 'wb')
     suite = unittest.TestLoader().discover(case_api_dir, pattern='*.py', top_level_dir=project_path)
     runner = HTMLTestRunner(stream=fp,
-                            title='供应链金融接口自动化测试报告',
+                            title='供应链金融2.X接口自动化测试报告',
                             language='zh-CN',
-                            description=['地址：http://app.scf-uat.dianliantech.com'])
+                            description=['地址：https://cloud.dianliantech.com'])
     runner.run(suite)
     fp.close()
 
@@ -55,5 +55,3 @@ if __name__ == '__main__':
     # unittest_beautiful()
     unittest_xtestrunner()
     send_report()
-
-
