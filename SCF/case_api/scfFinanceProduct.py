@@ -1,11 +1,14 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.global_variable import customize_dict
 from common.do_faker import get_number
 import datetime
 import json
 import requests
 import unittest
+
+"""金融产品管理"""
 
 
 def api_scfFinanceProduct_listBank(token):
@@ -24,7 +27,7 @@ def api_scfFinanceProduct_listBank(token):
 
 
 def api_scfFinanceProduct_insert(token, payload):
-    """"【平台方】新增项目"""""
+    """"【平台方】新增"""""
     url = f'{api_host}/api-scf/scfFinanceProduct/insert'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -103,19 +106,19 @@ def api_scfFinanceProduct_search(token, payload):
     return r
 
 
-def api_scfFinanceProduct_simpleList(token):
-    """产品下拉列表"""
-    url = f'{api_host}/api-scf/scfFinanceProduct/simpleList'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "2",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers)
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'接口响应为：{r.text}')
-    return r
+# def api_scfFinanceProduct_simpleList(token):
+#     """产品下拉列表"""
+#     url = f'{api_host}/api-scf/scfFinanceProduct/simpleList'
+#     headers = {
+#         "Content-Type": "application/json;charset=UTF-8",
+#         "x-appid-header": "2",
+#         "Authorization": token
+#     }
+#     r = requests.post(url, headers=headers)
+#     print(f'请求地址：{url}')
+#     print(f'请求头：{headers}')
+#     print(f'接口响应为：{r.text}')
+#     return r
 
 
 def api_scfFinanceProduct_projectDeliverSearch(token, payload):
@@ -306,15 +309,15 @@ class ScfFinanceProduct(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_007_scfFinanceProduct_simpleList(self):
-        """【平台方】产品下拉列表"""
-        r = api_scfFinanceProduct_simpleList(token_scf_platform)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_007_scfFinanceProduct_simpleList(self):
+    #     """【平台方】产品下拉列表"""
+    #     r = api_scfFinanceProduct_simpleList(token_scf_platform)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_scfFinanceProduct_projectDeliverSearch(self):
         """【平台方】产品分配列表(平台、供应商)-搜索"""
