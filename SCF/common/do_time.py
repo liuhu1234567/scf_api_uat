@@ -1,5 +1,6 @@
 import time
 import datetime
+
 def time_format(t):
     now = datetime.datetime.now()
     nowDate = now.strftime('%Y/%m/%d')
