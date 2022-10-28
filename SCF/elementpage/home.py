@@ -19,7 +19,9 @@ class Home(loginPage):
     # customer_one_element = (By.CSS_SELECTOR,'href="/CustomerManagement/CustomerList"')
     customer_list_element = (By.LINK_TEXT, '客户列表')
     customer_review_element = (By.LINK_TEXT, '客户审批')
-
+    production_element = (By.LINK_TEXT, '产品申请')
+    product_supplier_element = (
+        By.XPATH, '//*[@id="ice-container"]/div/section/aside/div/div[2]/ul/li[2]/div/span/span/span')
 
     def iframe_add(self):
         self.get_iframe(self.iframe_element)
@@ -27,6 +29,10 @@ class Home(loginPage):
     def product_clike(self):
         print('点击金融产品管理')
         self.clike(self.product_element)
+
+    def product_supplier_clike(self):
+        print('点击金融产品管理_供应商')
+        self.clike(self.product_supplier_element)
 
     def product_list_clike(self):
         print('点击产品列表')
@@ -67,6 +73,10 @@ class Home(loginPage):
     def customer_review_clike(self):
         print('客户审批')
         self.clike(self.customer_review_element)
+
+    def production_clike(self):
+        print('产品申请')
+        self.clike(self.production_element)
 
 
 

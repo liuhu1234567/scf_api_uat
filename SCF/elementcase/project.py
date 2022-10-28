@@ -59,4 +59,3 @@ class Projest(unittest.TestCase):
         obj.determine_clike()
         obj.exit()
 
-
