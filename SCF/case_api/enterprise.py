@@ -6,7 +6,8 @@ import requests
 import unittest
 import json
 from common.do_faker import get_name, get_phone, get_email, get_sfz, get_number, get_company, get_card_number
-from case_api.customerManager import api_customerManager_queryAuditPage
+
+"""企业中心"""
 
 
 def api_enterprise_check_key(token, payload):
@@ -246,19 +247,19 @@ def api_enterprise_queryEntArchivesDetailNonCache(token):
     return r
 
 
-def api_enterprise_pdf_document(token):
-    """平台服务协议"""
-    url = f'{api_host}/api-scf/enterprise/pdf/document'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "1",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers)
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'接口响应为：{r.text}')
-    return r
+# def api_enterprise_pdf_document(token):
+#     """平台服务协议"""
+#     url = f'{api_host}/api-scf/enterprise/pdf/document'
+#     headers = {
+#         "Content-Type": "application/json;charset=UTF-8",
+#         "x-appid-header": "1",
+#         "Authorization": token
+#     }
+#     r = requests.post(url, headers=headers)
+#     print(f'请求地址：{url}')
+#     print(f'请求头：{headers}')
+#     print(f'接口响应为：{r.text}')
+#     return r
 
 
 def api_enterprise_queryBankList(token):
@@ -353,20 +354,20 @@ def api_enterprise_queryBuyerList(token, payload):
     return r
 
 
-def api_enterprise_pdf_node_document(token, payload):
-    """平台服务协议-节点合同"""
-    url = f'{api_host}/api-scf/enterprise/pdf/node/document'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "2",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
+# def api_enterprise_pdf_node_document(token, payload):
+#     """平台服务协议-节点合同"""
+#     url = f'{api_host}/api-scf/enterprise/pdf/node/document'
+#     headers = {
+#         "Content-Type": "application/json;charset=UTF-8",
+#         "x-appid-header": "2",
+#         "Authorization": token
+#     }
+#     r = requests.post(url, headers=headers, data=json.dumps(payload))
+#     print(f'请求地址：{url}')
+#     print(f'请求头：{headers}')
+#     print(f'请求参数：{payload}')
+#     print(f'接口响应为：{r.text}')
+#     return r
 
 
 g_d = {}
@@ -660,15 +661,15 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_016_enterprise_pdf_document(self):
-        """【供应商】平台服务协议"""
-        r = api_enterprise_pdf_document(token_scf_supplier)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_016_enterprise_pdf_document(self):
+    #     """【供应商】平台服务协议"""
+    #     r = api_enterprise_pdf_document(token_scf_supplier)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_017_enterprise_queryBankList(self):
         """【供应商】银行信息"""
@@ -745,13 +746,13 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_023_enterprise_pdf_node_document(self):
-        """【供应商】买方列表，即核心企业子公司"""
-        payload = {}
-        r = api_enterprise_pdf_node_document(token_scf_supplier, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    # def test_023_enterprise_pdf_node_document(self):
+    #     """【供应商】买方列表，即核心企业子公司"""
+    #     payload = {}
+    #     r = api_enterprise_pdf_node_document(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
