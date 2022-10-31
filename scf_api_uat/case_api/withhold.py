@@ -32,8 +32,8 @@ def api_withhold_update(token, payload):
     return r
 
 
-class OrderLoan(unittest.TestCase):
-    def test_001_orderLoan_import(self):
+class Withhold(unittest.TestCase):
+    def test_001_withhold_import(self):
         """代扣编辑 V2.1.1新增"""
         payload = {
             "busId": "5072473899979523927",

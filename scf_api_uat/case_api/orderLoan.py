@@ -192,9 +192,25 @@ def api_orderLoan_auditList(token, payload):
     return r
 
 
-def api_orderLoan_downArchives(token, payload):
-    """订单贷下载企业档案资料"""
-    url = f'{api_host}/api-scf/orderLoan/downArchives'
+def api_orderLoan_sign(token, payload):
+    """订单贷文件签署"""
+    url = f'{api_host}/api-scf/orderLoan/sign'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_orderLoan_uploadFile(token, payload):
+    """订单贷文件上传"""
+    url = f'{api_host}/api-scf/orderLoan/uploadFile'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "2",
@@ -243,22 +259,6 @@ def api_orderLoan_queryByFlowItemId(token, payload):
 def api_orderLoan_downArchives(token, payload):
     """订单贷下载企业档案资料"""
     url = f'{api_host}/api-scf/orderLoan/downArchives'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "2",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
-
-
-def api_orderLoan_audit_detail(token, payload):
-    """订单审批详情"""
-    url = f'{api_host}/api-scf/orderLoan/audit/detail'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "2",
@@ -363,19 +363,6 @@ class OrderLoan(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_010_orderLoan_audit_detail(self):
-        """【供应商】详情 V2.1.1修改"""
-        payload = {
-            "id": 0
-        }
-        r = api_orderLoan_detail(token_scf_platform, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
     def test_005_orderLoan_financing(self):
         """【供应商】融资"""
         payload = {
@@ -456,7 +443,7 @@ class OrderLoan(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_009_orderLoan_detail(self):
-        """【供应商】详情"""
+        """【供应商】详情 V2.1.1修改"""
         payload = {
             "id": g_d['orderIds'][0]
         }
@@ -525,15 +512,43 @@ class OrderLoan(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_014_orderLoan_downArchives(self):
-    #     """【供应商】订单贷下载企业档案资料"""
-    #     payload = {
-    #         "id": g_d['orderIds'][0]
-    #     }
-    #     r = api_orderLoan_downArchives(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_014_orderLoan_downArchives(self):
+        """【供应商】订单贷下载企业档案资料"""
+        payload = {
+            "id": g_d['orderIds'][0]
+        }
+        r = api_orderLoan_downArchives(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_015_orderLoan_uploadFile(self):
+        """【供应商】订单贷文件上传 V2.1.1新增"""
+        payload = {
+            "filePath": "",
+            "flowFileId": 0
+        }
+        r = api_orderLoan_uploadFile(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_016_orderLoan_sign(self):
+        """【供应商】订单贷文件签署 V2.1.1新增"""
+        payload = {
+            "filePath": "",
+            "flowFileId": 0
+        }
+        r = api_orderLoan_sign(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

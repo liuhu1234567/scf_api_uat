@@ -535,7 +535,7 @@ class GoldenLetter(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_009_goldenLetter_open_updateAuditStatus(self):
-        """开立审核"""
+        """开立审核 V2.1.1修改"""
         payload = {
             "auditEntId": g_d.get("coreEntId"),
             "auditFlowItemId": g_d.get("auditFlowItemId"),

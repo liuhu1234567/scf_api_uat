@@ -158,7 +158,7 @@ def api_scfTransfer_sign(token, payload):
 
 
 def api_scfTransfer_toAudit(token, payload):
-    """跳转至审核页面 V2.1.1修改"""
+    """跳转至审核页面"""
     url = f'{api_host}/api-scf/scfTransfer/toAudit'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -174,7 +174,7 @@ def api_scfTransfer_toAudit(token, payload):
 
 
 def api_scfTransfer_toResumit(token, payload):
-    """跳转至重新提交页面 V2.1.1修改"""
+    """跳转至重新提交页面"""
     url = f'{api_host}/api-scf/scfTransfer/toResumit'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -190,7 +190,7 @@ def api_scfTransfer_toResumit(token, payload):
 
 
 def api_scfTransfer_toSign(token, payload):
-    """跳转至签收页面 V2.1.1修改"""
+    """跳转至签收页面"""
     url = f'{api_host}/api-scf/scfTransfer/toSign'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -316,23 +316,6 @@ def api_scfTransfer_queryConfigSet(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
-
-def api_scfTransfer_signProtocol(token, payload):
-    """转让协议签署"""
-    url = f'{api_host}/api-scf/scfTransfer/signProtocol'
-    headers = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "x-appid-header": "1",
-        "Authorization": token
-    }
-    r = requests.post(url, headers=headers, data=json.dumps(payload))
-    print(f'请求地址：{url}')
-    print(f'请求头：{headers}')
-    print(f'请求参数：{payload}')
-    print(f'接口响应为：{r.text}')
-    return r
-
-
 def api_scfTransfer_transferSeal(token, payload):
     """转让平台方审核签章返回地址"""
     url = f'{api_host}/api-scf/scfTransfer/transferSeal'
@@ -355,7 +338,7 @@ g_d = {}
 class ScfTransfer(unittest.TestCase):
 
     def test_001_scfTransfer_transfer(self):
-        """【供应商】发起转让保存转让信息"""
+        """【供应商】发起转让保存转让信息 V2.1.1修改"""
         g_d["goldenLetterCoden_nwe"] = Bus_orderLoan().audit_credentials()
         payload = {
             "auditStatus": 1,
@@ -393,7 +376,7 @@ class ScfTransfer(unittest.TestCase):
         g_d["id_new"] = r_json["datas"]
 
     def test_002_scfTransfer_toAudit(self):
-        """跳转至审核页面"""
+        """跳转至审核页面 V2.1.1修改"""
         payload = {
             "id": g_d["id_new"]
         }
@@ -406,7 +389,7 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_scfTransfer_searchSupplier(self):
-        """转让列表-供应商"""
+        """转让列表-供应商 V2.1.1修改"""
         payload = {
             "currentHolder": "",
             "founderEnt": "",
@@ -459,7 +442,7 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_scfTransfer_searchNotSupplier(self):
-        """转让列表-非供应商"""
+        """转让列表-非供应商 V2.1.1修改"""
         payload = {
             "bills": [],
             "creditEnhancement": "",
@@ -494,7 +477,7 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_scfTransfer_reSubmit(self):
-        """转让重新提交"""
+        """转让重新提交 V2.1.1修改"""
         payload = {
             "bills": [
                 "1575684533347487746"
@@ -527,7 +510,7 @@ class ScfTransfer(unittest.TestCase):
         r_json = r.json()
 
     def test_009_scfTransfer_sign(self):
-        """签收"""
+        """签收 V2.1.1修改"""
         payload = {
             "id": 1564090769279369218
         }
@@ -552,7 +535,7 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_011_scfTransfer_toResumit(self):
-        """跳转至重新提交页面"""
+        """跳转至重新提交页面 V2.1.1修改"""
         payload = {
             "id": g_d["id_new"]
         }
@@ -565,7 +548,7 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_012_scfTransfer_toSign(self):
-        """跳转至签收页面"""
+        """跳转至签收页面 V2.1.1修改"""
         payload = {
             "id":"1579777819196542977"
         }
@@ -639,7 +622,7 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_018_scfTransfer_pullByCoreId(self):
-        """根据核心ID-授信配置-表单"""
+        """根据核心ID-授信配置-表单 V2.1.1修改"""
         payload = {
             "id": g_d["coreSub"]
         }
@@ -664,21 +647,9 @@ class ScfTransfer(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
     """还未开发完成"""
-    # def test_020_scfTransfer_signProtocol(self):
-    #     """转让协议签署"""
-    #     payload = {
-    #         "id": 1566672651710578689
-    #     }
-    #     r = api_scfTransfer_signProtocol(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_021_scfTransfer_transferSeal(self):
-        """转让平台方审核签章返回地址"""
+    def test_020_scfTransfer_transferSeal(self):
+        """转让平台方审核签章返回地址 V2.1.1修改"""
         payload = {
             "auditStatus": 3,
             "id": g_d["id_new"]
