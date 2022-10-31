@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
     REMOTE_URL = git_url
     Robot_url = git_msg_robot
-    dir_path = os.path.join("/root/auto_test", "SCF-test")
+    dir_path = os.path.join("/root/auto_test", "scf_api_uat-test")
     s = getFromGit()
     s.reToRobot(Robot_url, REMOTE_URL, dir_path)
     # s.git_branch_checkout(dir_path)

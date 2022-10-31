@@ -3,5 +3,5 @@ from selenium import webdriver
 
 
 
-driver = webdriver.Chrome('D:/autol/SCF-test/SCF-test/SCF/config/chromedriver.exe')
+driver = webdriver.Chrome('/SCF-test/scf_api_uat/config/chromedriver.exe')
 driver.get("http://www.baidu.com")
