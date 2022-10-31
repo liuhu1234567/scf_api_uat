@@ -1,5 +1,6 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.global_variable import customize_dict
 from common.do_faker import get_company, get_number, get_name, get_phone, get_email, get_money
 from common.do_excel import DoExcel
@@ -338,6 +339,54 @@ def api_goldenLetter_queryPdfById(token, payload):
     return r
 
 
+def api_goldenLetter_getBusType(token, payload):
+    """判断审批类型"""
+    url = f'{api_host}/api-scf/goldenLetter/getBusType'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_goldenLetter_goldenLetterOpenSeal(token, payload):
+    """金点信开立平台方审核签章返回地址"""
+    url = f'{api_host}/api-scf/goldenLetter/goldenLetterOpenSeal'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_goldenLetter_updateGoldenLetterAddress(token, payload):
+    """签章后更新文件地址"""
+    url = f'{api_host}/api-scf/goldenLetter/updateGoldenLetterAddress'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -383,7 +432,7 @@ class GoldenLetter(unittest.TestCase):
             "creditEnhancerName": "西咸新区沣东新城一",
             "founderEnt": "核心企业",
             "founderEntId": g_d.get("coreEntId"),
-            "goldenLetterCode" : g_d.get("goldenLetterCode"),
+            "goldenLetterCode": g_d.get("goldenLetterCode"),
             "goldenLetterEndDate": "2024-07-09T14:00:00",
             "goldenLetterMoney": 1000,
             "goldenLetterOpenDate": "2023-07-09T10:00:00",
@@ -683,6 +732,51 @@ class GoldenLetter(unittest.TestCase):
             "goldenLetterId": g_d.get("goldenLetterId")
         }
         r = api_goldenLetter_retrospective(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_020_goldenLetter_getBusType(self):
+        """判断审批类型"""
+        payload = {
+            "id": g_d.get("id")
+        }
+        r = api_goldenLetter_getBusType(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_021_goldenLetter_getBusType(self):
+        """金点信开立平台方审核签章返回地址"""
+        payload = {
+            "auditStatus": 3,
+            "goldenLetterId": g_d.get("goldenLetterId")
+        }
+        r = api_goldenLetter_goldenLetterOpenSeal(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_022_goldenLetter_updateGoldenLetterAddress(self):
+        """签章后更新文件地址"""
+        payload = {
+            "list": [
+                {
+                    "address": "",
+                    "goldenLetterCode": ""
+                }
+            ]
+        }
+        r = api_goldenLetter_updateGoldenLetterAddress(token_scf_enterprise, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

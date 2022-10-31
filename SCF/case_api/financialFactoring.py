@@ -172,6 +172,22 @@ def api_financialFactoring_queryPage(token, payload):
     return r
 
 
+def api_financialFactoring_financialSeal(token, payload):
+    """融资平台方审核签章返回地址"""
+    url = f'{api_host}/api-scf/financialFactoring/financialSeal'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -366,6 +382,20 @@ class FinancialFactoring(unittest.TestCase):
             "size": 10
         }
         r = api_financialFactoring_queryPage(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_011_financialFactoring_queryPage(self):
+        """融资平台方审核签章返回地址"""
+        payload = {
+            "auditStatus": 3,
+            "id": 1573228672130846722
+        }
+        r = api_financialFactoring_financialSeal(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now
