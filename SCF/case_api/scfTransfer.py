@@ -158,7 +158,7 @@ def api_scfTransfer_sign(token, payload):
 
 
 def api_scfTransfer_toAudit(token, payload):
-    """跳转至审核页面"""
+    """跳转至审核页面 V2.1.1修改"""
     url = f'{api_host}/api-scf/scfTransfer/toAudit'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -174,7 +174,7 @@ def api_scfTransfer_toAudit(token, payload):
 
 
 def api_scfTransfer_toResumit(token, payload):
-    """跳转至重新提交页面"""
+    """跳转至重新提交页面 V2.1.1修改"""
     url = f'{api_host}/api-scf/scfTransfer/toResumit'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -190,7 +190,7 @@ def api_scfTransfer_toResumit(token, payload):
 
 
 def api_scfTransfer_toSign(token, payload):
-    """跳转至签收页面"""
+    """跳转至签收页面 V2.1.1修改"""
     url = f'{api_host}/api-scf/scfTransfer/toSign'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -437,7 +437,7 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_scfTransfer_detail(self):
-        """转让详情"""
+        """转让详情 V2.1.1修改"""
         searchSupplier_payload = {
             "founderEnt": "",
             "goldenLetterCode": "",
@@ -483,8 +483,8 @@ class ScfTransfer(unittest.TestCase):
         g_d["goldenLetterCode"] = r_json["datas"][0]["goldenLetterCode"]
 
     def test_007_scfTransfer_audit(self):
-        """审核"""
-        payload = {"auditStatus":3,"id":"1579777826251362306"}
+        """审核 V2.1.1修改"""
+        payload = {"auditStatus":3,"id":"1579777826251362306","auditOpinion": ""}
         r = api_scfTransfer_audit(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
@@ -578,7 +578,7 @@ class ScfTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_013_scfTransfer_toTransfer(self):
-        """跳转至转让页面.入参：金点信记录ID"""
+        """跳转至转让页面.入参：金点信记录ID V2.1.1修改"""
         payload = {
             "id": 1564090769279369218
         }

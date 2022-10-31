@@ -200,6 +200,22 @@ def api_allocate_useAllocateAmount(token, payload):
     return r
 
 
+def api_allocate_enabled(token, payload):
+    """额度管理启用"""
+    url = f'{api_host}/api-scf/allocate/enabled'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -437,6 +453,21 @@ class Allocate(unittest.TestCase):
             "userAmountStastus": 0
         }
         r = api_allocate_useAllocateAmount(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_013_allocate_enabled(self):
+        """【核心企业】分页查询额度-List-已经分配 V2.1.1新增"""
+        payload = {
+            "creditId": "1583019393709518849",
+            "creditResultId": "1547048461623263234",
+            "projectId": "1572065350296338433"
+        }
+        r = api_allocate_enabled(token_scf_enterprise, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

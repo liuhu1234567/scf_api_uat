@@ -177,7 +177,7 @@ def api_financialFactoringAgain_queryFinancialFactoringPageSubmit(token, payload
 
 class FinancialFactoringAgain(unittest.TestCase):
     def test_001_financialFactoringAgain_insert(self):
-        """新增再保理融资"""
+        """新增再保理融资 V2.1.1修改"""
         g_d["goldenLetterCode"] = Bus_orderLoan().break_financing()
         payload = {
             "bankAccountNo": "41234123",
@@ -231,7 +231,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         g_d["financeApplicationNumber"] = r_json["datas"][0]["financeApplicationNumber"]
 
     def test_003_financialFactoringAgain_updateAuditStatus(self):
-        """融资保理审核"""
+        """融资保理审核 V2.1.1修改"""
         payload = {
             "coreEntId": "1565528298128351233",
             "auditEntId": "1565532904946343937",
@@ -283,7 +283,7 @@ class FinancialFactoringAgain(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_financialFactoringAgain_queryByApplicationNumber(self):
-        """根据再保理申请编号查询再保理详情"""
+        """根据再保理申请编号查询再保理详情 V2.1.1修改"""
         payload = {
             "financeApplicationNumber": g_d["financeApplicationNumber"]
         }

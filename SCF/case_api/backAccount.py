@@ -153,6 +153,22 @@ def api_backAccount_queryListByProjectId(token, payload):
     return r
 
 
+def api_backAccount_queryListFelationByProjectId(token, payload):
+    """根据项目id查询银行关联账户列表"""
+    url = f'{api_host}/api-scf/backAccount/queryListFelationByProjectId'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -230,7 +246,7 @@ class BackAccount(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_005_backAccount_bindByProjectId(self):
-        """绑定项目-银行卡"""
+        """绑定项目-银行卡 V2.1.1修改"""
         payload_new = {
             "id": "1567401221412044802",
             "scfBankAccountBindProjectReqList": [
@@ -261,13 +277,13 @@ class BackAccount(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_007_backAccount_queryBindById(self):
-        """查询已绑定项目-银行卡"""
+        """查询已绑定项目-银行卡 V2.1.1修改"""
         payload = {
             "createBy": 0,
             "createTime": "",
             "id": 0,
-            "num": 0,
-            "size": 0,
+            "num": 1,
+            "size": 10,
             "updateBy": 0,
             "updateTime": ""
         }
@@ -280,7 +296,7 @@ class BackAccount(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_backAccount_queryBankAccountList(self):
-        """根据项目id查询代扣银行账户列表"""
+        """根据项目id查询代扣银行账户列表 V2.1.1新增"""
         payload = {
             "projectId": 0
         }
@@ -304,6 +320,25 @@ class BackAccount(unittest.TestCase):
             "updateTime": ""
         }
         r = api_backAccount_queryListByProjectId(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_010_backAccount_queryListFelationByProjectId(self):
+        """根据项目id查询银行关联账户列表 V2.1.1新增"""
+        payload = {
+            "createBy": "",
+            "createTime": "",
+            "id": "",
+            "num": 1,
+            "size": 10,
+            "updateBy": "",
+            "updateTime": ""
+        }
+        r = api_backAccount_queryListFelationByProjectId(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

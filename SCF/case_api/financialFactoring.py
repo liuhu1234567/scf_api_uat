@@ -193,7 +193,7 @@ g_d = {}
 
 class FinancialFactoring(unittest.TestCase):
     def test_001_financialFactoring_insert(self):
-        """【供应商】新增保理融资"""
+        """【供应商】新增保理融资 V2.1.1修改"""
         goldenLetterCoden_nwe = Bus_orderLoan().audit_credentials()
         payload = {
             "bankAccountNo": "345690914408085",
@@ -311,7 +311,7 @@ class FinancialFactoring(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_financialFactoring_updateAuditStatus(self):
-        """融资保理审核"""
+        """融资保理审核 V2.1.1修改"""
         payload = {
             "coreEntId": "1565528298128351233",
             "auditEntId": "1565532746930135041",
@@ -332,7 +332,7 @@ class FinancialFactoring(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_007_financialFactoring_queryByApplicationNumber(self):
-        """根据融资申请编号查询融资保理详情"""
+        """根据融资申请编号查询融资保理详情 V2.1.1修改"""
         payload = {
             "financeApplicationNumber": "75643585578"
         }

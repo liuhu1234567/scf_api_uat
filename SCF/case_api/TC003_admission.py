@@ -140,6 +140,22 @@ def api_admission_update_auditStatus(token, payload):
     return r
 
 
+def api_admission_downArchives(token, payload):
+    """下载企业档案资料"""
+    url = f'{api_host}/api-scf/admission/downArchives'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -287,7 +303,7 @@ class Admission(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_008_admission_update_auditStatus(self):
-        """【平台方】审核"""
+        """【平台方】审核 V2.1.1修改"""
         payload = {
             "buyerEntId": g_d.get('buyerEntId'),
             "auditEntId": g_d.get('entId'),
@@ -301,6 +317,21 @@ class Admission(unittest.TestCase):
             "projectId": g_d.get('projectId')
         }
         r = api_admission_update_auditStatus(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_009_admission_downArchives(self):
+        """下载企业档案资料 V2.1.1新增"""
+        payload = {
+            "busId": "",
+            "entId": 0,
+            "type": 0
+        }
+        r = api_admission_downArchives(token_scf_supplier, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

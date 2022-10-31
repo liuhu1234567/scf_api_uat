@@ -310,7 +310,7 @@ class Bus_orderLoan():
         return self.g_d["goldenLetterCoden_nwe"]
 
     def audit_credentials(self):
-        "【核心企业】金点信开立审核"
+        "【核心企业】金点信开立审核 V2.1.1修改"
         goldenLetterCoden_nwe = self.open_credentials()
         payload = {
             "auditStatus": 1,
@@ -486,4 +486,3 @@ class Bus_orderLoan():
 if __name__ == '__main__':
     s = Bus_orderLoan()
     b = s.open_financing()
-

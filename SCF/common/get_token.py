@@ -120,9 +120,9 @@ token_scf_factor = get_scf_factor()
 token_scf_subsidiaries = get_scf_subsidiaries()
 
 if __name__ == '__main__':
-    # print(token_scf_financier)
-    # print(token_scf_enterprise)
+    print(token_scf_financier)
+    print(token_scf_enterprise)
     print(token_scf_supplier)
-    # print(token_scf_platform)
+    print(token_scf_platform)
     print(token_scf_factor)
-    # print(token_scf_subsidiaries)
+    print(token_scf_subsidiaries)

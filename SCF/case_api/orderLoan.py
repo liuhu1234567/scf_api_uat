@@ -256,6 +256,22 @@ def api_orderLoan_downArchives(token, payload):
     return r
 
 
+def api_orderLoan_audit_detail(token, payload):
+    """订单审批详情"""
+    url = f'{api_host}/api-scf/orderLoan/audit/detail'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 def insert_excel_importOrderFromExcel(num):
     sellCompany = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()['datas']['entName']
     excel = DoExcel('订单贷导入模板.xlsx', 'Sheet1')
@@ -343,6 +359,19 @@ class OrderLoan(unittest.TestCase):
         customize_dict['restime_now'] = restime_now
         datas = r_json['datas']
         g_d['projectId'] = r_json['datas'][len(datas) - 1]['id']
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_010_orderLoan_audit_detail(self):
+        """【供应商】详情 V2.1.1修改"""
+        payload = {
+            "id": 0
+        }
+        r = api_orderLoan_detail(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
@@ -440,7 +469,7 @@ class OrderLoan(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_010_orderLoan_audit_detail(self):
-        """【供应商】订单审批详情"""
+        """【供应商】订单审批详情 V2.1.1修改"""
         payload = {
             "id": g_d['orderIds'][0]
         }

@@ -319,7 +319,7 @@ class Credit(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_credit_update_auditStatus(self):
-        """【供应商】审核"""
+        """【供应商】审核 V2.1.1修改"""
         payload = {
             "auditAmount": 0,
             "auditEntId": 0,
@@ -392,17 +392,17 @@ class Credit(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_011_credit_downArchives(self):
-    #     """【平台方】授信下载企业档案资料"""
-    #     payload = {
-    #         "busId": "",
-    #         "entId": 0,
-    #         "type": 0
-    #     }
-    #     r = api_credit_downArchives(token_scf_platform, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_011_credit_downArchives(self):
+        """【平台方】授信下载企业档案资料 V2.1.1新增"""
+        payload = {
+            "busId": "",
+            "entId": 0,
+            "type": 0
+        }
+        r = api_credit_downArchives(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')

@@ -118,7 +118,7 @@ class ScfAllocateSubsidiaries(unittest.TestCase):
     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_002_scfAllocateSubsidiaries_queryList(self):
-        """【核心企业】获取子公司分配额度信息"""
+        """【核心企业】获取子公司分配额度信息 V2.1.1修改"""
         payload = {
             "coreId": 1564518555001581569,
             "creditId": 1564541140355543041

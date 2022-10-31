@@ -421,7 +421,7 @@ class GoldenLetter(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_goldenLetter_open_insert(self):
-        """开立新增"""
+        """开立新增 V2.1.1修改"""
         g_d["coreEntId"] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()["datas"]["id"]
         g_d["recipientId"] = api_enterprise_queryEntArchivesDetail(token_scf_supplier).json()["datas"]["id"]
         payload = {

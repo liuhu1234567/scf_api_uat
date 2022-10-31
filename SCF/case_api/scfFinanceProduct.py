@@ -215,7 +215,7 @@ class ScfFinanceProduct(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_scfFinanceProduct_update(self):
-        """【平台方】修改金融产品"""
+        """【平台方】修改金融产品 V2.1.1修改"""
         nowTime = str(datetime.datetime.now()).split('.')[0]
         futureTime = str(datetime.datetime.now() + datetime.timedelta(days=365)).split('.')[0]
         payload = {
@@ -293,7 +293,7 @@ class ScfFinanceProduct(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_006_scfFinanceProduct_search(self):
-        """【平台方】搜索金融产品"""
+        """【平台方】搜索金融产品 V2.1.1修改"""
         payload = {
             "enable": 1,
             "financeName": "",

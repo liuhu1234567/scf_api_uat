@@ -363,6 +363,38 @@ def insert_excel_batchAssign(num):
     return file_name
 
 
+def api_scfProjectBasis_updateAllDetail(token, payload):
+    """修改产品配置"""
+    url = f'{api_host}/api-scf/scfProjectBasis/updateAllDetail'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_scfProjectBasis_listAgreement(token, payload):
+    """获取协议列表"""
+    url = f'{api_host}/api-scf/scfProjectBasis/listAgreement'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 g_d = {}
 
 
@@ -460,7 +492,7 @@ class ScfProjectBasis(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_009_scfProjectBasis_insertAllDetail(self):
-        """【平台方】新增项目"""
+        """【平台方】新增项目 V2.1.1修改"""
         g_d['coreEnterpriseId'] = api_enterprise_queryEntArchivesDetail(token_scf_enterprise).json()['datas']['id']
         g_d['bankId'] = api_enterprise_queryEntArchivesDetail(token_scf_financier).json()['datas']['id']
         payload = {
@@ -587,7 +619,7 @@ class ScfProjectBasis(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_011_scfProjectBasis_search(self):
-        """【平台方】产品配置列表-搜索"""
+        """【平台方】产品配置列表-搜索 V2.1.1修改"""
         payload = {
             "enable": True,
             "enterpriseName": "",
@@ -660,7 +692,7 @@ class ScfProjectBasis(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_016_scfProjectBasis_getFlowTemplateDetail(self):
-        """【平台方】查询流程模板详情"""
+        """【平台方】查询流程模板详情 V2.1.1修改"""
         payload = {
             "id": g_d.get('flowid')
         }
@@ -673,7 +705,7 @@ class ScfProjectBasis(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_017_scfProjectBasis_queryProjectBasicInfo(self):
-        """【平台方】通过项目ID查询相关信息"""
+        """【平台方】通过项目ID查询相关信息 V2.1.1修改"""
         payload = {
             "projectId": g_d.get('id')
         }
@@ -686,7 +718,7 @@ class ScfProjectBasis(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_018_scfProjectBasis_editAllDetail(self):
-        """【平台方】产品配置详情"""
+        """【平台方】产品配置详情 V2.1.1修改"""
         payload = {
             "id": g_d.get('id')
         }
@@ -751,6 +783,109 @@ class ScfProjectBasis(unittest.TestCase):
             "projectId": g_d.get('id')
         }
         r = api_scfProjectBasis_queryProjectBasicInfoById(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_022_scfProjectBasis_updateAllDetail(self):
+        """修改产品配置 V2.1.1新增"""
+        payload = {
+            "updateAllDetailBasisReq": {
+                "id": "1585548497373782018",
+                "bankId": "1583019393709518849",
+                "businessType": 2,
+                "enterpriseId": "1549684806067781633",
+                "name": "1231231666859194447 ",
+                "open": False,
+                "refactor": False,
+                "scfFinanceProductId": "1583020716869885953",
+                "enter": False,
+                "grants": False,
+                "transfer": False,
+                "finance": True,
+                "isCoreGrant": True,
+                "bankName": "核心企业名称427399",
+                "flowName": [
+                    "6"
+                ],
+                "financeName": "核心企业名称427399",
+                "enable": True
+            },
+            "updateAllDetailEnterReq": {
+                "isTemplate": False,
+                "flowReq": {}
+            },
+            "updateAllDetailGrantReq": {
+                "isTemplate": False,
+                "useScope": 1,
+                "flowReq": {}
+            },
+            "updateAllDetailFinanceReq": {
+                "isTemplate": False,
+                "flowId": "1585548497382170626",
+                "isHistory": True,
+                "isPush": True,
+                "pushMaterial": 0,
+                "serviceRate": 1,
+                "financeRate": 2,
+                "bankRate": 1,
+                "floatInterestRate": 1,
+                "loanPrimeRate": 1,
+                "flowReq": {
+                    "name": "1231231666859194447",
+                    "step": 1,
+                    "flowItems": [
+                        {
+                            "id": "1585548497386364929",
+                            "flowId": "1585548497382170626",
+                            "customerType": "1",
+                            "customerTypeName": "核心企业",
+                            "isExternal": False,
+                            "isPush": False,
+                            "reportId": "3",
+                            "num": 1,
+                            "reportIdList": [
+                                "3"
+                            ]
+                        }
+                    ],
+                    "subs": [
+                        {
+                            "id": "1585548497390559234",
+                            "flowId": "1585548497382170626",
+                            "agreementId": "1",
+                            "fileName": "企业授权确认书",
+                            "filePath": None,
+                            "signType": 2,
+                            "signPath": None
+                        }
+                    ]
+                }
+            },
+            "updateAllDetailRefactorReq": {
+                "isTemplate": False,
+                "flowReq": {}
+            }
+        }
+        r = api_scfProjectBasis_updateAllDetail(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_023_scfProjectBasis_listAgreement(self):
+        """获取协议列表 V2.1.1新增"""
+        payload = {
+            "financeId": "",
+            "name": "",
+            "signNode": ""
+        }
+        r = api_scfProjectBasis_listAgreement(token_scf_platform, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

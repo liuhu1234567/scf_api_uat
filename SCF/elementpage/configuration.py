@@ -5,7 +5,6 @@ from common.do_faker import get_number
 
 
 class Configuration(Home):
-
     project_add_element = (By.LINK_TEXT, '+新增')
     project_name_element = (By.ID, 'name')
     enterpriseId_element = (By.ID, 'enterpriseId')
@@ -27,19 +26,19 @@ class Configuration(Home):
     customerType0_one_element = (By.XPATH, "/html/body/div[10]/div/div/div/div[2]/div[1]/div/div/div[7]/div")
     cconfirm_element = (By.XPATH, "//span[contains(.,'确 定')]")
     isPush_element = (By.ID, 'isPush')
-    isPush_one_element = (By.XPATH,'/html/body/div[10]/div/div/div/div[2]/div[1]/div/div/div[1]')
+    isPush_one_element = (By.XPATH, '/html/body/div[10]/div/div/div/div[2]/div[1]/div/div/div[1]')
     isHistory_element = (By.ID, 'isHistory')
-    isHistory_oen_element = (By.XPATH,'/html/body/div[11]/div/div/div/div[2]/div[1]/div/div/div[1]')
+    isHistory_oen_element = (By.XPATH, '/html/body/div[11]/div/div/div/div[2]/div[1]/div/div/div[1]')
     pushMaterial_element = (By.ID, 'pushMaterial')
-    pushMaterial_oen_element = (By.XPATH,'/html/body/div[12]/div/div/div/div[2]/div[1]/div/div/div[1]/div')
+    pushMaterial_oen_element = (By.XPATH, '/html/body/div[12]/div/div/div/div[2]/div[1]/div/div/div[1]/div')
     financeRate_element = (By.ID, 'financeRate')
     serviceRate_element = (By.ID, 'serviceRate')
     submit_element = (By.LINK_TEXT, '提交')
-    distribution_element = (By.XPATH, '//*[@id="ice-container"]/div/section/div/main/div/div/div/div[2]/div/div/div/div/div/div/table/tbody/tr[2]/td[9]/ul/li[1]/span')
-    customer_element= (By.XPATH,'/html/body/div[4]/div/div[2]/div/div[2]/div[2]/div/ul/li/div/div/span[2]')
-    customer_one_element= (By.XPATH,'/html/body/div[5]/div/div/div/div[2]/div[1]/div/div/div[4]/div')
-    determine_element= (By.XPATH,'/html/body/div[4]/div/div[2]/div/div[2]/div[2]/div/div/div/button[2]')
-
+    distribution_element = (By.XPATH,
+                            '//*[@id="ice-container"]/div/section/div/main/div/div/div/div[2]/div/div/div/div/div/div/table/tbody/tr[2]/td[9]/ul/li[1]/span')
+    customer_element = (By.XPATH, '/html/body/div[4]/div/div[2]/div/div[2]/div[2]/div/ul/li/div/div/span[2]')
+    customer_one_element = (By.CSS_SELECTOR, '.ant-dl-default-select-item-option-content')
+    determine_element = (By.XPATH, '/html/body/div[4]/div/div[2]/div/div[2]/div[2]/div/div/div/button[2]')
 
     def project_add_clike(self):
         print('新增项目配置')
@@ -118,11 +117,11 @@ class Configuration(Home):
 
     def financeRat_input(self):
         print('融资费率')
-        self.send_keys(self.financeRate_element,'0.1')
+        self.send_keys(self.financeRate_element, '0.1')
 
     def serviceRate_input(self):
         print('平台服务费率')
-        self.send_keys(self.serviceRate_element,'0.1')
+        self.send_keys(self.serviceRate_element, '0.1')
 
     def submit_clike(self):
         print('点击提交')
@@ -132,7 +131,7 @@ class Configuration(Home):
         print('点击分配')
         self.clike(self.distribution_element)
 
-    def customer_clike(self):
+    def customer_input(self):
         print('填写融资客户名称')
         self.clike(self.customer_element)
         self.clike(self.customer_one_element)
@@ -140,8 +139,6 @@ class Configuration(Home):
     def determine_clike(self):
         print('点击确认')
         self.clike(self.determine_element)
-
-
 
 # project_name = 'ui自动化项目名称' + get_number(6)
 # process_name = 'ui自动化流程名称' + get_number(6)

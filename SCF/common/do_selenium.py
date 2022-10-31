@@ -75,7 +75,6 @@ class BasePage(object):
         r = self.driver.execute_script(js, *args)
         return r
 
-
     def action_login(self, element, xoffset):
         print(f'拖动{element}元素，{xoffset}')
         source = self.driver.find_element(element[0], element[1])
@@ -105,7 +104,7 @@ class BasePage(object):
         self.driver.switch_to.default_content()
         sleep(self.sleep_time)
 
-    def get_script(self,element):
+    def get_script(self, element):
         print(f'滚动到所定位的目标处{element}')
         target = self.driver.find_element(element[0], element[1])
         self.driver.execute_script('arguments[0].scrollIntoView()', target)

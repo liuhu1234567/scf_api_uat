@@ -1,5 +1,6 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.do_faker import get_number
 from common.global_variable import customize_dict
 from case_api.enterprise import api_enterprise_queryEntArchivesDetail
@@ -105,9 +106,26 @@ def api_scfProjectOpenTransfer_selectName(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_scfProjectOpenTransfer_selectNameOpen(token, payload):
     """选择流程节点名称-开立"""
     url = f'{api_host}/api-scf/scfProjectOpenTransfer/selectNameOpen'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_scfProjectOpenTransfer_updateOpenTransfer(token, payload):
+    """金点信配置开立、转让修改"""
+    url = f'{api_host}/api-scf/scfProjectOpenTransfer/updateOpenTransfer'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "1",
@@ -126,7 +144,7 @@ g_d = {}
 
 class ScfProjectOpenTransfer(unittest.TestCase):
     def test_001_scfProjectOpenTransfer_editOpenTransfer(self):
-        """【平台方】开立、转让编辑(入参为核心企业ID)"""
+        """【平台方】开立、转让编辑(入参为核心企业ID) V2.1.1修改"""
         payload = {
             "coreName": "",
             "enable": "",
@@ -169,9 +187,9 @@ class ScfProjectOpenTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_003_scfProjectOpenTransfer_insertOpenTransfer(self):
-        """【平台方】开立、转让新增"""
+        """【平台方】开立、转让新增 V2.1.1修改"""
         try:
-            api_scfProjectOpenTransfer_delete(token_scf_platform, payload= {"id": 1549224468155265025})
+            api_scfProjectOpenTransfer_delete(token_scf_platform, payload={"id": 1549224468155265025})
         except Exception as e:
             print(e)
         payload = {
@@ -250,7 +268,7 @@ class ScfProjectOpenTransfer(unittest.TestCase):
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
     def test_004_scfProjectOpenTransfer_searchProjectOpenTransfer(self):
-        """【平台方】金点信配置列表-搜索"""
+        """【平台方】金点信配置列表-搜索 V2.1.1修改"""
         payload = {
             "coreName": "",
             "enable": "",
@@ -301,6 +319,71 @@ class ScfProjectOpenTransfer(unittest.TestCase):
     def test_007_scfProjectOpenTransfer_selectNameOpen(self):
         """选择流程节点名称-开立"""
         payload = {
+        }
+        r = api_scfProjectOpenTransfer_selectNameOpen(token_scf_platform, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_008_scfProjectOpenTransfer_selectNameOpen(self):
+        """金点信配置开立、转让修改 V2.1.1修改"""
+        payload = {
+            "scfProjectOpenReq": {
+                "coreId": "1564445716760150017",
+                "isTemplate": True,
+                "flowId": "1585554383890702337",
+                "scfProjectFlowReq": {
+                    "name": "123123231321",
+                    "step": 1,
+                    "flowItems": [
+                        {
+                            "id": "1585554383894896642",
+                            "flowId": "1585554383890702337",
+                            "customerType": "3",
+                            "customerTypeName": "供应商",
+                            "isExternal": False,
+                            "isPush": False,
+                            "reportId": "",
+                            "num": 1,
+                            "reportIdList": []
+                        }
+                    ],
+                    "subs": [
+                        {
+                            "agreementId": "8",
+                            "signType": 1
+                        }
+                    ]
+                }
+            },
+            "scfProjectTransferReq": {
+                "flowId": "1585554383911673857",
+                "isPush": True,
+                "isHistory": True,
+                "pushMaterial": 0,
+                "serviceRate": 1,
+                "scfProjectFlowReq": {
+                    "name": "",
+                    "step": 0,
+                    "flowItems": [
+                        {
+                            "id": "1585554383920062465",
+                            "flowId": "1585554383911673857",
+                            "customerType": "1",
+                            "customerTypeName": "核心企业",
+                            "isExternal": False,
+                            "isPush": False,
+                            "reportId": "",
+                            "num": 1,
+                            "reportIdList": []
+                        }
+                    ],
+                    "subs": []
+                }
+            }
         }
         r = api_scfProjectOpenTransfer_selectNameOpen(token_scf_platform, payload)
         r_json = r.json()

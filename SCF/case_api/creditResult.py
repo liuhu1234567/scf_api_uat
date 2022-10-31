@@ -282,17 +282,17 @@ class CreditResult(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    # def test_007_credit_result_enabled(self):
-    #     """【供应商】授信结果启用"""
-    #     payload = {
-    #         "creditId": 0,
-    #         "creditResultId": 0,
-    #         "projectId": 0
-    #     }
-    #     r = api_credit_result_enabled(token_scf_supplier, payload)
-    #     r_json = r.json()
-    #     restime_now = r.elapsed.total_seconds()
-    #     customize_dict['restime_now'] = restime_now
-    #     self.assertEqual(200, r_json['resp_code'])
-    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
-    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
+    def test_007_credit_result_enabled(self):
+        """【供应商】授信结果启用 V2.1.1新增"""
+        payload = {
+            "creditId": 0,
+            "creditResultId": 0,
+            "projectId": 0
+        }
+        r = api_credit_result_enabled(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
