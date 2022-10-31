@@ -13,6 +13,8 @@ from common.do_faker import get_number
 from jsonpath import jsonpath
 import datetime
 
+"""订单融资管理"""
+
 
 def api_orderLoan_import(token, payload):
     """导入"""
@@ -143,8 +145,104 @@ def api_orderLoan_resubmit(token, payload):
 
 
 def api_orderLoan_detail(token, payload):
-    """详情"""
+    """订单融资详情"""
     url = f'{api_host}/api-scf/orderLoan/detail'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_orderLoan_audit_detail(token, payload):
+    """订单审批详情"""
+    url = f'{api_host}/api-scf/orderLoan/audit/detail'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_orderLoan_auditList(token, payload):
+    """审核列表"""
+    url = f'{api_host}/api-scf/orderLoan/auditList'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_orderLoan_downArchives(token, payload):
+    """订单贷下载企业档案资料"""
+    url = f'{api_host}/api-scf/orderLoan/downArchives'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_orderLoan_getBlockChainInfo(token, payload):
+    """订单贷区块链查询"""
+    url = f'{api_host}/api-scf/orderLoan/getBlockChainInfo'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_orderLoan_queryByFlowItemId(token, payload):
+    """查询订单贷审批记录"""
+    url = f'{api_host}/api-scf/orderLoan/queryByFlowItemId'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "2",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_orderLoan_downArchives(token, payload):
+    """订单贷下载企业档案资料"""
+    url = f'{api_host}/api-scf/orderLoan/downArchives'
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "x-appid-header": "2",
@@ -340,3 +438,73 @@ class OrderLoan(unittest.TestCase):
         self.assertEqual(200, r_json['resp_code'])
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_010_orderLoan_audit_detail(self):
+        """【供应商】订单审批详情"""
+        payload = {
+            "id": g_d['orderIds'][0]
+        }
+        r = api_orderLoan_audit_detail(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_011_orderLoan_auditList(self):
+        """【供应商】订单审批详情"""
+        payload = {
+            "num": 1,
+            "size": 10,
+            "buyEnterpriseName": "",
+            "orderName": "",
+            "orderNo": "",
+            "status": ""
+        }
+        r = api_orderLoan_auditList(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_012_orderLoan_getBlockChainInfo(self):
+        """【供应商】订单贷区块链查询"""
+        payload = {
+            "orderLoanId": g_d['orderIds'][0]
+        }
+        r = api_orderLoan_getBlockChainInfo(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_013_orderLoan_queryByFlowItemId(self):
+        """【供应商】查询订单贷审批记录"""
+        payload = {
+            "id": g_d['orderIds'][0]
+        }
+        r = api_orderLoan_queryByFlowItemId(token_scf_supplier, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    # def test_014_orderLoan_downArchives(self):
+    #     """【供应商】订单贷下载企业档案资料"""
+    #     payload = {
+    #         "id": g_d['orderIds'][0]
+    #     }
+    #     r = api_orderLoan_downArchives(token_scf_supplier, payload)
+    #     r_json = r.json()
+    #     restime_now = r.elapsed.total_seconds()
+    #     customize_dict['restime_now'] = restime_now
+    #     self.assertEqual(200, r_json['resp_code'])
+    #     self.assertEqual('SUCCESS', r_json['resp_msg'])
+    #     self.assertLessEqual(restime_now, restime, 'Test api timeout')

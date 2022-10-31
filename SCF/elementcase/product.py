@@ -36,4 +36,21 @@ class Product_add(unittest.TestCase):
         obj.ue2ldsD_input()
         obj.exit()
 
+    def test_002_product_please_input(self):
+        '''产品申请'''
+        obj = Product()
+        obj.open('https://uat-cloud.dianliantech.com/user/login')
+        obj.user_input('AEW6317585245519')
+        obj.password_input('Aa1234567')
+        obj.code_input('1234')
+        obj.loginButton_clike()
+        obj.into_one_clike()
+        sleep(1)
+        obj.iframe_add()
+        obj.product_supplier_clike()
+        obj.production_clike()
+        obj.exit()
+
+
+
 

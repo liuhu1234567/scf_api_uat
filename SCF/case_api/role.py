@@ -1,10 +1,14 @@
 from common.do_config import api_host, restime
-from common.get_token import token_scf_platform,token_scf_supplier,token_scf_financier,token_scf_factor,token_scf_subsidiaries,token_scf_enterprise
+from common.get_token import token_scf_platform, token_scf_supplier, token_scf_financier, token_scf_factor, \
+    token_scf_subsidiaries, token_scf_enterprise
 from common.global_variable import customize_dict
 from common.do_faker import get_number, get_name
 import requests
 import unittest
 import json
+
+"""角色管理逻辑处理层"""
+
 
 def api_role_insert(token, payload):
     """【供应商/经销商】新增角色"""
@@ -21,6 +25,7 @@ def api_role_insert(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_roles_all(token, payload):
     """【供应商/经销商】查询所有角色"""
     url = f'{api_host}/api-scf/role/query/roles/all'
@@ -35,6 +40,7 @@ def api_roles_all(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
+
 
 def api_roles_page(token, payload):
     """【供应商/经销商】角色分页查询"""
@@ -51,6 +57,7 @@ def api_roles_page(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_role_update(token, payload):
     """【供应商/经销商】编辑角色"""
     url = f'{api_host}/api-scf/role/update'
@@ -65,6 +72,7 @@ def api_role_update(token, payload):
     print(f'请求参数：{payload}')
     print(f'接口响应为：{r.text}')
     return r
+
 
 def api_role_updateenabled(token, payload):
     """【供应商/经销商】编辑角色状态"""
@@ -81,6 +89,7 @@ def api_role_updateenabled(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 def api_role_delete(token, payload):
     """【供应商/经销商】删除角色"""
     url = f'{api_host}/api-scf/role/delete'
@@ -96,7 +105,9 @@ def api_role_delete(token, payload):
     print(f'接口响应为：{r.text}')
     return r
 
+
 g_d = {}
+
 
 class Role(unittest.TestCase):
     def test_001_role_insert(self):
@@ -150,7 +161,7 @@ class Role(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_004_role_updateenabled(self):
+    def test_004_role_enabled(self):
         """【供应商/经销商】编辑角色状态"""
         payload = {
             "enabled": "1",
