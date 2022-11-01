@@ -25,6 +25,9 @@ class Home(loginPage):
     gold_element = (By.LINK_TEXT, '金点信配置')
     table_element = (By.LINK_TEXT, '数据表配置')
     field_element = (By.LINK_TEXT, '全量字段表模板')
+    management_element = (By.XPATH, '//*[@id="ice-container"]/div/section/aside/div/div[2]/ul/li[9]/div/span/span/span')
+    procurement_element = (By.LINK_TEXT, '采购数据')
+
 
     def iframe_add(self):
         self.get_iframe(self.iframe_element)
@@ -92,6 +95,14 @@ class Home(loginPage):
     def field_clike(self):
         print('全量字段表模板')
         self.clike(self.field_element)
+
+    def management_clike(self):
+        print('数据管理')
+        self.clike(self.management_element)
+
+    def procurement_clike(self):
+        print('采购数据')
+        self.clike(self.procurement_element)
 
 
 

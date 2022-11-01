@@ -1,7 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.select import Select
-
+import pyautogui
+import logger
 from common.do_path import get_abspath
 from time import sleep
 from selenium.webdriver import ActionChains
@@ -108,3 +109,18 @@ class BasePage(object):
         print(f'滚动到所定位的目标处{element}')
         target = self.driver.find_element(element[0], element[1])
         self.driver.execute_script('arguments[0].scrollIntoView()', target)
+
+    def uploadWinFile(self, filepath):
+        '''
+        通过Windows系统上传文件
+        '''
+        try:
+            pyautogui.write(filepath)  # 输入文件绝对路径
+            sleep(2)
+            pyautogui.press('enter', 2)  # 按2次回车键（按2次是为了防止出错）
+        except Exception as e:
+            logger.logger.error(e)
+            e.args = ('上传文件操作异常',)
+            raise e
+        else:
+            return filepath

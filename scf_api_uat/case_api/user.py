@@ -91,6 +91,70 @@ def api_user_initUserInfo(token, payload):
     return r
 
 
+def api_user_selectCustomerType(token, payload):
+    """登录后选择客户类型"""
+    url = f'{api_host}/api-scf/user/selectCustomerType'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_user_listCoree(token, payload):
+    """获取核心企业"""
+    url = f'{api_host}/api-scf/user/listCoree'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_user_customerTypeList(token, payload):
+    """获取客户类型列表"""
+    url = f'{api_host}/api-scf/user/customerTypeList'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
+def api_user_cloudUserInfo(token, payload):
+    """对接云中云2.0-进入供应链金融平台时初始化用户相关信息"""
+    url = f'{api_host}/api-scf/user/cloudUserInfo'
+    headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+        "x-appid-header": "1",
+        "Authorization": token
+    }
+    r = requests.post(url, headers=headers, data=json.dumps(payload))
+    print(f'请求地址：{url}')
+    print(f'请求头：{headers}')
+    print(f'请求参数：{payload}')
+    print(f'接口响应为：{r.text}')
+    return r
+
+
 class User(unittest.TestCase):
     # def test_001_user_insert_user(self):
     #     """【平台方】用户新增"""
@@ -164,6 +228,53 @@ class User(unittest.TestCase):
             "customerType": 1
         }
         r = api_user_initUserInfo(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_006_user_selectCustomerType(self):
+        """登录后选择客户类型 V2.1.1 新增"""
+        payload = {
+            "coreId": 0,
+            "customerType": 5
+        }
+        r = api_user_selectCustomerType(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_007_user_listCore(self):
+        """获取核心企业 V2.1.1 新增"""
+        payload = {}
+        r = api_user_listCoree(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_008_user_customerTypeList(self):
+        """获取客户类型列表 V2.1.1 新增"""
+        payload = {}
+        r = api_user_customerTypeList(token_scf_enterprise, payload)
+        r_json = r.json()
+        restime_now = r.elapsed.total_seconds()
+        customize_dict['restime_now'] = restime_now
+        self.assertEqual(200, r_json['resp_code'])
+        self.assertEqual('SUCCESS', r_json['resp_msg'])
+        self.assertLessEqual(restime_now, restime, 'Test api timeout')
+
+    def test_009_user_cloudUserInfo(self):
+        """对接云中云2.0-进入供应链金融平台时初始化用户相关信息 V2.1.1 新增"""
+        payload = {}
+        r = api_user_cloudUserInfo(token_scf_enterprise, payload)
         r_json = r.json()
         restime_now = r.elapsed.total_seconds()
         customize_dict['restime_now'] = restime_now

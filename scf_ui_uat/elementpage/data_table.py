@@ -10,7 +10,7 @@ class DataTable(Home):
     data_type_element = (By.ID, 'type')
     value_type_element = (
     By.CSS_SELECTOR, '.ant-dl-default-select-item-option-active > .ant-dl-default-select-item-option-content')
-    customer_type_element = (By.CSS_SELECTOR, '.ant-dl-default-select-selection-overflow')
+    customer_type_element = (By.XPATH, '//*[@id="ice-container"]/div/section/div/main/div/div/form/div[2]/div[1]/div/div[2]/div/div/div/div/div')
     customer_value_element = (By.XPATH, '/html/body/div[5]/div/div/div/div[2]/div[1]/div/div/div[1]/div')
     templateId_element = (By.ID, 'templateId')
     templateId_value_element = (By.XPATH,'/html/body/div[6]/div/div/div/div[2]/div[1]/div/div/div[1]/div')
@@ -32,7 +32,9 @@ class DataTable(Home):
     def value_type_clike(self):
         print('数据类型')
         self.clike(self.data_type_element)
+        # self.get_text(self.data_type_element)
         self.clike(self.value_type_element)
+
 
     def customer_type_clike(self):
         print('可查看客户类型')
