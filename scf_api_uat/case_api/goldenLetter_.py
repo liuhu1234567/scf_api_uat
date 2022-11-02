@@ -752,7 +752,7 @@ class GoldenLetter(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_021_goldenLetter_getBusType(self):
+    def test_021_goldenLetter_goldenLetterOpenSeal(self):
         """金点信开立平台方审核签章返回地址"""
         payload = {
             "auditStatus": 3,

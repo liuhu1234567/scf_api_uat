@@ -654,7 +654,7 @@ class ConfigDataTable(unittest.TestCase):
     #     self.assertEqual('SUCCESS', r_json['resp_msg'])
     #     self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_019_config_dataTable_allSelect(self):
+    def test_09_config_dataTable_queryProjectInfo(self):
         """【平台方】所属项目查询核心企业"""
         payload = {
             "name": "",

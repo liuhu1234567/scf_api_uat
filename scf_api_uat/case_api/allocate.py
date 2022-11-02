@@ -425,7 +425,7 @@ class Allocate(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_011_allocate_getTotalAmount(self):
+    def test_011_allocate_queryPageAllocate(self):
         """【核心企业】分页查询额度-List-已经分配"""
         payload = {
             "entName": "",
@@ -443,24 +443,7 @@ class Allocate(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_012_allocate_useAllocateAmount(self):
-        """【核心企业】分页查询额度-List-已经分配"""
-        payload = {
-            "coreEntName": "",
-            "creditName": "",
-            "projectId": 0,
-            "userAmount": 0,
-            "userAmountStastus": 0
-        }
-        r = api_allocate_useAllocateAmount(token_scf_enterprise, payload)
-        r_json = r.json()
-        restime_now = r.elapsed.total_seconds()
-        customize_dict['restime_now'] = restime_now
-        self.assertEqual(200, r_json['resp_code'])
-        self.assertEqual('SUCCESS', r_json['resp_msg'])
-        self.assertLessEqual(restime_now, restime, 'Test api timeout')
-
-    def test_013_allocate_enabled(self):
+    def test_012_allocate_enabled(self):
         """【核心企业】分页查询额度-List-已经分配 V2.1.1新增"""
         payload = {
             "creditId": "1583019393709518849",

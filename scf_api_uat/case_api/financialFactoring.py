@@ -389,7 +389,7 @@ class FinancialFactoring(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_011_financialFactoring_queryPage(self):
+    def test_011_financialFactoring_financialSeal(self):
         """融资平台方审核签章返回地址"""
         payload = {
             "auditStatus": 3,

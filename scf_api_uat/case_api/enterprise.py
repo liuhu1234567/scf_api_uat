@@ -666,7 +666,7 @@ class Enterprise(unittest.TestCase):
         self.assertEqual('SUCCESS', r_json['resp_msg'])
         self.assertLessEqual(restime_now, restime, 'Test api timeout')
 
-    def test_015_enterprise_queryEntArchivesDetail(self):
+    def test_015_enterprise_queryEntArchivesDetailNonCache(self):
         """【供应商】企业档案详情-当前用户(非缓存)"""
         r = api_enterprise_queryEntArchivesDetailNonCache(token_scf_supplier)
         r_json = r.json()
