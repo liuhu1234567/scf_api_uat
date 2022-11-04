@@ -1,4 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.select import Select
 import pyautogui
@@ -124,3 +127,28 @@ class BasePage(object):
             raise e
         else:
             return filepath
+
+    def wait_element_visibility(self, element, timeout=15, poll=0.3, extra_wait=None):
+        """
+        等待元素可见(浏览器窗口显示范围内)
+        :param extra_wait: 智能等待结束后的额外等待时间/秒
+        :param element: 元素定位信息
+        :param timeout: 超时时间
+        :param poll: 轮询间隔时间/秒
+        :return:
+        """
+        mes = '断言元素'
+        print(element)
+        try:
+            WebDriverWait(self.driver, timeout, poll).until(ec.visibility_of_element_located(self.driver.switch_to.frame(self.driver.find_element(element[0], element[1]))))
+            if extra_wait:
+                sleep(extra_wait)
+            print(f"{mes}可见")
+            return True
+        except Exception as e:
+            print(f"{mes}不可见.{e}")
+            return False
+
+
+
+
