@@ -30,14 +30,15 @@ class loginPage(BasePage):
     def into_one_clike(self):
         self.clike(self.into_one_element)
 
-
+usernamess_element = (By.XPATH, '//*[@id="ice-container"]/div/section/div[1]/div/ul/li[4]/span/img[2]')
 
 #调试
-# obj = loginPage()
-# obj.open('https://uat-cloud.dianliantech.com/user/login')
-# obj.user_input('ML4W17585245519')
-# obj.password_input('Ss123456')
-# obj.code_input('1234')
-# obj.loginButton_clike()
+obj = loginPage()
+obj.open('https://uat-cloud.dianliantech.com/user/login')
+obj.user_input('ML4W17585245519')
+obj.password_input('Ss123456')
+obj.code_input('1234')
+obj.loginButton_clike()
+obj.wait_element_visibility(usernamess_element)
 # obj.into_clike()
 # obj.exit()
