@@ -6,6 +6,7 @@ from case_api.goldenLetter_ import api_goldenLetter_open_insert, api_goldenLette
     api_goldenLetter_open_queryPage
 import json
 import requests
+from case_api.enterprise import api_enterprise_queryEntArchivesDetail
 
 
 # def add_scfFinanceProduct(func, *args, **kwargs):
@@ -324,18 +325,18 @@ class Bus_orderLoan():
         r_json = r.json()
 
         payload = {
-            "coreEntId": "1565528298128351233",
-            ";": "1565528298128351233",
-            "auditFlowItemId": "1575028590750216193",
-            "auditOpinion": "",
-            "auditStatus": 3,
-            "creditEnhancerId": 0,
-            "settlementId": "",
-            "settlementName": "",
-            "entId": "1565528298128351233",
-            "id": r_json["datas"][0]["id"],
-            "recipientId": "1565532746930135041"
-        }
+                "coreEntId": "1565528298128351233",
+                "auditEntId": "1565528298128351233",
+                "auditFlowItemId": "1588088103097044993",
+                "auditOpinion": "",
+                "auditStatus": 3,
+                "creditEnhancerId": 0,
+                "settlementId": "",
+                "settlementName": "",
+                "entId": "1565528298128351233",
+                "id": r_json["datas"][0]["id"],
+                "recipientId": "1565532746930135041"
+            }
 
         r = api_goldenLetter_open_updateAuditStatus(token_scf_enterprise, payload)
         r_json = r.json()
@@ -387,7 +388,8 @@ class Bus_orderLoan():
     def audit_financing(self):
         """融资审核"""
         goldenLetterCoden_nwe = self.open_financing()
-        url = f'{api_host}/api-scf/financialFactoring/queryFinancialFactoringPage'
+        print(f'{goldenLetterCoden_nwe}')
+        url = f'{api_host}/api-scf/financialFactoring/queryPage'
         headers = {
             "Content-Type": "application/json;charset=UTF-8",
             "x-appid-header": "1",
@@ -412,7 +414,7 @@ class Bus_orderLoan():
             "Authorization": token_scf_supplier
         }
         payload = {
-            "goldenLetterCode": goldenLetterCoden_nwe,
+            "goldenLetterCode": r_json["datas"][0]["goldenLetterCode"],
             "currentHolder": "",
             "founderEnt": "",
             "paymentStatus": "",
@@ -432,33 +434,33 @@ class Bus_orderLoan():
         r = requests.post(url, headers=headers, data=json.dumps(payload))
         rrr_json = r.json()
 
-        # url = f'{api_host}/api-scf/financialFactoring/updateAuditStatus'
-        # headers = {
-        #     "Content-Type": "application/json;charset=UTF-8",
-        #     "x-appid-header": "1",
-        #     "Authorization": token_scf_platform
-        # }
-        #
-        # payload = {
-        #     "coreEntId": "1565528298128351233",
-        #     "auditEntId": "1544610594103889922",
-        #     "auditFlowItemId": rrr_json["datas"]["auditFlowItemId"],
-        #     "auditStatus": 3,
-        #     "creditEnhancerId": 0,
-        #     "entId": "1565528298128351233",
-        #     "id": r_json["datas"][0]["id"],
-        #     "recipientId": "1565532746930135041",
-        #     "financeEntId": "1565532904946343937",
-        #     "goldenLetterId": rr_json["datas"][0]["id"]
-        # }
-        #
-        # r = requests.post(url, headers=headers, data=json.dumps(payload))
-        # rs_json = r.json()
-        # print(f'流程步骤: 【平台方】保理融资审核')
-        # print(f'请求参数：{payload}')
-        # print(f'接口响应为：{rs_json}')
-        # self.g_d["id_one"] = r_json["datas"][0]["id"]
-        # return self.g_d["id_one"]
+        url = f'{api_host}/api-scf/financialFactoring/updateAuditStatus'
+        headers = {
+            "Content-Type": "application/json;charset=UTF-8",
+            "x-appid-header": "1",
+            "Authorization": token_scf_platform
+        }
+
+        payload = {
+            "coreEntId": "1565528298128351233",
+            "auditEntId": "1544610594103889922",
+            "auditFlowItemId": rrr_json["datas"]["auditFlowItemId"],
+            "auditStatus": 3,
+            "creditEnhancerId": 0,
+            "entId": "1565528298128351233",
+            "id": r_json["datas"][0]["id"],
+            "recipientId": "1565532746930135041",
+            "financeEntId": "1565532904946343937",
+            "goldenLetterId": rr_json["datas"][0]["id"]
+        }
+
+        r = requests.post(url, headers=headers, data=json.dumps(payload))
+        rs_json = r.json()
+        print(f'流程步骤: 【平台方】保理融资审核')
+        print(f'请求参数：{payload}')
+        print(f'接口响应为：{rs_json}')
+        self.g_d["id_one"] = r_json["datas"][0]["id"]
+        return self.g_d["id_one"]
 
     def break_financing(self):
         id_one = self.audit_financing()
