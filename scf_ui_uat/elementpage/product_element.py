@@ -3,13 +3,19 @@ from common.do_selenium import *
 from selenium.webdriver.common.by import By
 from common.do_faker import get_number
 
+'''产品列表'''
+
 
 class Product(Home):
+    product_element = (
+        By.XPATH, '//*[@id="ice-container"]/div/section/aside/div/div[2]/ul/li[3]/div')  # 金融产品管理_平台
+    product_list_element = (
+        By.LINK_TEXT, '产品列表')  # 产品列表
     product_add_element = (
-        By.CSS_SELECTOR, '[class="ant-dl-default-btn ant-dl-default-btn-default ProductList--button--ZScxjL1"]')
-    name_element = (By.ID, 'name')
-    financeId_element = (By.ID,'financeId')
-    content_element = (By.XPATH, '/html/body/div[4]/div/div/div/div[2]/div[1]/div/div/div[2]/div')
+        By.CSS_SELECTOR, '[class="ant-dl-default-btn ant-dl-default-btn-default ProductList--button--ZScxjL1"]')  # 产品新增
+    name_element = (By.ID, 'name')  # 产品名称
+    financeId_element = (By.ID, 'financeId')  # 金融机构名称
+    content_element = (By.XPATH, '/html/body/div[4]/div/div/div/div[2]/div[1]/div/div/div[2]/div')  # 金融机构名称下拉框数据
     amountMin_element = (By.ID, 'amountMin')
     amountMax_element = (By.ID, 'amountMax')
     rateMin_element = (By.ID, 'rateMin')
@@ -22,13 +28,31 @@ class Product(Home):
     single_element = (By.ID, 'single')
     selection_element = (By.ID, 'pay')
     repaymentType_element = (By.ID, 'repaymentType')
-    ue2ldsD_element = (By.CSS_SELECTOR,"li:nth-child(2) > .Add--tableHeaderOperateIcon--ue2ldsD")
-    available_element= (By.ID, 'available')
-    day_element= (By.CSS_SELECTOR, "tr:nth-child(4) > .ant-dl-default-picker-cell:nth-child(4) > .ant-dl-default-picker-cell-inner")
+    ue2ldsD_element = (By.CSS_SELECTOR, "li:nth-child(2) > .Add--tableHeaderOperateIcon--ue2ldsD")
+    available_element = (By.ID, 'available')
+    day_element = (
+        By.CSS_SELECTOR,
+        "tr:nth-child(4) > .ant-dl-default-picker-cell:nth-child(4) > .ant-dl-default-picker-cell-inner")
     time_element = (By.CSS_SELECTOR, ".ant-dl-default-btn-primary > span")
-    day_one_element=(By.XPATH, '/html/body/div[10]/div/div/div/div[2]/div[1]/div/div/div[1]/div[2]/table/tbody/tr[4]/td[4]/div')
+    day_one_element = (
+        By.XPATH, '/html/body/div[10]/div/div/div/div[2]/div[1]/div/div/div[1]/div[2]/table/tbody/tr[4]/td[4]/div')
     time_one_element = (By.XPATH, '/html/body/div[10]/div/div/div/div[2]/div[2]/ul/li/button/span')
     loan_element = (By.ID, 'loan')
+    liimg_element = (By.XPATH, '//li/img')  # 返回
+    change_element = (By.XPATH, "//span[contains(.,'修改')]")  # 修改
+    disable_element = (By.XPATH, "//span[contains(.,'禁用')]")  # 禁用
+    delete_element = (By.XPATH, "//span[contains(.,'删除')]")  # 删除
+    preview_element = (By.XPATH, "//span[contains(.,'预览')]")  # 预览
+    determine_element = (By.XPATH, "//span[contains(.,'确定')]")  # 确定
+    input1_element = (By.XPATH, '//input')  # 金融产品名称搜索
+    input2_element = (By.XPATH, '//li[2]/input')  # 金融产品名称搜索
+    input3_element = (By.XPATH, "//span[contains(.,'全部')]")  # 状态搜索
+    input4_element = (By.XPATH, '//div[2]/div/div/div/div[2]/div')  # 状态搜索>启用
+    input5_element = (By.XPATH, '//div/div/div[3]/div')  # 状态搜索>启用
+
+
+
+
 
     def product_add_clike(self):
         print('点击产品新增')
@@ -44,19 +68,19 @@ class Product(Home):
         self.clike(self.content_element)
 
     def amountMin_input(self, name):
-        print('填写择额度区间')
+        print('填写额度区间')
         self.send_keys(self.amountMin_element, name)
 
     def amountMax_input(self, name):
-        print('填写择额度区间')
+        print('填写额度区间')
         self.send_keys(self.amountMax_element, name)
 
     def rateMin_input(self, name):
-        print('填写择利率区间')
+        print('填写利率区间')
         self.send_keys(self.rateMin_element, name)
 
     def rateMax_input(self, name):
-        print('填写择利率区间')
+        print('填写利率区间')
         self.send_keys(self.rateMax_element, name)
 
     def loop_input(self):
@@ -99,9 +123,6 @@ class Product(Home):
         self.clike(self.day_one_element)
         self.clike(self.time_one_element)
 
-
-
-
 # name = 'ui自动化产品名称' + get_number(6)
 # Product_name = 'ui自动化金融机构名称' + get_number(6)
 # obj = Product()
@@ -129,4 +150,3 @@ class Product(Home):
 # obj.available_input()
 # obj.loan_input()
 # obj.ue2ldsD_input()
-

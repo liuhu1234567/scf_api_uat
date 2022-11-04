@@ -3,38 +3,46 @@ from common.do_selenium import *
 from selenium.webdriver.common.by import By
 from common.do_faker import get_number
 
+'''数据表配置'''
+
 
 class DataTable(Home):
-    table_add_element = (By.LINK_TEXT, '+新增')
-    table_name_element = (By.ID, 'name')
-    data_type_element = (By.ID, 'type')
+    table_add_element = (By.LINK_TEXT, '+新增')  # 新增按钮
+    table_name_element = (By.ID, 'name')  # 数据表名称
+    data_type_element = (By.ID, 'type')  # 数据类型
     value_type_element = (
-    By.CSS_SELECTOR, '.ant-dl-default-select-item-option-active > .ant-dl-default-select-item-option-content')
-    customer_type_element = (By.XPATH, '//*[@id="ice-container"]/div/section/div/main/div/div/form/div[2]/div[1]/div/div[2]/div/div/div/div/div')
-    customer_value_element = (By.XPATH, '/html/body/div[5]/div/div/div/div[2]/div[1]/div/div/div[1]/div')
-    templateId_element = (By.ID, 'templateId')
-    templateId_value_element = (By.XPATH,'/html/body/div[6]/div/div/div/div[2]/div[1]/div/div/div[1]/div')
-    itemId_element = (By.ID, 'itemId')
-    itemId_value_element = (By.XPATH, '/html/body/div[7]/div/div/div/div[2]/div[1]/div/div/div[1]/div')
+        By.CSS_SELECTOR,
+        '.ant-dl-default-select-item-option-active > .ant-dl-default-select-item-option-content')  # 数据类型下拉数据
+    customer_type_element = (
+        By.XPATH,
+        '//*[@id="ice-container"]/div/section/div/main/div/div/form/div[2]/div[1]/div/div[2]/div/div/div/div/div')  # 可查看客户类型
+    customer_value_element = (By.XPATH, '/html/body/div[5]/div/div/div/div[2]/div[1]/div/div/div[1]/div')  # 可查看客户类型下拉数据
+    templateId_element = (By.ID, 'templateId')  # 数据表模板
+    templateId_value_element = (By.XPATH, '/html/body/div[6]/div/div/div/div[2]/div[1]/div/div/div[1]/div')  # 数据表模板下拉数据
+    itemId_element = (By.ID, 'itemId')  # 所属项目
+    itemId_value_element = (By.XPATH, '/html/body/div[7]/div/div/div/div[2]/div[1]/div/div/div[1]/div')  # 所属项目下拉数据
     according_element = (
-    By.XPATH, './/*[@id="ice-container"]/div/section/div/main/div/div/div[2]/div/div/div/div/div[2]/table/tbody/tr[2]/td[3]/button')
+        By.XPATH,
+        './/*[@id="ice-container"]/div/section/div/main/div/div/div[2]/div/div/div/div/div[2]/table/tbody/tr[2]/td[3]/button')  # 是否显示
     confirm_table_element = (
-    By.CSS_SELECTOR, 'li:nth-child(2) > .addDataTable--tableHeaderOperateIcon--uwHxNVO')
+        By.CSS_SELECTOR, 'li:nth-child(2) > .addDataTable--tableHeaderOperateIcon--uwHxNVO')  # 确认
+    return_data_element = (By.XPATH, 'li:nth-child(1) > .addDataTable--tableHeaderOperateIcon--uwHxNVO')  # 返回
+    view_element = (By.XPATH, "//span[contains(.,'查看')]")  # 列表数据查看
+    change_element = (By.XPATH, "//span[contains(.,'修改')]")  # 列表数据修改
 
     def table_add_clike(self):
         print('新增数据表配置')
         self.clike(self.table_add_element)
 
-    def table_name_input(self,name):
+    def table_name_input(self, name):
         print('数据表名称')
-        self.send_keys(self.table_name_element,name)
+        self.send_keys(self.table_name_element, name)
 
     def value_type_clike(self):
         print('数据类型')
         self.clike(self.data_type_element)
         # self.get_text(self.data_type_element)
         self.clike(self.value_type_element)
-
 
     def customer_type_clike(self):
         print('可查看客户类型')
@@ -79,4 +87,3 @@ class DataTable(Home):
 # obj.itemId_clike()
 # obj.according_clike()
 # obj.confirm_table_clike()
-

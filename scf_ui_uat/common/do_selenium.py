@@ -137,18 +137,12 @@ class BasePage(object):
         :param poll: 轮询间隔时间/秒
         :return:
         """
-        mes = '断言元素'
-        print(element)
         try:
-            WebDriverWait(self.driver, timeout, poll).until(ec.visibility_of_element_located(self.driver.switch_to.frame(self.driver.find_element(element[0], element[1]))))
+            WebDriverWait(self.driver, timeout, poll).until(ec.element_to_be_clickable(element))
             if extra_wait:
                 sleep(extra_wait)
-            print(f"{mes}可见")
+            print(f"{element}可见")
             return True
         except Exception as e:
-            print(f"{mes}不可见.{e}")
+            print(f"{element}不可见.{e}")
             return False
-
-
-
-

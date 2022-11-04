@@ -2,6 +2,7 @@ from elementpage.configuration import Configuration
 from common.do_selenium import *
 import unittest
 from common.do_faker import get_number
+from common.do_config import scf_financier, scf_enterprise, scf_supplier, scf_platform, scf_factor, scf_subsidiaries
 
 '''产品配置'''
 class Projest(unittest.TestCase):
@@ -11,8 +12,8 @@ class Projest(unittest.TestCase):
         process_name = 'ui自动化流程名称' + get_number(6)
         obj = Configuration()
         obj.open('https://uat-cloud.dianliantech.com/user/login')
-        obj.user_input('ML4W17585245519')
-        obj.password_input('Ss123456')
+        obj.user_input(scf_platform['username'])
+        obj.password_input(scf_platform['password'])
         obj.code_input('1234')
         obj.loginButton_clike()
         obj.into_clike()
@@ -45,8 +46,8 @@ class Projest(unittest.TestCase):
         '''分配项目'''
         obj = Configuration()
         obj.open('https://uat-cloud.dianliantech.com/user/login')
-        obj.user_input('ML4W17585245519')
-        obj.password_input('Ss123456')
+        obj.user_input(scf_platform['username'])
+        obj.password_input(scf_platform['password'])
         obj.code_input('1234')
         obj.loginButton_clike()
         obj.into_clike()

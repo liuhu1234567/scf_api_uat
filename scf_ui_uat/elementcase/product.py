@@ -3,6 +3,7 @@ from elementpage.product_element import Product
 from common.do_selenium import *
 import unittest
 from common.do_faker import get_number
+from common.do_config import scf_financier, scf_enterprise, scf_supplier, scf_platform, scf_factor, scf_subsidiaries
 
 '''金融产品管理'''
 class Product_add(unittest.TestCase):
@@ -11,8 +12,8 @@ class Product_add(unittest.TestCase):
         # Product_name = 'ui自动化金融机构名称' + get_number(6)
         obj = Product()
         obj.open('https://uat-cloud.dianliantech.com/user/login')
-        obj.user_input('ML4W17585245519')
-        obj.password_input('Ss123456')
+        obj.user_input(scf_platform['username'])
+        obj.password_input(scf_platform['password'])
         obj.code_input('1234')
         obj.loginButton_clike()
         obj.into_clike()
@@ -40,8 +41,8 @@ class Product_add(unittest.TestCase):
         '''产品申请'''
         obj = Product()
         obj.open('https://uat-cloud.dianliantech.com/user/login')
-        obj.user_input('AEW6317585245519')
-        obj.password_input('Aa1234567')
+        obj.user_input(scf_supplier['username'])
+        obj.password_input(scf_supplier['password'])
         obj.code_input('1234')
         obj.loginButton_clike()
         obj.into_one_clike()

@@ -3,6 +3,8 @@ from common.do_selenium import *
 from selenium.webdriver.common.by import By
 from common.do_faker import get_number
 
+'''产品配置'''
+
 
 class Configuration(Home):
     project_add_element = (By.LINK_TEXT, '+新增')
@@ -39,6 +41,7 @@ class Configuration(Home):
     customer_element = (By.XPATH, '/html/body/div[4]/div/div[2]/div/div[2]/div[2]/div/ul/li/div/div/span[2]')
     customer_one_element = (By.CSS_SELECTOR, '.ant-dl-default-select-item-option-content')
     determine_element = (By.XPATH, '/html/body/div[4]/div/div[2]/div/div[2]/div[2]/div/div/div/button[2]')
+    return_element = (By.XPATH, '//*[@id="ice-container"]/div/section/div/main/div/div/a/img')
 
     def project_add_clike(self):
         print('新增项目配置')
@@ -139,6 +142,10 @@ class Configuration(Home):
     def determine_clike(self):
         print('点击确认')
         self.clike(self.determine_element)
+
+    def return_clike(self):
+        print('点击确认')
+        self.clike(self.return_element)
 
 # project_name = 'ui自动化项目名称' + get_number(6)
 # process_name = 'ui自动化流程名称' + get_number(6)
