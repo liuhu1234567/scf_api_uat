@@ -11,28 +11,28 @@
     "report_name": "供应链金融接口测试报告_${start_time}.html",
     "scf_financier": {
         "//": "资金方账号",
-        "username": "BFW17585245519",
-        "password": "Aa1234567"
+        "username": "yh111111",
+        "password": "Aa123456"
     },
     "scf_enterprise": {
         "//": "核心企业账号",
-        "username": "FDN17585245519",
-        "password": "Aa1234567"
+        "username": "hxqy111111",
+        "password": "Aa123456"
     },
     "scf_supplier": {
         "//": "供应商账号",
-        "username": "AEW6317585245519",
-        "password": "Aa1234567"
+        "username": "gys111111",
+        "password": "Aa123456"
     },
     "scf_subsidiaries": {
         "//": "核心子公司账号",
-        "username": "UPC217585245519",
-        "password": "Aa1234567"
+        "username": "zgs111111",
+        "password": "Aa123456"
     },
     "scf_factor": {
         "//": "保理商账号",
-        "username": "BZW17585245519",
-        "password": "Aa1234567"
+        "username": "bls111111",
+        "password": "Aa123456"
     },
     "scf_platform": {
         "//": "平台方账号",
