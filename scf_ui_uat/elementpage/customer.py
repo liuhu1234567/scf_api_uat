@@ -7,9 +7,9 @@ from common.do_faker import get_number
 
 
 class Customer(Home):
-    input1_element = (By.XPATH, "//input[@value='1']")  # 企业名称搜索框
-    input2_element = (By.XPATH, "//input[@value='2']")  # 联系人搜索框
-    input3_element = (By.XPATH, "//input[@value='3']")  # 联系人手机号码搜索框
+    input1_element = (By.XPATH, "//div[@id='ice-container']/div/section/div/main/div/div/ul/li/input")  # 企业名称搜索框
+    input2_element = (By.XPATH, "//div[@id='ice-container']/div/section/div/main/div/div/ul/li[2]/input")  # 联系人搜索框
+    input3_element = (By.XPATH, "//div[@id='ice-container']/div/section/div/main/div/div/ul/li[3]/input")  # 联系人手机号码搜索框
     input4_element = (By.ID, "//span[contains(.,'全部')]")  # 客户类型搜索框
     input4_data_element = (By.ID, "//div[2]/div/div/div/div[2]/div")  # 客户类型下拉框数据
     input5_element = (By.XPATH, "//span[contains(.,'全部')]")  # 审核状态搜索框
